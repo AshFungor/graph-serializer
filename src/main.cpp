@@ -1,3 +1,7 @@
+// Testing contrib
+#include <tinyfsm.hpp>
+
+// STD
 #include <iostream>
 
 int main() {
