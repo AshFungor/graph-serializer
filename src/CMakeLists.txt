@@ -9,3 +9,5 @@ set(HEADERS )
 # Add dirs...
 
 add_executable(graph-serializer ${SOURCES} ${HEADERS})
+
+target_link_libraries(graph-serializer tiny-fsm)
