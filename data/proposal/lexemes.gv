@@ -33,7 +33,10 @@ digraph {
 
 
 	attr_value [shape = "ellipse" label = "value"]
-	equal -> attr_value [label="int/str"]
-	attr_value -> attr [label=""]
-	attr_value -> node_id [label="]"]
+	equal -> attr_value [label="="]
+
+	remember_attr_value [shape="box" label="remember attribute value"]
+	attr_value -> remember_attr_value [label="str/int"] 
+	remember_attr_value -> attr [label="space"]
+	remember_attr_value -> node_id [label="]"]
 }
