@@ -1,7 +1,37 @@
 digraph {
 	digraph_node [shape = "ellipse" label = "digraph"]
 	graph_node [shape = "ellipse" label = "graph"]
-	name_node [shape = "ellipse" label = "str11"]
-	digraph_node -> name_node
-    graph_node -> name_node
+	graph_name [shape = "ellipse" label = "graph name"]
+	digraph_node -> graph_name
+    graph_node -> graph_name
+
+
+	open_curly_bracket [shape = "ellipse" label = "{"]
+	node_id [shape = "ellipse" label = "node ID"]
+	graph_name -> open_curly_bracket
+	open_curly_bracket -> node_id
+
+	
+	open_square_bracket [shape = "ellipse" label = "["]
+	close_square_bracket [shape = "ellipse" label = "]"]
+	edge_node [shape = "ellipse" label = "-> / --"]
+	close_curly_bracket [shape = "ellipse" label = "}"]
+	node_id -> {open_square_bracket edge_node close_curly_bracket}
+	close_curly_bracket -> {edge_node close_curly_bracket open_square_bracket}
+	edge_node -> {node_id open_curly_bracket}
+
+
+	shape_attr [shape = "ellipse" label = "shape"]
+	label_attr [shape = "ellipse" label = "label"]
+	color_attr [shape = "ellipse" label = "color"]
+	weight_attr [shape = "ellipse" label = "weight"]
+	{shape_attr label_attr color_attr weight_attr} -> equal
+	
+
+	equal [shape = "ellipse" label = "="]
+	attr_value [shape = "ellipse" label = "value"]
+	open_square_bracket -> {shape_attr label_attr color_attr weight_attr}
+	equal -> attr_value
+	attr_value -> {close_square_bracket shape_attr label_attr color_attr weight_attr}
+	close_square_bracket -> {node_id open_curly_bracket close_curly_bracket}
 }
