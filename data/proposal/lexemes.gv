@@ -1,0 +1,39 @@
+digraph {
+	entrypoint [shape = "point"]
+	strict_node [shape = "ellipse" label = "strict"]
+	graph_digraph [shape = "ellipse" label = "graph/digraph"]
+	entrypoint -> {strict_node graph_digraph} 
+	strict_node -> graph_digraph [label="strict"]
+
+
+	open_curly_bracket [shape = "ellipse" label = "{"]
+	after_node_id [shape = "ellipse" label = "}/(->/--)/["]
+	node_id [shape = "ellipse" label = "node ID/{"]
+	graph_digraph -> open_curly_bracket [label="graph/digraph"]
+	open_curly_bracket -> node_id [label="{"]
+	node_id -> node_id [label="{"]
+
+
+	remember_node_ID [shape="box" label="remember node ID"]
+	node_id -> remember_node_ID [label="string(ID)"]
+
+
+	attr [shape = "ellipse" label = "attribute(str)"]
+	remember_node_ID -> after_node_id
+	after_node_id -> node_id [label="->/--"]
+	after_node_id -> after_node_id [label="}"]
+	after_node_id -> attr [label="["] 
+
+
+	equal [shape = "ellipse" label = "="]
+	attr -> equal [label="shape"]
+	attr -> equal [label="label"]
+	attr -> equal [label="color"]
+	attr -> equal [label="weight"]
+
+
+	attr_value [shape = "ellipse" label = "value"]
+	equal -> attr_value [label="int/str"]
+	attr_value -> attr [label=""]
+	attr_value -> node_id [label="]"]
+}
