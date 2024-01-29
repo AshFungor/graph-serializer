@@ -1,0 +1,7 @@
+digraph {
+	digraph_node [shape = "ellipse" label = "digraph"]
+	graph_node [shape = "ellipse" label = "graph"]
+	name_node [shape = "ellipse" label = "str11"]
+	digraph_node -> name_node
+    graph_node -> name_node
+}
