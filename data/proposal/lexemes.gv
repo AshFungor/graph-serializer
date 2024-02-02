@@ -1,17 +1,18 @@
 digraph {
 	entrypoint [shape = "point"]
 	strict_node [shape = "ellipse" label = "strict"]
-	graph_digraph [shape = "ellipse" label = "graph/digraph"]
-	entrypoint -> {strict_node graph_digraph} 
-	strict_node -> graph_digraph [label="strict"]
-
+	graph_start [shape = "ellipse" label = "graph/digraph"]
+	entrypoint -> {strict_node graph_start} 
+	strict_node -> graph_start [label="strict"]
 
 	open_curly_bracket [shape = "ellipse" label = "{"]
 	after_node_id [shape = "ellipse" label = "}/(->/--)/["]
 	node_id [shape = "ellipse" label = "node ID/{"]
-	graph_digraph -> open_curly_bracket [label="graph/digraph"]
-	open_curly_bracket -> node_id [label="{"]
-	node_id -> node_id [label="{"]
+	open_curly_bracket_increment [shape="box" label="increment { counter"]
+	graph_start -> open_curly_bracket [label="graph/digraph"]
+	open_curly_bracket -> open_curly_bracket_increment [label="{"]
+	node_id -> open_curly_bracket_increment [label="{"]
+	open_curly_bracket_increment -> node_id
 
 
 	remember_node_ID [shape="box" label="remember node ID"]
@@ -19,9 +20,12 @@ digraph {
 
 
 	attr [shape = "ellipse" label = "attribute(str)"]
+	close_curly_bracket_handler [shape = "box" label = "increment } couner, compare quantity of { and }"]
 	remember_node_ID -> after_node_id
 	after_node_id -> node_id [label="->/--"]
-	after_node_id -> after_node_id [label="}"]
+	after_node_id -> close_curly_bracket_handler [label = "}"]
+	close_curly_bracket_handler -> after_node_id [label = "quantity of { < quantity of }"]
+	close_curly_bracket_handler -> entrypoint [label="quantity of { = quantity of }"]
 	after_node_id -> attr [label="["] 
 
 
