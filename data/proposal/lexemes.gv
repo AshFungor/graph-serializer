@@ -1,46 +1,54 @@
 digraph {
 	entrypoint [shape = "point"]
-	strict_node [shape = "ellipse" label = "strict"]
 	graph_start [shape = "ellipse" label = "graph/digraph"]
-	entrypoint -> {strict_node graph_start} 
-	strict_node -> graph_start [label="strict"]
+	entrypoint -> graph_start 
+
+	remember_graph_type [shape = "box" label = "remember type of graph"]
+	graph_start -> remember_graph_type [label="graph/digraph"]
 
 	open_curly_bracket [shape = "ellipse" label = "{"]
-	after_node_id [shape = "ellipse" label = "}/(->/--)/["]
-	node_id [shape = "ellipse" label = "node ID/{"]
-	open_curly_bracket_increment [shape="box" label="increment { counter"]
-	graph_start -> open_curly_bracket [label="graph/digraph"]
-	open_curly_bracket -> open_curly_bracket_increment [label="{"]
-	node_id -> open_curly_bracket_increment [label="{"]
-	open_curly_bracket_increment -> node_id
+	remember_graph_type -> open_curly_bracket
 
+	from_node_id [shape = "ellipse" label = "from node id"]
+	open_curly_bracket -> from_node_id [label="{"]
 
-	remember_node_ID [shape="box" label="remember node ID"]
-	node_id -> remember_node_ID [label="string(ID)"]
+	remember_from_node_id [shape="box" label="remember from node id"]
+	from_node_id -> remember_from_node_id [label="string(id)"]
+	remember_from_node_id -> after_from_node_id
 
+	after_from_node_id [shape = "ellipse" label = "->/--/[/{"]
+	to_node_id [shape = "ellipse" label = "to node id"]
+	after_from_node_id -> to_node_id [label="->(if digraph)"]
+	after_from_node_id -> to_node_id [label="--(if graph)"]
+	after_from_node_id -> entrypoint [label = "}"]
 
-	attr [shape = "ellipse" label = "attribute(str)"]
-	close_curly_bracket_handler [shape = "box" label = "increment } couner, compare quantity of { and }"]
-	remember_node_ID -> after_node_id
-	after_node_id -> node_id [label="->/--"]
-	after_node_id -> close_curly_bracket_handler [label = "}"]
-	close_curly_bracket_handler -> after_node_id [label = "quantity of { < quantity of }"]
-	close_curly_bracket_handler -> entrypoint [label="quantity of { = quantity of }"]
-	after_node_id -> attr [label="["] 
-
+	label_attr [shape = "ellipse" label = "label attribute"]
+	after_from_node_id -> label_attr [label="["] 
 
 	equal [shape = "ellipse" label = "="]
-	attr -> equal [label="shape"]
-	attr -> equal [label="label"]
-	attr -> equal [label="color"]
-	attr -> equal [label="weight"]
+	label_attr -> equal [label="label"]
 
+	remember_to_node_id [shape="box" label="remember to node id"]
+	to_node_id -> remember_to_node_id [label="string(id)"]
+
+	after_to_node_id [label="[/}/space"]
+	remember_to_node_id -> after_to_node_id
+
+	after_to_node_id -> entrypoint [label = "}"]
+	after_to_node_id -> from_node_id [label = "space"]
+
+	weight_attr [shape = "ellipse" label = "weight attribute"]
+	after_to_node_id -> weight_attr [label="["] 
+
+	weight_attr -> equal [label="weight"]
 
 	attr_value [shape = "ellipse" label = "value"]
 	equal -> attr_value [label="="]
 
 	remember_attr_value [shape="box" label="remember attribute value"]
 	attr_value -> remember_attr_value [label="str/int"] 
-	remember_attr_value -> attr [label="space"]
-	remember_attr_value -> node_id [label="]"]
+
+	close_square_bracket [label = "]"]
+	remember_attr_value -> close_square_bracket
+	close_square_bracket -> from_node_id [label="]"]
 }
