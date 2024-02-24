@@ -1,0 +1,55 @@
+digraph {
+	entrypoint [shape = "point"]
+	graph_start [shape = "ellipse" label = "graph/digraph"]
+	entrypoint -> graph_start 
+
+	remember_graph_type [shape = "box" label = "remember type of graph"]
+	graph_start -> remember_graph_type [label="graph/digraph"]
+
+	open_curly_bracket [shape = "ellipse" label = "{"]
+	remember_graph_type -> open_curly_bracket
+
+	from_node_id_or_close_curly_bracket [shape = "ellipse" label = "from node id/}"]
+	from_node_id_or_close_curly_bracket -> entrypoint [label = "}"]
+	open_curly_bracket -> from_node_id_or_close_curly_bracket [label="{"]
+
+	remember_from_node_id [shape="box" label="remember from node id"]
+	from_node_id_or_close_curly_bracket -> remember_from_node_id [label="string(node_id)"]
+	remember_from_node_id -> after_from_node_id
+
+	after_from_node_id [shape = "ellipse" label = "->/--/[/}"]
+	to_node_id [shape = "ellipse" label = "to node id"]
+	after_from_node_id -> to_node_id [label="->(if digraph)"]
+	after_from_node_id -> to_node_id [label="--(if graph)"]
+	after_from_node_id -> entrypoint [label = "}"]
+
+	label_attr [shape = "ellipse" label = "label attribute"]
+	after_from_node_id -> label_attr [label="["] 
+
+	equal [shape = "ellipse" label = "="]
+	label_attr -> equal [label="label"]
+
+	remember_to_node_id [shape="box" label="remember to node id"]
+	to_node_id -> remember_to_node_id [label="string(node_id)"]
+
+	after_to_node_id [label="[/}/from node id"]
+	remember_to_node_id -> after_to_node_id
+
+	after_to_node_id -> entrypoint [label = "}"]
+	after_to_node_id -> remember_from_node_id [label = "string(node_id)"]
+
+	weight_attr [shape = "ellipse" label = "weight attribute"]
+	after_to_node_id -> weight_attr [label="["] 
+
+	weight_attr -> equal [label="weight"]
+
+	attr_value [shape = "ellipse" label = "value"]
+	equal -> attr_value [label="="]
+
+	remember_attr_value [shape="box" label="remember attribute value"]
+	attr_value -> remember_attr_value [label="str/int"] 
+
+	close_square_bracket [label = "]"]
+	remember_attr_value -> close_square_bracket
+	close_square_bracket -> from_node_id_or_close_curly_bracket [label="]"]
+}
