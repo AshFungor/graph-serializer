@@ -14,10 +14,10 @@ digraph {
 	open_curly_bracket -> from_node_id_or_close_curly_bracket [label="{"]
 
 	remember_from_node_id [shape="box" label="remember from node id"]
-	from_node_id_or_close_curly_bracket -> remember_from_node_id [label="string(id)"]
+	from_node_id_or_close_curly_bracket -> remember_from_node_id [label="string(node_id)"]
 	remember_from_node_id -> after_from_node_id
 
-	after_from_node_id [shape = "ellipse" label = "->/--/[/{"]
+	after_from_node_id [shape = "ellipse" label = "->/--/[/}"]
 	to_node_id [shape = "ellipse" label = "to node id"]
 	after_from_node_id -> to_node_id [label="->(if digraph)"]
 	after_from_node_id -> to_node_id [label="--(if graph)"]
@@ -30,13 +30,13 @@ digraph {
 	label_attr -> equal [label="label"]
 
 	remember_to_node_id [shape="box" label="remember to node id"]
-	to_node_id -> remember_to_node_id [label="string(id)"]
+	to_node_id -> remember_to_node_id [label="string(node_id)"]
 
-	after_to_node_id [label="[/}/space"]
+	after_to_node_id [label="[/}/from node id"]
 	remember_to_node_id -> after_to_node_id
 
 	after_to_node_id -> entrypoint [label = "}"]
-	after_to_node_id -> from_node_id_or_close_curly_bracket [label = "space"]
+	after_to_node_id -> remember_from_node_id [label = "string(node_id)"]
 
 	weight_attr [shape = "ellipse" label = "weight attribute"]
 	after_to_node_id -> weight_attr [label="["] 
