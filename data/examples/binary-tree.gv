@@ -1,0 +1,22 @@
+digraph BinaryTree {
+    # nodes
+    root [label="root"]
+    l_child [label="child"]
+    r_child [label="child"]
+    grand_rr_child [label="grand child"]
+    grand_rl_child [label="grand child"]
+    grand_lr_child [label="grand child"]
+    grand_grand_lrr_child [label="grandest child"]
+    ll_null_node [label="null"]
+    lrl_null_node [label="null"]
+
+    # edges
+    root -> l_child [label="12"]
+    root -> r_child [label="1"]
+    l_child -> grand_lr_child [label="-9"]
+    r_child -> grand_rl_child [label="8"]
+    r_child -> grand_rr_child [label="30"]
+    grand_lr_child -> grand_grand_lrr_child [label="-9"]
+    l_child -> ll_null_node
+    grand_lr_child -> lrl_null_node
+}
