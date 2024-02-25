@@ -8,8 +8,8 @@ set(HEADERS )
 
 add_subdirectory(tests)
 add_subdirectory(common)
-add_subdirectory(parser)
-add_subdirectory(lexer)
+add_subdirectory(lexemes-fsm)
+add_subdirectory(symbols-fsm)
 
 add_executable(graph-serializer ${SOURCES} ${HEADERS})
 

@@ -1,5 +1,3 @@
-#pragma once
-
 // standard
 #include <cstdint>
 #include <any>
