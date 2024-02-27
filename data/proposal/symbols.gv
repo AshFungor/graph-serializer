@@ -129,7 +129,6 @@ digraph {
 	attr->arrt_list [label="other symbol"]
 	arrt_list->attr
 
-	
 	end->start
 }
 
