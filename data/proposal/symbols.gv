@@ -1,1 +1,134 @@
+digraph {
+	start[shape="point"]
+
+	initial[shape="ellipse" label="d/g"]
+	start->initial
+
+	list [shape="box" label="add elements to a list"]
+
+	digraph_i [shape="ellipse" label="i"]
+	initial->digraph_i [label="d"]
+	digraph_g [shape="ellipse" label="g"]	
+	digraph_i->digraph_g [label="i"]
+	digraph_r [shape="ellipse" label="r"]
+	digraph_g->digraph_r [label="g"]
+	digraph_a [shape="ellipse" label="a"]
+	digraph_r->digraph_a [label="r"]
+	digraph_p [shape="ellipse" label="p"]
+	digraph_a->digraph_p [label="a"]
+	digraph_h [shape="ellipse" label="h"]
+	digraph_p->digraph_h [label="p"]
+	digraph_list [shape="box" label="digraph to list"]
+	digraph_h->digraph_list [label="h"]
+
+	graph_r [shape="ellipse" label="r"]
+	initial->graph_r [label="g"]
+	graph_a [shape="ellipse" label="a"]
+	graph_r->graph_a [label="r"]
+	graph_p [shape="ellipse" label="p"]
+	graph_a->graph_p [label="a"]
+	graph_h [shape="ellipse" label="h"]
+	graph_p->graph_h [label="p"]
+	graph_list [shape="box" label="graph to list"]
+	graph_h->graph_list [label="h"]
+	
+	open_g [shape="ellipse" label="{/space"]
+	open_g->open_g [label="space"]
+	digraph_list->open_g  
+	graph_list->open_g 
+	open_g_list [shape="box" label="{ to list"]
+	open_g->open_g_list [label="{"]
+	
+	node_name [shape="ellipse" label="node name/}/(space/newline)"]
+	node_name->node_name [label="space/newline"]
+	open_g_list->node_name  
+	choice_char [shape="ellipse" label="[/-/space"]
+	choice_char->choice_char [label="space"]
+	choice_char_list [shape="box" label="[ to list"]
+	choice_char->choice_char_list [label="["]
+	node_name->choice_char [label="node name"]
+
+	transition [shape="ellipse" label=" >/- "]
+	transition_list1 [shape="box" label="-- to list"]
+	transition_list2 [shape="box" label="-> to list"]
+	transition->transition_list1 [label="-"]
+	transition->transition_list2 [label=">"]
+	choice_char->transition [label="-"]
+	end [shape="box" label="} to list"]
+	node_name->end [label="}"]	
+	
+	node_name2 [shape="ellipse" label="node name after char/space"]
+	node_name2->node_name2 [label="space"]
+	param_node [shape="ellipse" label="[/newline/space"]
+	param_node->space [label="space"]
+	space->param_node
+	transition_list1->node_name2 
+	transition_list2->node_name2 
+	node_name2->param_node [label="node name after char"]
+	param_node_list [shape="box" label="[ to list"]
+	param_node->param_node_list [label=" [ "]
+	param_node->list [label=" newline "]
+	param_node_list->attr
+
+	list->node_name [label=" ]/newline "]
+	list->attr [label=" space"]
+	
+	attr [shape="ellipse" label="w/l/other symbol/space"]
+	attr->attr [label="space"]
+	choice_char_list->attr 
+
+	attr_weight_e [shape="ellipse" label="e"]
+	attr->attr_weight_e [label="w"]
+	attr_weight_i [shape="ellipse" label="i"]
+	attr_weight_e->attr_weight_i [label="e"]
+	attr_weight_g [shape="ellipse" label="g"]
+	attr_weight_i->attr_weight_g [label="i"]
+	attr_weight_h [shape="ellipse" label="h"]
+	attr_weight_g->attr_weight_h [label="g"]
+	attr_weight_t [shape="ellipse" label="t"]
+	attr_weight_h->attr_weight_t [label="h"]
+	attr_weight_list [shape="box" label="weight to list"]
+	attr_weight_t->attr_weight_list [label="t"]
+	attr_weight_equals [shape="ellipse" label="=/space"]
+	attr_weight_equals->attr_weight_equals [label = "space"]
+	attr_weight_equals_list [shape="box" label="= to list"]
+	attr_weight_equals->attr_weight_equals_list [label="="]
+	attr_weight_list->attr_weight_equals 
+	attr_weight_value [shape="ellipse" label="integer/float/fractional/space"]
+	attr_weight_value->attr_weight_value [label="space"]
+	attr_weight_equals_list->attr_weight_value 
+	attr_weight_value->list [label="integer/float/fractional"]
+
+	attr_label_a [shape="ellipse" label="a"]
+	attr->attr_label_a [label="l"]
+	attr_label_b [shape="ellipse" label="b"]
+	attr_label_a->attr_label_b [label="a"]
+	attr_label_e [shape="ellipse" label="e"]
+	attr_label_b->attr_label_e [label="b"]
+	attr_label_l [shape="ellipse" label="l"]
+	attr_label_e->attr_label_l [label="e"]
+	attr_label_list1 [shape="box" label="label to list"]
+	attr_label_l->attr_label_list1 [label="l"]
+	attr_label_equals [shape="ellipse" label="=/space"]
+	attr_label_equals->attr_label_equals [label="space"]
+	attr_label_list1->attr_label_equals 
+	attr_label_equals_list [shape="box" label="= to list"]
+	attr_label_equals->attr_label_equals_list [label="="]
+	attr_label_open [shape="ellipse" label="''/</space"]
+	attr_label_open->attr_label_open [label="space"]
+	attr_label_equals_list->attr_label_open 
+	attr_label_value [shape="ellipse" label="(''/>)/other symbol"]
+	attr_label_open->attr_label_value [label="<"]
+	attr_label_open->attr_label_value [label="''"]
+	attr_label_list [shape="box" label="accumulate"]
+	attr_label_value->attr_label_list [label="other symbol"]
+	attr_label_list->attr_label_value 
+	attr_label_value->list [label="''/>"]
+
+	arrt_list [shape="ellipse" label="accumulate"]
+	attr->arrt_list [label="other symbol"]
+	arrt_list->attr
+
+	end->start
+}
 
