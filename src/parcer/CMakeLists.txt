@@ -9,5 +9,4 @@ add_library(parcer ${SOURCES} ${HEADERS})
 
 target_link_libraries(parcer PRIVATE tiny-fsm common)
 
-message(STATUS ${SRC_ROOT})
 target_include_directories(parcer PUBLIC ${SRC_ROOT})
