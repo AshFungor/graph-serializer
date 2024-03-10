@@ -68,6 +68,7 @@ namespace common {
                 connections_ = std::make_unique<container_t>();
             }
         }
+        inline void setFlags(std::uint8_t flags) { flags_ = flags; }
         inline bool isDirectional() { return flags_ & opt::drc; }
         inline bool isWeighted() { return flags_ & opt::wgh; }
 
