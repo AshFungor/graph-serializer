@@ -31,14 +31,15 @@ namespace {
     }
 
     void pushSomeEdges(common::Graph& graph) {
-        graph.pushEdge("first", {1, "second"});
-        graph.pushEdge("second", {2, "third"});
-        graph.pushEdge("third", {3, "first"});
+        graph.pushEdge("first", common::Connection("second", 1));
+        graph.pushEdge("second", common::Connection("third", 2));
+        graph.pushEdge("third", common::Connection("first", 3));
     }
 }
 
 TEST(CommonTest, DirectionalWeightedGraphTest) {
-    common::Graph graph (nullptr, common::opt::drc | common::opt::wgh);
+    common::Graph graph;
+    graph.init(common::opt::drc | common::opt::wgh);
 
     pushSomeNodes(graph);
     pushSomeEdges(graph);
@@ -59,7 +60,8 @@ TEST(CommonTest, DirectionalWeightedGraphTest) {
 }
 
 TEST(CommonTest, ZeroFlagGraphTest) {
-    common::Graph graph (nullptr, 0x0);
+    common::Graph graph;
+    graph.init(0x0);
 
     pushSomeNodes(graph);
     pushSomeEdges(graph);

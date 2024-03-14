@@ -4,9 +4,9 @@
 #include <unordered_map>
 #include <string_view>
 #include <algorithm>
-#include <stdexcept>
 #include <optional>
 #include <cstdint>
+#include <utility>
 #include <memory>
 #include <string>
 #include <vector>
@@ -35,7 +35,7 @@ namespace common {
         ATTRIBUTE_STRING_VALUE = 9,
         ATTRIBUTE_INT_VALUE = 10,
         CLOSED_CURLY_BRACKET = 11,
-        CLOSED_SQUIRED_BRACKET = 12
+        CLOSED_SQUARE_BRACKET = 12
     };
 
     struct Lexeme {
@@ -49,71 +49,41 @@ namespace common {
         // Peer
         std::string peer;
 
-        inline bool operator==(const Connection& other) const {
-            return other.peer == peer;
-        }
+        Connection(std::string peer, std::optional<int> weight = std::nullopt) noexcept;
+        bool operator==(const Connection& other) const;
     };
 
     class Graph {
     public:
-        using container_t = std::unordered_map<std::string, std::vector<Connection>>;
 
-        inline Graph(std::unique_ptr<container_t> base = nullptr, std::uint8_t flags = 0x0) 
-        : flags_(flags) 
-        {
-            if (base) {
-                // need to validate this first...
-                connections_ = std::move(base);    
-            } else {
-                connections_ = std::make_unique<container_t>();
-            }
-        }
-        inline void setFlags(std::uint8_t flags) { flags_ = flags; }
-        inline bool isDirectional() { return flags_ & opt::drc; }
-        inline bool isWeighted() { return flags_ & opt::wgh; }
+        using graph_flags_t = std::uint8_t;
+        using connections_t = std::vector<Connection>;
+        using label_container_t = std::unordered_map<std::string, std::string>;
+        using container_t = std::unordered_map<std::string, connections_t>;
+        using container_value_t = std::pair<std::string, connections_t>;
 
-        inline void pushNode(std::string name) {
-            connections_->insert({name, {}});
-        }
+        Graph() noexcept;
+        void init(graph_flags_t flags = 0x0) noexcept;
+        // void setFlags(graph_flags_t flags) noexcept;
+        bool isDirectional() const noexcept;
+        bool isWeighted() const noexcept;
 
-        inline void pushEdge(std::string source, Connection edge) {
-            if (isWeighted()) {
-                edge.weight = (edge.weight == std::nullopt) ? 0 : edge.weight;
-            } else {
-                edge.weight = std::nullopt;
-            }
-            insert(source, edge);
-            if (!isDirectional()) {
-                std::swap(source, edge.peer);
-                insert(source, edge);
-            }
-        }
+        void pushNode(std::string name);
+        void pushEdge(std::string source, Connection edge);
+        void setLabel(std::string source, std::string label);
 
-        inline bool areConnected(std::string_view source, std::string_view target) {
-            return findConnection(source, target) != connections_->at(source.data()).end();
-        }
-
-        inline std::optional<int> getWeight(std::string_view source, std::string_view target) {
-            return findConnection(source, target)->weight;
-        }
+        bool areConnected(std::string_view source, std::string_view target);
+        std::optional<int> getWeight(std::string_view source, std::string_view target);
+        std::optional<std::string> getLabel(std::string source);
 
     private:
-        inline void insert(std::string_view source, const Connection& edge) {
-            connections_->at(source.data()).push_back(edge);
-        }
-
-        inline std::vector<Connection>::iterator findConnection(std::string_view source, std::string_view target) {
-            auto iter = std::find_if(
-                connections_->at(source.data()).begin(),
-                connections_->at(source.data()).end(),
-                [&target] (const auto& connection) { return connection.peer == target; }
-            );
-            return iter;
-        }
+        void insert(std::string_view source, Connection edge);
+        connections_t::iterator findConnection(std::string_view source, std::string_view target);
 
     private:
         std::uint8_t flags_;
         std::unique_ptr<container_t> connections_;
+        std::unique_ptr<label_container_t> labels_;
     };
 
 } // namespace common

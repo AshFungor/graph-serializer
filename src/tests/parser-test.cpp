@@ -2,7 +2,7 @@
 #include <gtest/gtest.h>
 
 // testing target
-#include <parcer/parcer.hpp>
+#include <parser/parser.hpp>
 
 
 TEST(CommonTest, TestGraphDirection) {
@@ -11,9 +11,10 @@ TEST(CommonTest, TestGraphDirection) {
     {common::LexemeType::OPEN_CURLY_BRACKET},
     {common::LexemeType::CLOSED_CURLY_BRACKET}
     };
-    common::Graph graph = parcer::parce(input);
 
-    EXPECT_EQ(graph.isDirectional(), 0);
+    auto graph = parser::parse(input);
+
+    EXPECT_EQ(graph->isDirectional(), 0);
 
 
     input = {
@@ -21,9 +22,9 @@ TEST(CommonTest, TestGraphDirection) {
         {common::LexemeType::OPEN_CURLY_BRACKET},
         {common::LexemeType::CLOSED_CURLY_BRACKET}
     };
-    graph = parcer::parce(input);
+    graph = parser::parse(input);
 
-    EXPECT_EQ(graph.isDirectional(), 1);
+    EXPECT_EQ(graph->isDirectional(), 1);
 }
 
 
@@ -36,12 +37,13 @@ TEST(CommonTest, TestConnection) {
     {common::LexemeType::NODE_ID, std::string("b")},
     {common::LexemeType::CLOSED_CURLY_BRACKET}
     };
-    common::Graph graph = parcer::parce(input);
 
-    EXPECT_TRUE(graph.areConnected(std::string("a"), std::string("b")));
-    EXPECT_TRUE(graph.areConnected(std::string("b"), std::string("a")));
-    EXPECT_EQ(graph.getWeight("a", "b"), std::nullopt);
-    EXPECT_EQ(graph.getWeight("b", "a"), std::nullopt);
+    auto graph = parser::parse(input);
+
+    EXPECT_TRUE(graph->areConnected(std::string("a"), std::string("b")));
+    EXPECT_TRUE(graph->areConnected(std::string("b"), std::string("a")));
+    EXPECT_EQ(graph->getWeight("a", "b"), std::nullopt);
+    EXPECT_EQ(graph->getWeight("b", "a"), std::nullopt);
 
 }
 
@@ -55,11 +57,12 @@ TEST(CommonTest, TestDirectionalConnection) {
     {common::LexemeType::NODE_ID, std::string("b")},
     {common::LexemeType::CLOSED_CURLY_BRACKET}
     };
-    common::Graph graph = parcer::parce(input);
 
-    EXPECT_TRUE(graph.areConnected("a", "b"));
-    EXPECT_FALSE(graph.areConnected("b", "a"));
-    EXPECT_EQ(graph.getWeight("a", "b"), std::nullopt);
+    auto graph = parser::parse(input);
+
+    EXPECT_TRUE(graph->areConnected("a", "b"));
+    EXPECT_FALSE(graph->areConnected("b", "a"));
+    EXPECT_EQ(graph->getWeight("a", "b"), std::nullopt);
 }
 
 
@@ -74,7 +77,7 @@ TEST(CommonTest, TestConnectionWeight) {
     {common::LexemeType::WEIGHT_ATTRIBUTE},
     {common::LexemeType::EQUALS_SIGN},
     {common::LexemeType::ATTRIBUTE_INT_VALUE, 12},
-    {common::LexemeType::CLOSED_SQUIRED_BRACKET},
+    {common::LexemeType::CLOSED_SQUARE_BRACKET},
     {common::LexemeType::NODE_ID, std::string("b")},
     {common::LexemeType::FLAT_ARROW},
     {common::LexemeType::NODE_ID, std::string("c")},
@@ -82,20 +85,21 @@ TEST(CommonTest, TestConnectionWeight) {
     {common::LexemeType::WEIGHT_ATTRIBUTE},
     {common::LexemeType::EQUALS_SIGN},
     {common::LexemeType::ATTRIBUTE_INT_VALUE, 11},
-    {common::LexemeType::CLOSED_SQUIRED_BRACKET},
+    {common::LexemeType::CLOSED_SQUARE_BRACKET},
     {common::LexemeType::CLOSED_CURLY_BRACKET}
     };
-    common::Graph graph = parcer::parce(input);
 
-    EXPECT_TRUE(graph.areConnected("a", "b"));
-    EXPECT_TRUE(graph.areConnected("b", "a"));
-    EXPECT_EQ(graph.getWeight("a", "b"), 12);
-    EXPECT_EQ(graph.getWeight("b", "a"), 12);
+    auto graph = parser::parse(input);
 
-    EXPECT_TRUE(graph.areConnected("c", "b"));
-    EXPECT_TRUE(graph.areConnected("b", "c"));
-    EXPECT_EQ(graph.getWeight("c", "b"), 11);
-    EXPECT_EQ(graph.getWeight("b", "c"), 11);
+    EXPECT_TRUE(graph->areConnected("a", "b"));
+    EXPECT_TRUE(graph->areConnected("b", "a"));
+    EXPECT_EQ(graph->getWeight("a", "b"), 12);
+    EXPECT_EQ(graph->getWeight("b", "a"), 12);
+
+    EXPECT_TRUE(graph->areConnected("c", "b"));
+    EXPECT_TRUE(graph->areConnected("b", "c"));
+    EXPECT_EQ(graph->getWeight("c", "b"), 11);
+    EXPECT_EQ(graph->getWeight("b", "c"), 11);
 }
 
 TEST(CommonTest, TestDirectionalConnectionWeight) {
@@ -109,7 +113,7 @@ TEST(CommonTest, TestDirectionalConnectionWeight) {
     {common::LexemeType::WEIGHT_ATTRIBUTE},
     {common::LexemeType::EQUALS_SIGN},
     {common::LexemeType::ATTRIBUTE_INT_VALUE, 12},
-    {common::LexemeType::CLOSED_SQUIRED_BRACKET},
+    {common::LexemeType::CLOSED_SQUARE_BRACKET},
 
     {common::LexemeType::NODE_ID, std::string("c")},
     {common::LexemeType::POINTED_ARROW},
@@ -118,16 +122,16 @@ TEST(CommonTest, TestDirectionalConnectionWeight) {
     {common::LexemeType::WEIGHT_ATTRIBUTE},
     {common::LexemeType::EQUALS_SIGN},
     {common::LexemeType::ATTRIBUTE_INT_VALUE, 1},
-    {common::LexemeType::CLOSED_SQUIRED_BRACKET},
+    {common::LexemeType::CLOSED_SQUARE_BRACKET},
     {common::LexemeType::CLOSED_CURLY_BRACKET}
     };
-    common::Graph graph = parcer::parce(input);
+    auto graph = parser::parse(input);
 
-    EXPECT_TRUE(graph.areConnected("a", "b"));
-    EXPECT_FALSE(graph.areConnected("b", "a"));
-    EXPECT_EQ(graph.getWeight("a", "b"), 12);
+    EXPECT_TRUE(graph->areConnected("a", "b"));
+    EXPECT_FALSE(graph->areConnected("b", "a"));
+    EXPECT_EQ(graph->getWeight("a", "b"), 12);
 
-    EXPECT_TRUE(graph.areConnected("c", "d"));
-    EXPECT_FALSE(graph.areConnected("d", "c"));
-    EXPECT_EQ(graph.getWeight("c", "d"), 1);
+    EXPECT_TRUE(graph->areConnected("c", "d"));
+    EXPECT_FALSE(graph->areConnected("d", "c"));
+    EXPECT_EQ(graph->getWeight("c", "d"), 1);
 }
