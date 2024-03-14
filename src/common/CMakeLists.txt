@@ -2,9 +2,9 @@ cmake_minimum_required(VERSION 3.5)
 
 project(common VERSION 0.0 LANGUAGES CXX)
 
-set(SOURCES )
-set(HEADERS common.hpp)
+set(SOURCES common.cpp action-queue.cpp)
+set(HEADERS common.hpp action-queue.hpp)
 
-add_library(common INTERFACE ${SOURCES} ${HEADERS})
+add_library(common STATIC ${SOURCES} ${HEADERS})
 
-target_include_directories(common INTERFACE ${SRC_ROOT})
+target_include_directories(common PUBLIC ${SRC_ROOT})

@@ -9,7 +9,7 @@ set(HEADERS )
 set(SRC_ROOT ${CMAKE_CURRENT_SOURCE_DIR})
 
 add_subdirectory(common)
-add_subdirectory(parcer)
+add_subdirectory(parser)
 add_subdirectory(lexer)
 add_subdirectory(tests)
 
