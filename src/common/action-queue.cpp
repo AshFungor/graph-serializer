@@ -19,6 +19,17 @@ void PushNodeAction::make() {
     (this_->*action_)(std::move(name_));
 }
 
+SetLabelAction::SetLabelAction(set_node_label action, Graph* instance, std::string name, std::string label) 
+    : action_(std::move(action))
+    , this_(std::move(instance))
+    , name_(std::move(name))
+    , label_(std::move(label))
+{}
+
+void SetLabelAction::make() {
+    (this_->*action_)(std::move(name_), std::move(label_));
+}
+
 PushEdgeAction::PushEdgeAction(push_edge_action action, Graph* instance, std::string name, Connection edge)
     : action_(std::move(action))
     , this_(std::move(instance))

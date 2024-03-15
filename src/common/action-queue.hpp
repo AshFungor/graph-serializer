@@ -30,6 +30,21 @@ namespace common {
         std::string name_;
     };
 
+    class SetLabelAction : public IAction {
+    public:
+        using set_node_label = void (common::Graph::*)(std::string, std::string);
+
+        SetLabelAction(set_node_label action, Graph* instance, std::string name, std::string label);
+        // IAction
+        virtual void make() override final;
+    
+    private:
+        set_node_label action_;
+        Graph* this_;
+        std::string name_;
+        std::string label_;
+    };
+
     class PushEdgeAction : public IAction {
     public:
         using push_edge_action = void (common::Graph::*)(std::string, Connection);
