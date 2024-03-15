@@ -84,3 +84,13 @@ TEST(CommonTest, ZeroFlagGraphTest) {
 
     dumpContainer(graph);
 }
+
+TEST(CommonTest, VerboseGraph) {
+    common::Graph graph;
+    graph.init(common::opt::drc | common::opt::wgh);
+
+    pushSomeNodes(graph);
+    pushSomeEdges(graph);
+
+    GTEST_COUT(graph.dumpGraphState());
+}

@@ -1,10 +1,11 @@
 // standard
+#include <cstddef>
 #include <unordered_map>
 #include <string_view>
 #include <algorithm>
 #include <optional>
-#include <cstdint>
 #include <utility>
+#include <format>
 #include <memory>
 #include <string>
 #include <vector>
@@ -94,4 +95,35 @@ bool Graph::areConnected(std::string_view source, std::string_view target) {
 
 std::optional<int> Graph::getWeight(std::string_view source, std::string_view target) {
     return findConnection(source, target)->weight;
+}
+
+std::string Graph::dumpGraphState() const {
+
+    auto countEdges = [this]() {
+        std::size_t result = 0;
+        for (const auto& pair : *connections_) {
+            result += pair.second.size();
+        }
+        return (isDirectional()) ? result : result / 2;
+    };
+
+    std::string result;
+    result += std::vformat("Graph object with address {}\n", 
+        std::make_format_args((void*) this));
+    result += std::vformat("flags: {} directional; {} weighted; has {} nodes and {} edges\n",
+        std::make_format_args((bool) flags_ & opt::drc, (bool) flags_ & opt::wgh, connections_->size(), countEdges()));
+    for (const auto& pair : *connections_) {
+        result += std::vformat("node [{}], connections:\n", std::make_format_args(pair.first));
+        for (const auto& connection : pair.second) {
+            result += std::vformat("- connection: peer = {}, weight: {}\n", 
+                std::make_format_args(connection.peer, connection.weight.value_or(0)));
+        }
+    }
+    result.resize(result.size() - 1);
+
+    return std::move(result);
+}
+
+std::ostream& common::operator<<(std::ostream& os, const Graph& graph) {
+    return os << graph.dumpGraphState();
 }
