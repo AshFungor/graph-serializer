@@ -169,7 +169,7 @@ TEST(CommonTest, TestLabelParsing) {
 
     EXPECT_TRUE(graph->areConnected("a", "b"));
     EXPECT_TRUE(graph->areConnected("b", "a"));
-    EXPECT_EQ(graph->getLabel("a"), "start");
-    EXPECT_EQ(graph->getLabel("b"), "end");
+    EXPECT_EQ(graph->getLabel("a").value_or("failed extract"), "start");
+    EXPECT_EQ(graph->getLabel("b").value_or("failed extract"), "end");
     EXPECT_EQ(graph->getLabel("c"), std::nullopt);
 }

@@ -20,7 +20,9 @@ namespace parser {
 
     struct SharedState {
         std::shared_ptr<common::Graph> graph;
-        common::ActionQueue acQueue;
+
+        common::ActionQueue backoffQueue;
+        common::ActionQueue actionQueue;
 
         std::string fromNodeId;
         std::string toNodeId;

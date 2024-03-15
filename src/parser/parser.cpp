@@ -53,7 +53,7 @@ void OpenCurlyBracket::react(InputCloseCurlyBracket const &) {
 }
 
 void FromNodeID::react(InputCloseCurlyBracket const &event) {
-    shared.acQueue.query(makeAction<common::PushNodeAction>(
+    shared.actionQueue.query(makeAction<common::PushNodeAction>(
         &common::Graph::pushNode, 
         shared.graph.get(), 
         LexemeParser::shared.fromNodeId));
@@ -66,7 +66,7 @@ void FromNodeID::react(InputOpenSquareBracket const &) {
 }
 
 void FromNodeID::react(InputEdge const &event) {
-    shared.acQueue.query(makeAction<common::PushNodeAction>(
+    shared.actionQueue.query(makeAction<common::PushNodeAction>(
         &common::Graph::pushNode, 
         shared.graph.get(), 
         LexemeParser::shared.fromNodeId));
@@ -96,11 +96,11 @@ void Edge::react(InputNodeId const &event) {
 
 void ToNodeID::react(InputCloseCurlyBracket const &event) {
     if (!(shared.flags & common::opt::wgh)) {
-        shared.acQueue.query(makeAction<common::PushNodeAction>(
+        shared.actionQueue.query(makeAction<common::PushNodeAction>(
             &common::Graph::pushNode, 
             shared.graph.get(), 
             LexemeParser::shared.toNodeId));
-        shared.acQueue.query(makeAction<common::PushEdgeAction>(
+        shared.actionQueue.query(makeAction<common::PushEdgeAction>(
             &common::Graph::pushEdge, 
             shared.graph.get(), 
             LexemeParser::shared.fromNodeId,
@@ -118,11 +118,11 @@ void ToNodeID::react(InputOpenSquareBracket const &) {
 
 void ToNodeID::react(InputNodeId const &event) {
     if (!(shared.flags & common::opt::wgh)) {
-        shared.acQueue.query(makeAction<common::PushNodeAction>(
+        shared.actionQueue.query(makeAction<common::PushNodeAction>(
             &common::Graph::pushNode, 
             shared.graph.get(), 
             LexemeParser::shared.toNodeId));
-        shared.acQueue.query(makeAction<common::PushEdgeAction>(
+        shared.actionQueue.query(makeAction<common::PushEdgeAction>(
             &common::Graph::pushEdge, 
             shared.graph.get(), 
             LexemeParser::shared.fromNodeId,
@@ -162,17 +162,17 @@ void Equal::react(InputIntValue const &event) {
 void Value::react(InputCloseSquareBracket const &event) {
     if (LexemeParser::shared.expectedValue == "weight") {
         shared.flags |= common::opt::wgh;
-        shared.acQueue.query(makeAction<common::PushNodeAction>(
+        shared.actionQueue.query(makeAction<common::PushNodeAction>(
             &common::Graph::pushNode, 
             shared.graph.get(), 
             LexemeParser::shared.toNodeId));
-        shared.acQueue.query(makeAction<common::PushEdgeAction>(
+        shared.actionQueue.query(makeAction<common::PushEdgeAction>(
             &common::Graph::pushEdge, 
             shared.graph.get(), 
             LexemeParser::shared.fromNodeId,
             common::Connection(LexemeParser::shared.toNodeId, LexemeParser::shared.weight)));
     } else if (LexemeParser::shared.expectedValue == "label") {
-        shared.acQueue.query(makeAction<common::SetLabelAction>(
+        shared.backoffQueue.query(makeAction<common::SetLabelAction>(
             &common::Graph::setLabel, 
             shared.graph.get(),
             LexemeParser::shared.fromNodeId,
@@ -256,6 +256,7 @@ std::shared_ptr<common::Graph> parser::parse(std::vector<common::Lexeme>& input)
     }
 
     LexemeParser::shared.graph->init(LexemeParser::shared.flags);
-    LexemeParser::shared.acQueue.dumpAllActions();
+    LexemeParser::shared.actionQueue.dumpAllActions();
+    LexemeParser::shared.backoffQueue.dumpAllActions();
     return std::move(LexemeParser::shared.graph);
 }
