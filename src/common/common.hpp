@@ -14,6 +14,9 @@
 
 namespace common {
 
+    // class to invert graph parsing (write it back)
+    class GraphDumpingFactory;
+
     namespace opt {
         // Directional graph
         inline constexpr std::uint8_t drc = 0x01;
@@ -74,10 +77,11 @@ namespace common {
 
         bool areConnected(std::string_view source, std::string_view target);
         std::optional<int> getWeight(std::string_view source, std::string_view target);
-        std::optional<std::string> getLabel(std::string source);
+        std::optional<std::string> getLabel(std::string source) const;
 
         std::string dumpGraphState() const;
         friend std::ostream& operator<<(std::ostream& os, const Graph& graph);
+        friend GraphDumpingFactory;
 
     private:
         void insert(std::string_view source, Connection edge);

@@ -2,12 +2,14 @@
 #include <gtest/gtest.h>
 
 // standard
+#include <filesystem>
 #include <iostream>
 #include <optional>
 
 // testing target
 #define private public
 #include <common/common.hpp>
+#include <common/reverted.hpp>
 #undef private
 
 #define GTEST_COUT(chain) \
@@ -34,6 +36,25 @@ namespace {
         graph.pushEdge("first", common::Connection("second", 1));
         graph.pushEdge("second", common::Connection("third", 2));
         graph.pushEdge("third", common::Connection("first", 3));
+    }
+
+    void pushMoreNodesWithLabels(common::Graph& graph) {
+        graph.pushNode("fourth");
+        graph.pushNode("fifth");
+        graph.pushNode("sixth");
+
+        graph.setLabel("fourth", "fourth");
+        graph.setLabel("fifth", "fifth");
+        graph.setLabel("sixth", "sixth");
+    }
+
+    void pushMoreEdges(common::Graph& graph) {
+        graph.pushEdge("second", common::Connection("first", 4));
+        graph.pushEdge("third", common::Connection("second", 5));
+        graph.pushEdge("first", common::Connection("third", 6));
+        graph.pushEdge("fourth", common::Connection("sixth", 7));
+        graph.pushEdge("fifth", common::Connection("sixth", 8));
+        graph.pushEdge("sixth", common::Connection("fifth", 9));
     }
 }
 
@@ -93,4 +114,24 @@ TEST(CommonTest, VerboseGraph) {
     pushSomeEdges(graph);
 
     GTEST_COUT(graph.dumpGraphState());
+}
+
+TEST(CommonTest, DumpingTest) {
+    common::Graph graph;
+    graph.init(common::opt::drc | common::opt::wgh);
+
+    pushSomeNodes(graph);
+    pushSomeEdges(graph);
+
+    pushMoreNodesWithLabels(graph);
+    pushMoreEdges(graph);
+
+    if (std::filesystem::exists("test.gv")) {
+        std::filesystem::remove("test.gv");
+    }
+
+    common::GraphDumpingFactory factory ({.verboseWrite = true});
+    EXPECT_NO_THROW(factory.dumpOne(graph, "test.gv"));
+
+    // add further validation later
 }

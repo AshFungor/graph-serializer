@@ -72,7 +72,7 @@ void Graph::setLabel(std::string source, std::string label) {
     }
 }
 
-std::optional<std::string> Graph::getLabel(std::string source) {
+std::optional<std::string> Graph::getLabel(std::string source) const {
     if (labels_->contains(source)) {
         return labels_->at(source);
     }
