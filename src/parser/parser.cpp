@@ -142,8 +142,8 @@ void Weight::react(InputEqual const &) {
 }
 
 void Equal::react(InputStringValue const &event) {
-    LexemeParser::shared.label = event.label;
     if (LexemeParser::shared.expectedValue == "label") {
+        LexemeParser::shared.label = event.label;
         transit<Value>();
     } else {
         throw_invalid_input("Expected label, found: " + LexemeParser::shared.expectedValue);
@@ -171,7 +171,13 @@ void Value::react(InputCloseSquareBracket const &event) {
             shared.graph.get(), 
             LexemeParser::shared.fromNodeId,
             common::Connection(LexemeParser::shared.toNodeId, LexemeParser::shared.weight)));
-    }
+    } else if (LexemeParser::shared.expectedValue == "label") {
+        shared.acQueue.query(makeAction<common::SetLabelAction>(
+            &common::Graph::setLabel, 
+            shared.graph.get(),
+            LexemeParser::shared.fromNodeId,
+            LexemeParser::shared.label));
+    } 
     transit<OpenCurlyBracket>();
 }
 
