@@ -3,10 +3,10 @@
 // standard
 #include <unordered_map>
 #include <string_view>
-#include <algorithm>
 #include <optional>
 #include <cstdint>
 #include <utility>
+#include <ostream>
 #include <memory>
 #include <string>
 #include <vector>
@@ -76,6 +76,9 @@ namespace common {
         std::optional<int> getWeight(std::string_view source, std::string_view target);
         std::optional<std::string> getLabel(std::string source);
 
+        std::string dumpGraphState() const;
+        friend std::ostream& operator<<(std::ostream& os, const Graph& graph);
+
     private:
         void insert(std::string_view source, Connection edge);
         connections_t::iterator findConnection(std::string_view source, std::string_view target);
@@ -85,5 +88,7 @@ namespace common {
         std::unique_ptr<container_t> connections_;
         std::unique_ptr<label_container_t> labels_;
     };
+
+    std::ostream& operator<<(std::ostream& os, const Graph& graph);
 
 } // namespace common
