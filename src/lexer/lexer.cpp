@@ -1,16 +1,13 @@
 // standard
-#include <memory>
-#include <stdexcept>
-#include <iostream>
+#include <vector>
 
 // common
 #include <common/common.hpp>
-#include <vector>
 
 // local
 #include "lexer.hpp"
 
-using namespace parser;
+using namespace lexer;
 
 
 void SymbolParser::entry() {}
@@ -263,7 +260,7 @@ void CloseSquareBracket::react(InputNewLine const &) {
 
 FSM_INITIAL_STATE(SymbolParser, Idle)
 
-std::vector<common::Lexeme> lex(const std::string& input) {
+std::vector<common::Lexeme> lexer::lex(const std::string& input) {
     SymbolParser::start();
 
     for (char symbol : input) {

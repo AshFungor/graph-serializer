@@ -1,8 +1,7 @@
 #pragma once
 
 // standard
-#include <cstdint>
-#include <memory>
+#include <vector>
 #include <string>
 
 // internal
@@ -10,9 +9,8 @@
 
 // contrib
 #include <tinyfsm.hpp>
-#include <vector>
 
-namespace parser {
+namespace lexer {
     inline void throw_invalid_input(std::string message) {
         throw std::runtime_error(message);
     }
