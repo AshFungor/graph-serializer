@@ -226,7 +226,7 @@ std::shared_ptr<common::Graph> parser::parse(std::vector<common::Lexeme>& input)
                 LexemeParser::dispatch(InputOpenSquareBracket());
                 break;
 
-            case common::LexemeType::CLOSED_SQUARE_BRACKET:
+            case common::LexemeType::CLOSED_SQUARED_BRACKET:
                 LexemeParser::dispatch(InputCloseSquareBracket());
                 break;
 
