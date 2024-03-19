@@ -8,7 +8,7 @@ digraph {
 
 
 
-  sixth -> fifth [weight = 9 ]
-  fifth -> sixth [weight = 8 ]
-  fourth -> sixth [weight = 7 ]
+  sixth -> fifth [weight = 9]
+  fifth -> sixth [weight = 8]
+  fourth -> sixth [weight = 7]
 }

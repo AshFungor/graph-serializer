@@ -197,6 +197,7 @@ void Weight_t::react(InputSpace const &) {
 void EqualWeight::react(InputIntValue const &event) {
     SymbolParser::shared.tokens.push_back({common::LexemeType::ATTRIBUTE_INT_VALUE, std::make_any<int>(event.IntValue)});
     SymbolParser::shared.flag_weight = 0;
+    SymbolParser::shared.token.clear();
     transit<IntValue>();
 };
 void EqualWeight::react(InputSpace const &) {
@@ -334,10 +335,6 @@ std::vector<common::Lexeme> lexer::lex(const std::string& input) {
             SymbolParser::dispatch(InputOpenCurlyBracket());
             continue;
         }
-        if(symbol == ']'){
-            SymbolParser::dispatch(InputCloseSquareBracket());
-            continue;
-        }
         if(symbol == '}'){
             SymbolParser::dispatch(InputCloseCurlyBracket());
             continue;
@@ -415,15 +412,15 @@ std::vector<common::Lexeme> lexer::lex(const std::string& input) {
             SymbolParser::dispatch(InputStringValue{.StringValue = std::string(SymbolParser::shared.token)});
             SymbolParser::shared.token.clear();
         }
-        if (SymbolParser::shared.token.empty() && isdigit(symbol) && SymbolParser::shared.flag_weight == 1) {
-            SymbolParser::shared.token += symbol;
-            continue;
-        } else if (!SymbolParser::shared.token.empty() && isdigit(symbol) && SymbolParser::shared.flag_weight == 1) {
+        if (isdigit(symbol) && SymbolParser::shared.flag_weight == 1) {
             SymbolParser::shared.token += symbol;
             continue;
         } else if (!SymbolParser::shared.token.empty() && symbol == ' ' && SymbolParser::shared.flag_weight == 1) {
             SymbolParser::dispatch(InputIntValue{.IntValue = std::stoi(SymbolParser::shared.token)});
-            SymbolParser::shared.token.clear();
+            continue;
+        } else if (!SymbolParser::shared.token.empty() && symbol == ']' && SymbolParser::shared.flag_weight == 1) {
+            SymbolParser::dispatch(InputIntValue{.IntValue = std::stoi(SymbolParser::shared.token)});
+            SymbolParser::dispatch(InputCloseSquareBracket());
             continue;
         }
         if (SymbolParser::shared.token.empty() && (isalpha(symbol) || symbol == '_' ||  isdigit(symbol)) && SymbolParser::shared.flag_curly == 1 && SymbolParser::shared.flag_square == 0 && SymbolParser::shared.flag_hyphen == 0){
@@ -448,7 +445,11 @@ std::vector<common::Lexeme> lexer::lex(const std::string& input) {
             SymbolParser::shared.token.clear();
             continue;
         }
-         if(symbol == ' '){
+        if(symbol == ']'){
+            SymbolParser::dispatch(InputCloseSquareBracket());
+            continue;
+        }
+        if(symbol == ' '){
             SymbolParser::dispatch(InputSpace());
             continue;
         }
