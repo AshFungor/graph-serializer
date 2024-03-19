@@ -129,6 +129,8 @@ namespace lexer {
     class Idle : public SymbolParser {
         void react(InputDigraph_D const &) override;
         void react(InputGraph_G const &) override;
+        void react(InputSpace const &) override;
+        void react(InputNewLine const &) override;
     };
 
     class Digraph_D : public SymbolParser {
@@ -182,6 +184,7 @@ namespace lexer {
         void react(InputOpenSquareBracket const &) override;
         void react(InputHyphenFirst const &) override;
         void react(InputSpace const &) override;
+        void react(InputNewLine const &) override;
     };
 
     class OpenSquareBracket : public SymbolParser {

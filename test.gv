@@ -1,28 +1,11 @@
-# Written by GraphWriter.
-# This software is part of our university project.
-
 digraph {
-
-  # Graph nodes.
-
   sixth [label = "sixth"]
   fifth [label = "fifth"]
   fourth [label = "fourth"]
-  third 
-  second 
-  first 
 
 
-  # Graph edges.
 
-  sixth -> fifth [weight = "9"]
-  fifth -> sixth [weight = "8"]
-  fourth -> sixth [weight = "7"]
-  third -> first [weight = "3"]
-  third -> second [weight = "5"]
-  second -> third [weight = "2"]
-  second -> first [weight = "4"]
-  first -> second [weight = "1"]
-  first -> third [weight = "6"]
-
+  sixth -> fifth [weight = 9 ]
+  fifth -> sixth [weight = 8 ]
+  fourth -> sixth [weight = 7 ]
 }

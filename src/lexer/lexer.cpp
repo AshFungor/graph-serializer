@@ -1,6 +1,10 @@
 // standard
+#include <any>
+#include <iterator>
+#include <ostream>
+#include <string>
 #include <vector>
-
+#include <iostream>
 // common
 #include <common/common.hpp>
 
@@ -19,6 +23,12 @@ void Idle::react(InputDigraph_D const &) {
 void Idle::react(InputGraph_G const & ){
     transit<Graph_G>();
 }
+void Idle::react(InputSpace const & ){
+    transit<Idle>();
+}
+void Idle::react(InputNewLine const & ){
+    transit<Idle>();
+}
 
 void Digraph_D::react(InputDigraph_i const &) {
     transit<Digraph_i>();
@@ -36,7 +46,7 @@ void Digraph_a::react(InputDigraph_p const &) {
     transit<Digraph_p>();
 }
 void Digraph_p::react(InputDigraph_h const &) {
-    SymbolParser::shared.tokens.push_back({common::LexemeType::GRAPH_START_LABEL,"digraph"});
+    SymbolParser::shared.tokens.push_back({common::LexemeType::GRAPH_START_LABEL,std::make_any<std::string>("digraph")});
     transit<Digraph_h>();
 }
 void Digraph_h::react(InputOpenCurlyBracket const &) {
@@ -58,7 +68,7 @@ void Graph_a::react(InputGraph_p const &) {
     transit<Graph_p>();
 }
 void Graph_p::react(InputGraph_h const &) {
-    SymbolParser::shared.tokens.push_back({common::LexemeType::GRAPH_START_LABEL,"graph"});
+    SymbolParser::shared.tokens.push_back({common::LexemeType::GRAPH_START_LABEL,std::make_any<std::string>("graph")});
     transit<Graph_h>();
 }
 void Graph_h::react(InputOpenCurlyBracket const &) {
@@ -71,7 +81,7 @@ void Graph_h::react(InputSpace const &) {
 }
 
 void OpenCurlyBracket::react(InputNodeId const &event) {
-    SymbolParser::shared.tokens.push_back({common::LexemeType::NODE_ID,event});
+    SymbolParser::shared.tokens.push_back({common::LexemeType::NODE_ID,std::make_any<std::string>(event.NodeId)});
     transit<NodeName>();
 }
 void OpenCurlyBracket::react(InputCloseCurlyBracket const &) {
@@ -97,6 +107,9 @@ void NodeName::react(InputHyphenFirst const &) {
 }
 void NodeName::react(InputSpace const &) {
     transit<NodeName>();
+}
+void NodeName::react(InputNewLine const &) {
+    transit<OpenCurlyBracket>();
 }
 
 void OpenSquareBracket::react(InputWeight_W const &) {
@@ -127,7 +140,7 @@ void HyphenFirst::react(InputArrow const &) {
 }
 
 void HyphenSecond::react(InputNodeIdSecond const &event) {
-    SymbolParser::shared.tokens.push_back({common::LexemeType::NODE_ID,event});
+    SymbolParser::shared.tokens.push_back({common::LexemeType::NODE_ID,std::make_any<std::string>(event.NodeIdSecond)});
     SymbolParser::shared.flag_hyphen = 0;
     transit<NodeNameSecond>();
 }
@@ -136,7 +149,7 @@ void HyphenSecond::react(InputSpace const &) {
 }
 
 void Arrow::react(InputNodeIdSecond const &event) {
-    SymbolParser::shared.tokens.push_back({common::LexemeType::NODE_ID,event});
+    SymbolParser::shared.tokens.push_back({common::LexemeType::NODE_ID,std::make_any<std::string>(event.NodeIdSecond)});
     SymbolParser::shared.flag_hyphen = 0;
     transit<NodeNameSecond>();
 }
@@ -182,7 +195,7 @@ void Weight_t::react(InputSpace const &) {
 };
 
 void EqualWeight::react(InputIntValue const &event) {
-    SymbolParser::shared.tokens.push_back({common::LexemeType::ATTRIBUTE_INT_VALUE, event});
+    SymbolParser::shared.tokens.push_back({common::LexemeType::ATTRIBUTE_INT_VALUE, std::make_any<int>(event.IntValue)});
     SymbolParser::shared.flag_weight = 0;
     transit<IntValue>();
 };
@@ -224,7 +237,7 @@ void Label_l::react(InputSpace const &) {
 };
 
 void EqualLabel::react(InputStringValue const &event) {
-    SymbolParser::shared.tokens.push_back({common::LexemeType::ATTRIBUTE_STRING_VALUE, event});
+    SymbolParser::shared.tokens.push_back({common::LexemeType::ATTRIBUTE_STRING_VALUE, std::make_any<std::string>(event.StringValue)});
     SymbolParser::shared.flag_label = 0;
     transit<StringValue>();
 };
@@ -242,7 +255,7 @@ void StringValue::react(InputSpace const &) {
 };
 
 void CloseSquareBracket::react(InputNodeId const &event) {
-    SymbolParser::shared.tokens.push_back({common::LexemeType::NODE_ID,event});
+    SymbolParser::shared.tokens.push_back({common::LexemeType::NODE_ID,std::make_any<std::string>(event.NodeId)});
     transit<NodeName>();
 }
 void CloseSquareBracket::react(InputCloseCurlyBracket const &) {
@@ -254,7 +267,7 @@ void CloseSquareBracket::react(InputSpace const &) {
     transit<OpenCurlyBracket>();
 }
 void CloseSquareBracket::react(InputNewLine const &) {
-    transit<OpenSquareBracket>();
+    transit<OpenCurlyBracket>();
 }
 
 
@@ -264,101 +277,134 @@ std::vector<common::Lexeme> lexer::lex(const std::string& input) {
     SymbolParser::start();
 
     for (char symbol : input) {
+        std::cout<<symbol<<std::endl;
         if(symbol == 'd' && SymbolParser::shared.flag_curly == 0){
             SymbolParser::dispatch(InputDigraph_D());
+            continue;
         }
-        if(symbol == 'i' && SymbolParser::shared.flag_curly == 0){
+        if(symbol == 'i' && SymbolParser::shared.flag_curly == 0 && SymbolParser::is_in_state<Digraph_D>()){
             SymbolParser::dispatch(InputDigraph_i());
+            continue;
         }
         if(symbol == 'g' && SymbolParser::shared.flag_curly == 0){
             SymbolParser::dispatch(InputDigraph_g());
+            continue;
         }
         if(symbol == 'r' && SymbolParser::shared.flag_curly == 0){
             SymbolParser::dispatch(InputDigraph_r());
+            continue;
         }
         if(symbol == 'a' && SymbolParser::shared.flag_curly == 0){
             SymbolParser::dispatch(InputDigraph_a());
+            continue;
         }
         if(symbol == 'p' && SymbolParser::shared.flag_curly == 0){
             SymbolParser::dispatch(InputDigraph_p());
+            continue;
         }
-        if(symbol == 'h' && SymbolParser::shared.flag_curly == 0){
+        if(symbol == 'h' && SymbolParser::shared.flag_curly == 0 && SymbolParser::is_in_state<Digraph_p>()){
             SymbolParser::dispatch(InputDigraph_h());
+            continue;
         }
         if(symbol == 'g' && SymbolParser::shared.flag_curly == 0){
             SymbolParser::dispatch(InputGraph_G());
+            continue;
         }
         if(symbol == 'r' && SymbolParser::shared.flag_curly == 0){
             SymbolParser::dispatch(InputGraph_r());
+            continue;
         }
         if(symbol == 'a' && SymbolParser::shared.flag_curly == 0){
             SymbolParser::dispatch(InputGraph_a());
+            continue;
         }
         if(symbol == 'p' && SymbolParser::shared.flag_curly == 0){
             SymbolParser::dispatch(InputGraph_p());
+            continue;
         }
-        if(symbol == 'h' && SymbolParser::shared.flag_curly == 0){
+        if(symbol == 'h' && SymbolParser::shared.flag_curly == 0 && SymbolParser::is_in_state<Graph_p>()){
             SymbolParser::dispatch(InputGraph_h());
+            continue;
         }
         if(symbol == '['){
             SymbolParser::dispatch(InputOpenSquareBracket());
+            continue;
         }
         if(symbol == '{'){
             SymbolParser::dispatch(InputOpenCurlyBracket());
+            continue;
         }
         if(symbol == ']'){
             SymbolParser::dispatch(InputCloseSquareBracket());
+            continue;
         }
         if(symbol == '}'){
             SymbolParser::dispatch(InputCloseCurlyBracket());
+            continue;
         }
         if(symbol == '-' && SymbolParser::shared.flag_hyphen == 0){
             SymbolParser::dispatch(InputHyphenFirst());
+            continue;
         }
         if(symbol == '-' && SymbolParser::shared.flag_hyphen == 1){
             SymbolParser::dispatch(InputHyphenSecond());
+            continue;
         }
         if(symbol == '>' && SymbolParser::shared.flag_hyphen == 1){
             SymbolParser::dispatch(InputArrow());
+            continue;
         }
         if(symbol == '=' && SymbolParser::shared.flag_label == 1){
             SymbolParser::dispatch(InputEqualLabel());
+            continue;
         }
         if(symbol == '=' && SymbolParser::shared.flag_weight == 1){
             SymbolParser::dispatch(InputEqualWeight());
+            continue;
         }
         if(symbol == 'w' && SymbolParser::shared.flag_square == 1){
             SymbolParser::dispatch(InputWeight_W());
+            continue;
         }
-        if(symbol == 'e' && SymbolParser::shared.flag_square == 1){
+        if(symbol == 'e' && SymbolParser::shared.flag_square == 1 && SymbolParser::is_in_state<Weight_W>()){
             SymbolParser::dispatch(InputWeight_e());
+            continue;
         }
-        if(symbol == 'i' && SymbolParser::shared.flag_square == 1){
+        if(symbol == 'i' && SymbolParser::shared.flag_square == 1 && SymbolParser::is_in_state<Weight_e>()){
             SymbolParser::dispatch(InputWeight_i());
+            continue;
         }
         if(symbol == 'g' && SymbolParser::shared.flag_square == 1){
             SymbolParser::dispatch(InputWeight_g());
+            continue;
         }
-        if(symbol == 'h' && SymbolParser::shared.flag_square == 1){
+        if(symbol == 'h' && SymbolParser::shared.flag_square == 1 && SymbolParser::is_in_state<Weight_g>()){
             SymbolParser::dispatch(InputWeight_h());
+            continue;
         }
-        if(symbol == 't' && SymbolParser::shared.flag_square == 1){
+        if(symbol == 't' && SymbolParser::shared.flag_square == 1 && SymbolParser::is_in_state<Weight_h>()){
             SymbolParser::dispatch(InputWeight_t());
+            continue;
         }
         if(symbol == 'l' && SymbolParser::shared.flag_square == 1 && SymbolParser::shared.flag_label_l == 0){
             SymbolParser::dispatch(InputLabel_L());
+            continue;
         }
         if(symbol == 'a' && SymbolParser::shared.flag_square == 1){
             SymbolParser::dispatch(InputLabel_a());
+            continue;
         }
         if(symbol == 'b' && SymbolParser::shared.flag_square == 1){
             SymbolParser::dispatch(InputLabel_b());
+            continue;
         }
         if(symbol == 'e' && SymbolParser::shared.flag_square == 1){
             SymbolParser::dispatch(InputLabel_e());
+            continue;
         }
         if(symbol == 'l' && SymbolParser::shared.flag_square == 1 && SymbolParser::shared.flag_label_l == 1){
             SymbolParser::dispatch(InputLabel_l());
+            continue;
         }
         if (SymbolParser::shared.token.empty() && symbol == '"' && SymbolParser::shared.flag_label == 1) {
             SymbolParser::shared.token += symbol;
@@ -366,38 +412,49 @@ std::vector<common::Lexeme> lexer::lex(const std::string& input) {
             SymbolParser::shared.token += symbol;
         } else if (!SymbolParser::shared.token.empty() && symbol == '"' && SymbolParser::shared.flag_label == 1) {
             SymbolParser::shared.token += symbol;
-            SymbolParser::dispatch(InputStringValue{.StringValue = SymbolParser::shared.token});
+            SymbolParser::dispatch(InputStringValue{.StringValue = std::string(SymbolParser::shared.token)});
             SymbolParser::shared.token.clear();
         }
         if (SymbolParser::shared.token.empty() && isdigit(symbol) && SymbolParser::shared.flag_weight == 1) {
             SymbolParser::shared.token += symbol;
+            continue;
         } else if (!SymbolParser::shared.token.empty() && isdigit(symbol) && SymbolParser::shared.flag_weight == 1) {
             SymbolParser::shared.token += symbol;
+            continue;
         } else if (!SymbolParser::shared.token.empty() && symbol == ' ' && SymbolParser::shared.flag_weight == 1) {
-            SymbolParser::dispatch(InputIntValue{.IntValue = std::any_cast<int>(SymbolParser::shared.token)});
+            SymbolParser::dispatch(InputIntValue{.IntValue = std::stoi(SymbolParser::shared.token)});
             SymbolParser::shared.token.clear();
+            continue;
         }
         if (SymbolParser::shared.token.empty() && (isalpha(symbol) || symbol == '_' ||  isdigit(symbol)) && SymbolParser::shared.flag_curly == 1 && SymbolParser::shared.flag_square == 0 && SymbolParser::shared.flag_hyphen == 0){
             SymbolParser::shared.token += symbol;
+            continue;
         } else if(!SymbolParser::shared.token.empty() && (isalpha(symbol) || symbol == '_' ||  isdigit(symbol)) && SymbolParser::shared.flag_curly == 1 && SymbolParser::shared.flag_square == 0 && SymbolParser::shared.flag_hyphen == 0){
             SymbolParser::shared.token += symbol;
+            continue;
         } else if(!SymbolParser::shared.token.empty() && symbol == ' ' && SymbolParser::shared.flag_curly == 1 && SymbolParser::shared.flag_square == 0 && SymbolParser::shared.flag_hyphen == 0){
             SymbolParser::dispatch(InputNodeId{.NodeId = SymbolParser::shared.token});
             SymbolParser::shared.token.clear();
+            continue;
         }
         if (SymbolParser::shared.token.empty() && (isalpha(symbol) || symbol == '_' ||  isdigit(symbol)) && SymbolParser::shared.flag_curly == 1 && SymbolParser::shared.flag_square == 0 && SymbolParser::shared.flag_hyphen == 2){
             SymbolParser::shared.token += symbol;
+            continue;
         } else if(!SymbolParser::shared.token.empty() && (isalpha(symbol) || symbol == '_' ||  isdigit(symbol)) && SymbolParser::shared.flag_curly == 1 && SymbolParser::shared.flag_square == 0 && SymbolParser::shared.flag_hyphen == 2){
             SymbolParser::shared.token += symbol;
+            continue;
         } else if(!SymbolParser::shared.token.empty() && symbol == ' ' && SymbolParser::shared.flag_curly == 1 && SymbolParser::shared.flag_square == 0 && SymbolParser::shared.flag_hyphen == 2){
             SymbolParser::dispatch(InputNodeIdSecond{.NodeIdSecond = SymbolParser::shared.token});
             SymbolParser::shared.token.clear();
+            continue;
         }
          if(symbol == ' '){
             SymbolParser::dispatch(InputSpace());
+            continue;
         }
         if(symbol == '\n'){
             SymbolParser::dispatch(InputNewLine());
+            continue;
         }
     }
 

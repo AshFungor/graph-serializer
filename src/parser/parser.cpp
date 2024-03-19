@@ -1,5 +1,7 @@
 // standard
+#include <iostream>
 #include <memory>
+#include <ostream>
 #include <stdexcept>
 
 // common
@@ -187,7 +189,6 @@ FSM_INITIAL_STATE(LexemeParser, Idle)
 std::shared_ptr<common::Graph> parser::parse(std::vector<common::Lexeme>& input) {
     LexemeParser::reset();
     LexemeParser::start();
-
     for (const auto& lexeme : input) {
         switch (lexeme.type) {
             case common::LexemeType::GRAPH_START_LABEL:

@@ -49,7 +49,7 @@ int main() {
     auto graph = parser::parse(lexemes);
 
     std::cout << "Parse was successful! Result:\n";
-    graph->dumpGraphState();
+    std::cout<<graph->dumpGraphState()<<std::endl;
 
     return 0;
 }
