@@ -2,6 +2,9 @@ digraph {
   sixth [label = "sixth"]
   fifth [label = "fifth"]
   fourth [label = "fourth"]
+  third 
+  second 
+  first 
 
 
 

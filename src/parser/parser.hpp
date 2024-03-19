@@ -100,6 +100,7 @@ namespace parser {
         void react(InputCloseCurlyBracket const&) override;
         void react(InputOpenSquareBracket const&) override;
         void react(InputEdge const&) override;
+        void react(InputNodeId const&) override;
     };
 
     class OpenSquareBracket : public LexemeParser {

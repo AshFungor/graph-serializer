@@ -75,6 +75,14 @@ void FromNodeID::react(InputEdge const &event) {
     transit<Edge>();
 }
 
+void FromNodeID::react(InputNodeId const &event) {
+    shared.actionQueue.query(makeAction<common::PushNodeAction>(
+        &common::Graph::pushNode, 
+        shared.graph.get(), 
+        event.NodeID));
+    transit<FromNodeID>();
+}
+
 void OpenSquareBracket::react(InputLabel const &event) {
     if (LexemeParser::shared.expectedValue == "label") {
         transit<Label>();
