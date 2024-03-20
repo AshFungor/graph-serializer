@@ -2,6 +2,8 @@
 #include <gtest/gtest.h>
 
 // standard
+#include <iostream>
+#include <ostream>
 #include <vector>
 
 // testing target
@@ -27,7 +29,7 @@ namespace {
 
 
 TEST(LexerTest, ParseSingleEdge) {
-    std::string in = "graph {\n a--b\n}\n";
+    std::string in = "graph {\na-- b\n}";
     auto lexed = lexer::lex(in);
 
     EXPECT_TRUE(matchLex(lexed, {
@@ -41,7 +43,7 @@ TEST(LexerTest, ParseSingleEdge) {
 }
 
 TEST(LexerTest, ParseSingleDirectionalEdge) {
-    std::string in = "digraph {\na -> b\n}\n";
+    std::string in = "digraph {\na -> b \n}";
     auto lexed = lexer::lex(in);
 
     EXPECT_TRUE(matchLex(lexed, {
@@ -55,12 +57,18 @@ TEST(LexerTest, ParseSingleDirectionalEdge) {
 }
 
 TEST(LexerTest, ParseMultipleWithAttributes) {
-    std::string in = "graph {\n a -- b\n [weight = 12]\n b -- c [weight = 11]\n}\n";
+    std::string in = "graph {\na[label = \"qwed\"]\n a -- b [weight = 12]\n b -- c [weight = 11]\n}\n";
     auto lexed = lexer::lex(in);
 
     EXPECT_TRUE(matchLex(lexed, {
         {common::LexemeType::GRAPH_START_LABEL, std::string("graph")}, 
         {common::LexemeType::OPEN_CURLY_BRACKET},
+        {common::LexemeType::NODE_ID, std::string("a")},
+        {common::LexemeType::OPEN_SQUARE_BRACKET},
+        {common::LexemeType::LABEL_ATTRIBUTE},
+        {common::LexemeType::EQUALS_SIGN},
+        {common::LexemeType::ATTRIBUTE_STRING_VALUE, std::string("qwed")},
+        {common::LexemeType::CLOSED_SQUARE_BRACKET},
         {common::LexemeType::NODE_ID, std::string("a")},
         {common::LexemeType::FLAT_ARROW},
         {common::LexemeType::NODE_ID, std::string("b")},

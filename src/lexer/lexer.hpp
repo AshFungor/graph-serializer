@@ -182,6 +182,7 @@ namespace lexer {
 
     class NodeName : public SymbolParser {
         void react(InputOpenSquareBracket const &) override;
+        void react(InputCloseCurlyBracket const &) override;
         void react(InputHyphenFirst const &) override;
         void react(InputSpace const &) override;
         void react(InputNewLine const &) override;
@@ -211,6 +212,7 @@ namespace lexer {
 
     class NodeNameSecond : public SymbolParser {
         void react(InputOpenSquareBracket const &) override;
+        void react(InputCloseCurlyBracket const &) override;
         void react(InputNewLine const &) override;
         void react(InputSpace const &) override;
     };
