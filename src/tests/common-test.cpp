@@ -2,8 +2,11 @@
 #include <gtest/gtest.h>
 
 // standard
+#include <fstream>
 #include <filesystem>
+#include <ios>
 #include <iostream>
+#include <memory>
 #include <optional>
 
 // testing target
@@ -11,6 +14,11 @@
 #include <common/common.hpp>
 #include <common/reverted.hpp>
 #undef private
+
+// lexer & parser
+#include <lexer/lexer.hpp>
+#include <parser/parser.hpp>
+
 
 #define GTEST_COUT(chain) \
     std::cout << "[ INFO     ] " << chain << '\n';
@@ -55,6 +63,18 @@ namespace {
         graph.pushEdge("fourth", common::Connection("sixth", 7));
         graph.pushEdge("fifth", common::Connection("sixth", 8));
         graph.pushEdge("sixth", common::Connection("fifth", 9));
+    }
+
+    std::shared_ptr<common::Graph> readFromFile(const std::string& filename) {
+        std::ifstream ifs {filename, std::ios::in | std::ios::binary};
+        std::string contents;
+        contents.resize(std::filesystem::file_size(filename));
+
+        ifs.read(contents.data(), contents.size());
+        auto lexed = lexer::lex(contents);
+        auto parsed = parser::parse(lexed);
+
+        return std::move(parsed);
     }
 }
 
@@ -130,8 +150,11 @@ TEST(CommonTest, DumpingTest) {
         std::filesystem::remove("test.gv");
     }
 
-    common::GraphDumpingFactory factory ({.verboseWrite = true});
+    // we can't parse comments, write non-verbose
+    common::GraphDumpingFactory factory ({.verboseWrite = false});
     EXPECT_NO_THROW(factory.dumpOne(graph, "test.gv"));
 
-    // add further validation later
+    std::shared_ptr<common::Graph> parsedBack;
+    EXPECT_NO_THROW(parsedBack = readFromFile("test.gv"));
+    GTEST_COUT("parsed back:\n" << parsedBack->dumpGraphState());
 }

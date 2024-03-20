@@ -123,7 +123,7 @@ void OpenSquareBracket::react(InputSpace const &) {
     transit<OpenSquareBracket>();
 }
 void OpenSquareBracket::react(InputCloseSquareBracket const &) {
-    SymbolParser::shared.tokens.push_back({common::LexemeType::CLOSED_SQUARED_BRACKET});
+    SymbolParser::shared.tokens.push_back({common::LexemeType::CLOSED_SQUARE_BRACKET});
     SymbolParser::shared.flag_square = 0;
     transit<CloseSquareBracket>();
 }
@@ -205,7 +205,7 @@ void EqualWeight::react(InputSpace const &) {
 };
 
 void IntValue::react(InputCloseSquareBracket const &) {
-    SymbolParser::shared.tokens.push_back({common::LexemeType::CLOSED_SQUARED_BRACKET});
+    SymbolParser::shared.tokens.push_back({common::LexemeType::CLOSED_SQUARE_BRACKET});
     SymbolParser::shared.flag_square = 0;
     transit<CloseSquareBracket>();
 }
@@ -247,7 +247,7 @@ void EqualLabel::react(InputSpace const &) {
 };
 
 void StringValue::react(InputCloseSquareBracket const &) {
-    SymbolParser::shared.tokens.push_back({common::LexemeType::CLOSED_SQUARED_BRACKET});
+    SymbolParser::shared.tokens.push_back({common::LexemeType::CLOSED_SQUARE_BRACKET});
     SymbolParser::shared.flag_square = 0;
     transit<CloseSquareBracket>();
 };
@@ -277,8 +277,7 @@ FSM_INITIAL_STATE(SymbolParser, Idle)
 std::vector<common::Lexeme> lexer::lex(const std::string& input) {
     SymbolParser::start();
 
-    for (char symbol : input) {
-        std::cout<<symbol<<std::endl;
+    for (const char& symbol : input) {
         if(symbol == 'd' && SymbolParser::shared.flag_curly == 0){
             SymbolParser::dispatch(InputDigraph_D());
             continue;

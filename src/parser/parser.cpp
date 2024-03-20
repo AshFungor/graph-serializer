@@ -81,6 +81,7 @@ void FromNodeID::react(InputNodeId const &event) {
         shared.graph.get(), 
         event.NodeID));
     transit<FromNodeID>();
+    LexemeParser::shared.fromNodeId = event.NodeID;
 }
 
 void OpenSquareBracket::react(InputLabel const &event) {
@@ -235,7 +236,7 @@ std::shared_ptr<common::Graph> parser::parse(std::vector<common::Lexeme>& input)
                 LexemeParser::dispatch(InputOpenSquareBracket());
                 break;
 
-            case common::LexemeType::CLOSED_SQUARED_BRACKET:
+            case common::LexemeType::CLOSED_SQUARE_BRACKET:
                 LexemeParser::dispatch(InputCloseSquareBracket());
                 break;
 

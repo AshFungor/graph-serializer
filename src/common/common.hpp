@@ -38,7 +38,7 @@ namespace common {
         ATTRIBUTE_STRING_VALUE = 9,
         ATTRIBUTE_INT_VALUE = 10,
         CLOSED_CURLY_BRACKET = 11,
-        CLOSED_SQUARED_BRACKET = 12
+        CLOSED_SQUARE_BRACKET = 12
     };
 
     struct Lexeme {

@@ -1,5 +1,4 @@
 // gtest
-#include <cstddef>
 #include <gtest/gtest.h>
 
 // testing target
@@ -78,7 +77,7 @@ TEST(CommonTest, TestConnectionWeight) {
     {common::LexemeType::WEIGHT_ATTRIBUTE},
     {common::LexemeType::EQUALS_SIGN},
     {common::LexemeType::ATTRIBUTE_INT_VALUE, 12},
-    {common::LexemeType::CLOSED_SQUARED_BRACKET},
+    {common::LexemeType::CLOSED_SQUARE_BRACKET},
     {common::LexemeType::NODE_ID, std::string("b")},
     {common::LexemeType::FLAT_ARROW},
     {common::LexemeType::NODE_ID, std::string("c")},
@@ -86,7 +85,7 @@ TEST(CommonTest, TestConnectionWeight) {
     {common::LexemeType::WEIGHT_ATTRIBUTE},
     {common::LexemeType::EQUALS_SIGN},
     {common::LexemeType::ATTRIBUTE_INT_VALUE, 11},
-    {common::LexemeType::CLOSED_SQUARED_BRACKET},
+    {common::LexemeType::CLOSED_SQUARE_BRACKET},
     {common::LexemeType::CLOSED_CURLY_BRACKET}
     };
 
@@ -114,7 +113,7 @@ TEST(CommonTest, TestDirectionalConnectionWeight) {
     {common::LexemeType::WEIGHT_ATTRIBUTE},
     {common::LexemeType::EQUALS_SIGN},
     {common::LexemeType::ATTRIBUTE_INT_VALUE, 12},
-    {common::LexemeType::CLOSED_SQUARED_BRACKET},
+    {common::LexemeType::CLOSED_SQUARE_BRACKET},
 
     {common::LexemeType::NODE_ID, std::string("c")},
     {common::LexemeType::POINTED_ARROW},
@@ -123,7 +122,7 @@ TEST(CommonTest, TestDirectionalConnectionWeight) {
     {common::LexemeType::WEIGHT_ATTRIBUTE},
     {common::LexemeType::EQUALS_SIGN},
     {common::LexemeType::ATTRIBUTE_INT_VALUE, 1},
-    {common::LexemeType::CLOSED_SQUARED_BRACKET},
+    {common::LexemeType::CLOSED_SQUARE_BRACKET},
     {common::LexemeType::CLOSED_CURLY_BRACKET}
     };
     auto graph = parser::parse(input);
@@ -147,14 +146,18 @@ TEST(CommonTest, TestLabelParsing) {
     {common::LexemeType::LABEL_ATTRIBUTE},
     {common::LexemeType::EQUALS_SIGN},
     {common::LexemeType::ATTRIBUTE_STRING_VALUE, std::string("start")},
-    {common::LexemeType::CLOSED_SQUARED_BRACKET},
+    {common::LexemeType::CLOSED_SQUARE_BRACKET},
 
-    {common::LexemeType::NODE_ID, std::string(std::string("b"))},
+    {common::LexemeType::NODE_ID, std::string("b")},
     {common::LexemeType::OPEN_SQUARE_BRACKET},
     {common::LexemeType::LABEL_ATTRIBUTE},
     {common::LexemeType::EQUALS_SIGN},
     {common::LexemeType::ATTRIBUTE_STRING_VALUE, std::string("end")},
-    {common::LexemeType::CLOSED_SQUARED_BRACKET},
+    {common::LexemeType::CLOSED_SQUARE_BRACKET},
+
+    {common::LexemeType::NODE_ID, std::string("x")},
+    {common::LexemeType::NODE_ID, std::string("y")},
+    {common::LexemeType::NODE_ID, std::string("z")},
 
     {common::LexemeType::NODE_ID, std::string("a")},
     {common::LexemeType::FLAT_ARROW},
