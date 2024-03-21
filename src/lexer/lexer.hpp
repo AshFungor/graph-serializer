@@ -25,6 +25,7 @@ namespace lexer {
         int flag_square = 0;
         int flag_hyphen = 0;
         int flag_label_l = 0;
+        int quotes_count = 0;
     };
 
     // ----------------------------------------------------------------------------

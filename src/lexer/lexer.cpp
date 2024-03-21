@@ -235,12 +235,12 @@ void Label_b::react(InputLabel_e const &) {
 };
 void Label_e::react(InputLabel_l const &) {
     SymbolParser::shared.tokens.push_back({common::LexemeType::LABEL_ATTRIBUTE});
-    SymbolParser::shared.flag_label = 1;
     SymbolParser::shared.flag_label_l = 0;
     transit<Label_l>();
 };
 void Label_l::react(InputEqualLabel const &) {
     SymbolParser::shared.tokens.push_back({common::LexemeType::EQUALS_SIGN});
+    SymbolParser::shared.flag_label = 1;
     transit<EqualLabel>();
 };
 void Label_l::react(InputSpace const &) {
@@ -380,12 +380,16 @@ std::vector<common::Lexeme> lexer::lex(const std::string& input) {
             SymbolParser::dispatch(InputLabel_l());
             continue;
         }
-        if (symbol != '"' && SymbolParser::shared.flag_label == 1) {
+        if (symbol != '"' && SymbolParser::shared.flag_label == 1 && SymbolParser::shared.quotes_count == 1) {
             SymbolParser::shared.token += symbol;
-        } else if (!SymbolParser::shared.token.empty() && symbol == '"' && SymbolParser::shared.flag_label == 1) {
+        } else if (symbol == '"' && SymbolParser::shared.flag_label == 1) {
             SymbolParser::shared.token += symbol;
-            SymbolParser::dispatch(InputStringValue{.StringValue = std::string(SymbolParser::shared.token)});
-            SymbolParser::shared.token.clear();
+            SymbolParser::shared.quotes_count++;
+            if (SymbolParser::shared.quotes_count == 2){
+                SymbolParser::dispatch(InputStringValue{.StringValue = std::string(SymbolParser::shared.token.substr(1, SymbolParser::shared.token.size()-2))});
+                SymbolParser::shared.token.clear();
+                SymbolParser::shared.quotes_count = 0;
+            }
         }
         if (isdigit(symbol) && SymbolParser::shared.flag_weight == 1) {
             SymbolParser::shared.token += symbol;
@@ -463,11 +467,11 @@ std::vector<common::Lexeme> lexer::lex(const std::string& input) {
             SymbolParser::dispatch(InputArrow());
             continue;
         }
-        if(symbol == '=' && SymbolParser::shared.flag_label == 1){
+        if(symbol == '=' && SymbolParser::is_in_state<Label_l>()){
             SymbolParser::dispatch(InputEqualLabel());
             continue;
         }
-        if(symbol == '=' && SymbolParser::shared.flag_weight == 1){
+        if(symbol == '=' && SymbolParser::is_in_state<Weight_t>()){
             SymbolParser::dispatch(InputEqualWeight());
             continue;
         }

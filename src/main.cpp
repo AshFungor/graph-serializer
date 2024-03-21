@@ -8,6 +8,7 @@
 
 // graph
 #include <common/common.hpp>
+#include <common/reverted.hpp>
 #include <parser/parser.hpp>
 #include <lexer/lexer.hpp>
 
@@ -51,5 +52,12 @@ int main() {
     std::cout << "Parse was successful! Result:\n";
     std::cout<<graph->dumpGraphState()<<std::endl;
 
+    std::cout << "Dumping graph...\n";
+    if (std::filesystem::exists("res.gv")) {
+        std::filesystem::remove("res.gv");
+    }
+    common::GraphDumpingFactory factory ({.verboseWrite = false});
+    factory.dumpOne(*graph, "res.gv");
+    std::cout << "Parse was successful!\n";
     return 0;
 }
