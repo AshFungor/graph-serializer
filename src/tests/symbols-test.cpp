@@ -29,7 +29,7 @@ namespace {
 
 
 TEST(LexerTest, ParseSingleEdge) {
-    std::string in = "graph {\na-- b\n}";
+    std::string in = "graph {\na -- b\n}";
     auto lexed = lexer::lex(in);
 
     EXPECT_TRUE(matchLex(lexed, {
