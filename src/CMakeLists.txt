@@ -15,4 +15,7 @@ add_subdirectory(tests)
 
 add_executable(graph-serializer ${SOURCES} ${HEADERS})
 
-target_link_libraries(graph-serializer tiny-fsm)
+target_link_libraries(graph-serializer PRIVATE lexer)
+target_link_libraries(graph-serializer PRIVATE parser)
+target_link_libraries(graph-serializer PRIVATE common)
+target_link_libraries(graph-serializer PRIVATE tiny-fsm)

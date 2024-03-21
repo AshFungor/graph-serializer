@@ -1,5 +1,12 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(symbols-fsm VERSION 0.0 LANGUAGES CXX)
+project(lexemes-fsm VERSION 0.0 LANGUAGES CXX)
 
-# parse src...
+set(SOURCES lexer.cpp)
+set(HEADERS lexer.hpp)
+
+add_library(lexer ${SOURCES} ${HEADERS})
+
+target_link_libraries(lexer PRIVATE tiny-fsm common)
+
+target_include_directories(lexer PUBLIC ${SRC_ROOT})

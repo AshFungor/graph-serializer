@@ -1,5 +1,7 @@
 // standard
+#include <iostream>
 #include <memory>
+#include <ostream>
 #include <stdexcept>
 
 // common
@@ -73,6 +75,15 @@ void FromNodeID::react(InputEdge const &event) {
     transit<Edge>();
 }
 
+void FromNodeID::react(InputNodeId const &event) {
+    shared.actionQueue.query(makeAction<common::PushNodeAction>(
+        &common::Graph::pushNode, 
+        shared.graph.get(), 
+        event.NodeID));
+    transit<FromNodeID>();
+    LexemeParser::shared.fromNodeId = event.NodeID;
+}
+
 void OpenSquareBracket::react(InputLabel const &event) {
     if (LexemeParser::shared.expectedValue == "label") {
         transit<Label>();
@@ -95,20 +106,24 @@ void Edge::react(InputNodeId const &event) {
 }
 
 void ToNodeID::react(InputCloseCurlyBracket const &event) {
+    shared.actionQueue.query(makeAction<common::PushNodeAction>(
+        &common::Graph::pushNode, 
+        shared.graph.get(), 
+        LexemeParser::shared.toNodeId));
     if (!(shared.flags & common::opt::wgh)) {
-        shared.actionQueue.query(makeAction<common::PushNodeAction>(
-            &common::Graph::pushNode, 
-            shared.graph.get(), 
-            LexemeParser::shared.toNodeId));
         shared.actionQueue.query(makeAction<common::PushEdgeAction>(
             &common::Graph::pushEdge, 
             shared.graph.get(), 
             LexemeParser::shared.fromNodeId,
             common::Connection(LexemeParser::shared.toNodeId, 1)));
-        transit<Idle>();
     } else {
-        throw_invalid_input("What?");
+        shared.actionQueue.query(makeAction<common::PushEdgeAction>(
+            &common::Graph::pushEdge, 
+            shared.graph.get(), 
+            LexemeParser::shared.fromNodeId,
+            common::Connection(LexemeParser::shared.toNodeId)));
     }
+    transit<Idle>();
 }
 
 void ToNodeID::react(InputOpenSquareBracket const &) {
@@ -117,20 +132,25 @@ void ToNodeID::react(InputOpenSquareBracket const &) {
 }
 
 void ToNodeID::react(InputNodeId const &event) {
+    shared.actionQueue.query(makeAction<common::PushNodeAction>(
+        &common::Graph::pushNode, 
+        shared.graph.get(), 
+        LexemeParser::shared.toNodeId));
     if (!(shared.flags & common::opt::wgh)) {
-        shared.actionQueue.query(makeAction<common::PushNodeAction>(
-            &common::Graph::pushNode, 
-            shared.graph.get(), 
-            LexemeParser::shared.toNodeId));
         shared.actionQueue.query(makeAction<common::PushEdgeAction>(
             &common::Graph::pushEdge, 
             shared.graph.get(), 
             LexemeParser::shared.fromNodeId,
             common::Connection(LexemeParser::shared.toNodeId, LexemeParser::shared.weight)));
-        transit<FromNodeID>();
     } else {
-        throw_invalid_input("What?");
+        shared.actionQueue.query(makeAction<common::PushEdgeAction>(
+            &common::Graph::pushEdge, 
+            shared.graph.get(), 
+            LexemeParser::shared.fromNodeId,
+            common::Connection(LexemeParser::shared.toNodeId)));
     }
+
+    transit<FromNodeID>();
 }
 
 void Label::react(InputEqual const &) {
@@ -187,7 +207,6 @@ FSM_INITIAL_STATE(LexemeParser, Idle)
 std::shared_ptr<common::Graph> parser::parse(std::vector<common::Lexeme>& input) {
     LexemeParser::reset();
     LexemeParser::start();
-
     for (const auto& lexeme : input) {
         switch (lexeme.type) {
             case common::LexemeType::GRAPH_START_LABEL:

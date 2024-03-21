@@ -17,11 +17,12 @@ digraph {
 	from_node_id_or_close_curly_bracket -> remember_from_node_id [label="string(node_id)"]
 	remember_from_node_id -> after_from_node_id
 
-	after_from_node_id [shape = "ellipse" label = "->/--/[/}"]
+	after_from_node_id [shape = "ellipse" label = "->/--/[/}/from node id"]
 	to_node_id [shape = "ellipse" label = "to node id"]
 	after_from_node_id -> to_node_id [label="->(if digraph)"]
 	after_from_node_id -> to_node_id [label="--(if graph)"]
 	after_from_node_id -> entrypoint [label = "}"]
+	after_from_node_id -> from_node_id_or_close_curly_bracket [label = "string(node id)"]
 
 	label_attr [shape = "ellipse" label = "label attribute"]
 	after_from_node_id -> label_attr [label="["] 

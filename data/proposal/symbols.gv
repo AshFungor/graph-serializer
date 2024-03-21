@@ -42,10 +42,11 @@ digraph {
 	node_name [shape="ellipse" label="node name/}/(space/newline)"]
 	node_name->node_name [label="space/newline"]
 	open_g_list->node_name  
-	choice_char [shape="ellipse" label="[/-/space"]
+	choice_char [shape="ellipse" label="[/-/space/}"]
 	choice_char->choice_char [label="space"]
 	choice_char_list [shape="box" label="[ to list"]
 	choice_char->choice_char_list [label="["]
+	choice_char->end [label="}"]
 	node_name->choice_char [label="node name"]
 
 	transition [shape="ellipse" label=" >/- "]
@@ -61,6 +62,7 @@ digraph {
 	node_name2->node_name2 [label="space"]
 	param_node [shape="ellipse" label="[/newline/space"]
 	param_node->space [label="space"]
+	param_node->end [label="}"]
 	space->param_node
 	transition_list1->node_name2 
 	transition_list2->node_name2 
