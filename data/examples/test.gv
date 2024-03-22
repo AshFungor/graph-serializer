@@ -4,13 +4,13 @@ digraph {
   sixth [label = "sixth"]
   fifth [label = "fifth"]
   fourth [label = "fourth"]
-  third 
+  third
   second 
   first 
 
 
 
-  sixth -> fifth [weight = 9]
+  sixth -> fifth [weight = 19]
   fifth -> sixth [weight = 8]
   fourth -> sixth [weight = 7]
   third -> first [weight = 3]
