@@ -360,7 +360,7 @@ std::vector<common::Lexeme> lexer::lex(const std::string& input) {
             SymbolParser::dispatch(InputWeight_t());
             continue;
         }
-        if(symbol == 'l' && SymbolParser::shared.flag_square == 1 && SymbolParser::shared.flag_label_l == 0){
+        if(symbol == 'l' && SymbolParser::shared.flag_square == 1 && SymbolParser::shared.flag_label_l == 0 && SymbolParser::is_in_state<OpenSquareBracket>()){
             SymbolParser::dispatch(InputLabel_L());
             continue;
         }

@@ -111,7 +111,7 @@ std::string Graph::dumpGraphState() const {
     result += std::vformat("Graph object with address {}\n", 
         std::make_format_args((void*) this));
     result += std::vformat("flags: {} directional; {} weighted; has {} nodes and {} edges\n",
-        std::make_format_args((bool) flags_ & opt::drc, (bool) flags_ & opt::wgh, connections_->size(), countEdges()));
+        std::make_format_args(isDirectional(), isWeighted(), connections_->size(), countEdges()));
     for (const auto& pair : *connections_) {
         result += std::vformat("node [{}], label [{}], connections:\n", std::make_format_args(pair.first, getLabel(pair.first).value_or(pair.first)));
         for (const auto& connection : pair.second) {

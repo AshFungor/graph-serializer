@@ -91,6 +91,7 @@ TEST(CommonTest, TestConnectionWeight) {
 
     auto graph = parser::parse(input);
 
+    EXPECT_TRUE(graph->isWeighted());
     EXPECT_TRUE(graph->areConnected("a", "b"));
     EXPECT_TRUE(graph->areConnected("b", "a"));
     EXPECT_EQ(graph->getWeight("a", "b"), 12);
@@ -127,6 +128,7 @@ TEST(CommonTest, TestDirectionalConnectionWeight) {
     };
     auto graph = parser::parse(input);
 
+    EXPECT_TRUE(graph->isWeighted());
     EXPECT_TRUE(graph->areConnected("a", "b"));
     EXPECT_FALSE(graph->areConnected("b", "a"));
     EXPECT_EQ(graph->getWeight("a", "b"), 12);
