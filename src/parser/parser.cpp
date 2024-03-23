@@ -124,19 +124,12 @@ void ToNodeID::react(InputNodeId const &event) {
         &common::Graph::pushNode, 
         shared.graph.get(), 
         LexemeParser::shared.toNodeId));
-    if (!(shared.flags & common::opt::wgh)) {
-        shared.actionQueue.query(makeAction<common::PushEdgeAction>(
-            &common::Graph::pushEdge, 
-            shared.graph.get(), 
-            LexemeParser::shared.fromNodeId,
-            common::Connection(LexemeParser::shared.toNodeId, LexemeParser::shared.weight)));
-    } else {
-        shared.actionQueue.query(makeAction<common::PushEdgeAction>(
-            &common::Graph::pushEdge, 
-            shared.graph.get(), 
-            LexemeParser::shared.fromNodeId,
-            common::Connection(LexemeParser::shared.toNodeId)));
-    }
+    shared.actionQueue.query(makeAction<common::PushEdgeAction>(
+        &common::Graph::pushEdge, 
+        shared.graph.get(), 
+        LexemeParser::shared.fromNodeId,
+        common::Connection(LexemeParser::shared.toNodeId)));
+    
 
     transit<FromNodeID>();
 }
