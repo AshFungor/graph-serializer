@@ -60,10 +60,9 @@ digraph {
 	
 	node_name2 [shape="ellipse" label="node name after char/space"]
 	node_name2->node_name2 [label="space"]
-	param_node [shape="ellipse" label="[/newline/space"]
-	param_node->space [label="space"]
+	param_node [shape="ellipse" label="[/}/newline/space"]
+	param_node->param_node [label="space"]
 	param_node->end [label="}"]
-	space->param_node
 	transition_list1->node_name2 
 	transition_list2->node_name2 
 	node_name2->param_node [label="node name after char"]
@@ -71,35 +70,21 @@ digraph {
 	param_node->param_node_list [label=" [ "]
 	param_node->list [label=" newline "]
 	param_node_list->attr
-
-	list->node_name [label=" ]/newline "]
-	list->attr [label=" space"]
 	
-	attr [shape="ellipse" label="w/l/other symbol/space"]
+	attr [shape="ellipse" label="l/]/other symbol/space"]
+	close_square_list [shape = "box" label = "] to list"] 
+	attr->close_square_list [label = " ] "]
+	close_square_list->node_name
 	attr->attr [label="space"]
 	choice_char_list->attr 
 
-	attr_weight_e [shape="ellipse" label="e"]
-	attr->attr_weight_e [label="w"]
-	attr_weight_i [shape="ellipse" label="i"]
-	attr_weight_e->attr_weight_i [label="e"]
-	attr_weight_g [shape="ellipse" label="g"]
-	attr_weight_i->attr_weight_g [label="i"]
-	attr_weight_h [shape="ellipse" label="h"]
-	attr_weight_g->attr_weight_h [label="g"]
-	attr_weight_t [shape="ellipse" label="t"]
-	attr_weight_h->attr_weight_t [label="h"]
-	attr_weight_list [shape="box" label="weight to list"]
-	attr_weight_t->attr_weight_list [label="t"]
-	attr_weight_equals [shape="ellipse" label="=/space"]
-	attr_weight_equals->attr_weight_equals [label = "space"]
-	attr_weight_equals_list [shape="box" label="= to list"]
-	attr_weight_equals->attr_weight_equals_list [label="="]
-	attr_weight_list->attr_weight_equals 
-	attr_weight_value [shape="ellipse" label="integer/float/fractional/space"]
-	attr_weight_value->attr_weight_value [label="space"]
-	attr_weight_equals_list->attr_weight_value 
-	attr_weight_value->list [label="integer/float/fractional"]
+	list_choice [shape="ellipse" label=" space/(]/newline) "]
+	list_choice_second [shape="ellipse" label=" ]/newline "]
+	list->list_choice
+	list_choice->attr [label=" space "]
+	list_choice->list_choice_second [label=" ]/newline "]
+	list_choice_second->node_name [label=" newline " ]
+	list_choice_second->close_square_list [label=" ] "]
 
 	attr_label_a [shape="ellipse" label="a"]
 	attr->attr_label_a [label="l"]
@@ -116,10 +101,11 @@ digraph {
 	attr_label_list1->attr_label_equals 
 	attr_label_equals_list [shape="box" label="= to list"]
 	attr_label_equals->attr_label_equals_list [label="="]
-	attr_label_open [shape="ellipse" label="''/</space"]
+	attr_label_open [shape="ellipse" label="integer/''/</space"]
 	attr_label_open->attr_label_open [label="space"]
 	attr_label_equals_list->attr_label_open 
 	attr_label_value [shape="ellipse" label="(''/>)/other symbol"]
+	attr_label_open->list [label="integer"]
 	attr_label_open->attr_label_value [label="<"]
 	attr_label_open->attr_label_value [label="''"]
 	attr_label_list [shape="box" label="accumulate"]
@@ -133,4 +119,3 @@ digraph {
 
 	end->start
 }
-
