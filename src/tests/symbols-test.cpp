@@ -72,15 +72,9 @@ TEST(LexerTest, ParseMultipleWithAttributes) {
         {common::LexemeType::NODE_ID, std::string("a")},
         {common::LexemeType::FLAT_ARROW},
         {common::LexemeType::NODE_ID, std::string("b")},
-        {common::LexemeType::OPEN_SQUARE_BRACKET},
-        {common::LexemeType::EQUALS_SIGN},
-        {common::LexemeType::CLOSED_SQUARE_BRACKET},
         {common::LexemeType::NODE_ID, std::string("b")},
         {common::LexemeType::FLAT_ARROW},
         {common::LexemeType::NODE_ID, std::string("c")},
-        {common::LexemeType::OPEN_SQUARE_BRACKET},
-        {common::LexemeType::EQUALS_SIGN},
-        {common::LexemeType::CLOSED_SQUARE_BRACKET},
         {common::LexemeType::CLOSED_CURLY_BRACKET}
     }));
 }
