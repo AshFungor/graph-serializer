@@ -338,10 +338,10 @@ std::vector<common::Lexeme> lexer::lex(const std::string& input) {
         if (isdigit(symbol) && SymbolParser::shared.flag_label == 1) {
             SymbolParser::shared.token += symbol;
             continue;
-        } else if (!SymbolParser::shared.token.empty() && symbol == ' ' && SymbolParser::shared.flag_label == 1) {
+        } else if (!SymbolParser::shared.token.empty() && symbol == ' ' && SymbolParser::shared.flag_label == 1 && SymbolParser::shared.quotes_count == 0) {
             SymbolParser::dispatch(InputIntValue{.IntValue = std::stoi(SymbolParser::shared.token)});
             continue;
-        } else if (!SymbolParser::shared.token.empty() && symbol == ']' && SymbolParser::shared.flag_label == 1) {
+        } else if (!SymbolParser::shared.token.empty() && symbol == ']' && SymbolParser::shared.flag_label == 1 && SymbolParser::shared.quotes_count == 0) {
             SymbolParser::dispatch(InputIntValue{.IntValue = std::stoi(SymbolParser::shared.token)});
             SymbolParser::dispatch(InputCloseSquareBracket());
             continue;
