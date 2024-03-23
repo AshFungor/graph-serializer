@@ -5,7 +5,7 @@
 #include <parser/parser.hpp>
 
 
-TEST(CommonTest, TestGraphDirection) {
+TEST(ParserTest, TestGraphDirection) {
     std::vector<common::Lexeme> input {
     {common::LexemeType::GRAPH_START_LABEL, std::string("graph")}, 
     {common::LexemeType::OPEN_CURLY_BRACKET},
@@ -28,7 +28,7 @@ TEST(CommonTest, TestGraphDirection) {
 }
 
 
-TEST(CommonTest, TestConnection) {
+TEST(ParserTest, TestConnection) {
     std::vector<common::Lexeme> input {
     {common::LexemeType::GRAPH_START_LABEL, std::string("graph")}, 
     {common::LexemeType::OPEN_CURLY_BRACKET},
@@ -48,7 +48,7 @@ TEST(CommonTest, TestConnection) {
 }
 
 
-TEST(CommonTest, TestDirectionalConnection) {
+TEST(ParserTest, TestDirectionalConnection) {
     std::vector<common::Lexeme> input {
     {common::LexemeType::GRAPH_START_LABEL, std::string("digraph")}, 
     {common::LexemeType::OPEN_CURLY_BRACKET},
@@ -66,7 +66,7 @@ TEST(CommonTest, TestDirectionalConnection) {
 }
 
 
-TEST(CommonTest, TestConnectionWeight) {
+TEST(ParserTest, TestConnectionWeight) {
     std::vector<common::Lexeme> input {
     {common::LexemeType::GRAPH_START_LABEL, std::string("graph")}, 
     {common::LexemeType::OPEN_CURLY_BRACKET},
@@ -74,7 +74,7 @@ TEST(CommonTest, TestConnectionWeight) {
     {common::LexemeType::FLAT_ARROW},
     {common::LexemeType::NODE_ID, std::string("b")},
     {common::LexemeType::OPEN_SQUARE_BRACKET},
-    {common::LexemeType::WEIGHT_ATTRIBUTE},
+    {common::LexemeType::LABEL_ATTRIBUTE},
     {common::LexemeType::EQUALS_SIGN},
     {common::LexemeType::ATTRIBUTE_INT_VALUE, 12},
     {common::LexemeType::CLOSED_SQUARE_BRACKET},
@@ -82,7 +82,7 @@ TEST(CommonTest, TestConnectionWeight) {
     {common::LexemeType::FLAT_ARROW},
     {common::LexemeType::NODE_ID, std::string("c")},
     {common::LexemeType::OPEN_SQUARE_BRACKET},
-    {common::LexemeType::WEIGHT_ATTRIBUTE},
+    {common::LexemeType::LABEL_ATTRIBUTE},
     {common::LexemeType::EQUALS_SIGN},
     {common::LexemeType::ATTRIBUTE_INT_VALUE, 11},
     {common::LexemeType::CLOSED_SQUARE_BRACKET},
@@ -103,7 +103,7 @@ TEST(CommonTest, TestConnectionWeight) {
     EXPECT_EQ(graph->getWeight("b", "c"), 11);
 }
 
-TEST(CommonTest, TestDirectionalConnectionWeight) {
+TEST(ParserTest, TestDirectionalConnectionWeight) {
     std::vector<common::Lexeme> input {
     {common::LexemeType::GRAPH_START_LABEL, std::string("digraph")},
     {common::LexemeType::OPEN_CURLY_BRACKET},
@@ -111,7 +111,7 @@ TEST(CommonTest, TestDirectionalConnectionWeight) {
     {common::LexemeType::POINTED_ARROW},
     {common::LexemeType::NODE_ID, std::string("b")},
     {common::LexemeType::OPEN_SQUARE_BRACKET},
-    {common::LexemeType::WEIGHT_ATTRIBUTE},
+    {common::LexemeType::LABEL_ATTRIBUTE},
     {common::LexemeType::EQUALS_SIGN},
     {common::LexemeType::ATTRIBUTE_INT_VALUE, 12},
     {common::LexemeType::CLOSED_SQUARE_BRACKET},
@@ -120,7 +120,7 @@ TEST(CommonTest, TestDirectionalConnectionWeight) {
     {common::LexemeType::POINTED_ARROW},
     {common::LexemeType::NODE_ID, std::string("d")},
     {common::LexemeType::OPEN_SQUARE_BRACKET},
-    {common::LexemeType::WEIGHT_ATTRIBUTE},
+    {common::LexemeType::LABEL_ATTRIBUTE},
     {common::LexemeType::EQUALS_SIGN},
     {common::LexemeType::ATTRIBUTE_INT_VALUE, 1},
     {common::LexemeType::CLOSED_SQUARE_BRACKET},
@@ -139,7 +139,7 @@ TEST(CommonTest, TestDirectionalConnectionWeight) {
 }
 
 
-TEST(CommonTest, TestLabelParsing) {
+TEST(ParserTest, TestLabelParsing) {
     std::vector<common::Lexeme> input {
     {common::LexemeType::GRAPH_START_LABEL, std::string("graph")}, 
     {common::LexemeType::OPEN_CURLY_BRACKET},

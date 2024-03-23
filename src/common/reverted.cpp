@@ -80,7 +80,7 @@ void GraphDumpingFactory::dumpGraphEdges(const Graph& unit) {
             ofs_ << "  " << pair.first;
             ofs_ << ((unit.isDirectional()) ? " -> " : " -- ") << connection.peer << ' ';
             if (unit.isWeighted()) {
-                ofs_ << "[weight = " << connection.weight.value_or(0) << "]";
+                ofs_ << "[label = " << connection.weight.value_or(0) << "]";
             }
             ofs_ << '\n';
             if (!met.contains(connection.peer)) met.insert(connection.peer);
