@@ -43,7 +43,7 @@ TEST(LexerTest, ParseSingleEdge) {
 }
 
 TEST(LexerTest, ParseSingleDirectionalEdge) {
-    std::string in = "digraph {\na -> b \n}";
+    std::string in = "digraph {\na -> b [label = 5]\n}";
     auto lexed = lexer::lex(in);
 
     EXPECT_TRUE(matchLex(lexed, {
@@ -52,6 +52,11 @@ TEST(LexerTest, ParseSingleDirectionalEdge) {
         {common::LexemeType::NODE_ID, std::string("a")},
         {common::LexemeType::POINTED_ARROW},
         {common::LexemeType::NODE_ID, std::string("b")},
+        {common::LexemeType::OPEN_SQUARE_BRACKET},
+        {common::LexemeType::LABEL_ATTRIBUTE},
+        {common::LexemeType::EQUALS_SIGN},
+        {common::LexemeType::ATTRIBUTE_INT_VALUE, 5},
+        {common::LexemeType::CLOSED_SQUARE_BRACKET},
         {common::LexemeType::CLOSED_CURLY_BRACKET}
     }));
 }

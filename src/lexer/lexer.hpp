@@ -61,6 +61,7 @@ namespace lexer {
     struct InputNodeId               : lexemeEvent {std::string NodeId; };
     struct InputNodeIdSecond         : lexemeEvent {std::string NodeIdSecond; };
     struct InputStringValue          : lexemeEvent {std::string StringValue; };
+    struct InputIntValue             : lexemeEvent {int IntValue; };
 
     // ----------------------------------------------------------------------------
     // 2. State Machine Base Class Declaration
@@ -97,6 +98,8 @@ namespace lexer {
         virtual void react(InputLabel_l  const &)           { throw_invalid_input(""); };
         virtual void react(InputEqualLabel const &)         { throw_invalid_input(""); };
         virtual void react(InputStringValue const &)        { throw_invalid_input(""); };
+        virtual void react(InputIntValue const &)           { throw_invalid_input(""); };
+
 
         static void reset();
         void entry();  /* entry actions in some states */
@@ -219,9 +222,14 @@ namespace lexer {
     };
     class EqualLabel : public SymbolParser {
         void react(InputStringValue const &) override;
+        void react(InputIntValue const &) override;
         void react(InputSpace const &) override;
     };
     class StringValue : public SymbolParser {
+        void react(InputCloseSquareBracket const &) override;
+        void react(InputSpace const &) override;
+    };
+    class IntValue : public SymbolParser {
         void react(InputCloseSquareBracket const &) override;
         void react(InputSpace const &) override;
     };

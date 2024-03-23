@@ -38,11 +38,8 @@ digraph {
 
 	after_to_node_id -> entrypoint [label = "}"]
 	after_to_node_id -> remember_from_node_id [label = "string(node_id)"]
-
-	weight_attr [shape = "ellipse" label = "weight attribute"]
-	after_to_node_id -> weight_attr [label="["] 
-
-	weight_attr -> equal [label="weight"]
+	
+	after_to_node_id -> label_attr [label="["] 
 
 	attr_value [shape = "ellipse" label = "value"]
 	equal -> attr_value [label="="]

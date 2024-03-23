@@ -86,7 +86,6 @@ digraph {
 	list_choice_second->node_name [label=" newline " ]
 	list_choice_second->close_square_list [label=" ] "]
 
-
 	attr_label_a [shape="ellipse" label="a"]
 	attr->attr_label_a [label="l"]
 	attr_label_b [shape="ellipse" label="b"]
@@ -102,10 +101,11 @@ digraph {
 	attr_label_list1->attr_label_equals 
 	attr_label_equals_list [shape="box" label="= to list"]
 	attr_label_equals->attr_label_equals_list [label="="]
-	attr_label_open [shape="ellipse" label="''/</space"]
+	attr_label_open [shape="ellipse" label="integer/''/</space"]
 	attr_label_open->attr_label_open [label="space"]
 	attr_label_equals_list->attr_label_open 
 	attr_label_value [shape="ellipse" label="(''/>)/other symbol"]
+	attr_label_open->list [label="integer"]
 	attr_label_open->attr_label_value [label="<"]
 	attr_label_open->attr_label_value [label="''"]
 	attr_label_list [shape="box" label="accumulate"]
