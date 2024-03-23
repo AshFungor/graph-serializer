@@ -205,9 +205,24 @@ void EqualLabel::react(InputStringValue const &event) {
     SymbolParser::shared.flag_label = 0;
     transit<StringValue>();
 };
+void EqualLabel::react(InputIntValue const &event) {
+    SymbolParser::shared.tokens.push_back({common::LexemeType::ATTRIBUTE_INT_VALUE, std::make_any<int>(event.IntValue)});
+    SymbolParser::shared.flag_label = 0;
+    SymbolParser::shared.token.clear();
+    transit<IntValue>();
+};
 void EqualLabel::react(InputSpace const &) {
     transit<EqualLabel>();
 };
+
+void IntValue::react(InputCloseSquareBracket const &) {
+    SymbolParser::shared.tokens.push_back({common::LexemeType::CLOSED_SQUARE_BRACKET});
+    SymbolParser::shared.flag_square = 0;
+    transit<CloseSquareBracket>();
+}
+void IntValue::react(InputSpace const &) {
+    transit<OpenSquareBracket>();
+}
 
 void StringValue::react(InputCloseSquareBracket const &) {
     SymbolParser::shared.tokens.push_back({common::LexemeType::CLOSED_SQUARE_BRACKET});
