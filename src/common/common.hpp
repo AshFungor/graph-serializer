@@ -33,12 +33,11 @@ namespace common {
         FLAT_ARROW = 4,
         OPEN_SQUARE_BRACKET = 5,
         LABEL_ATTRIBUTE = 6,
-        WEIGHT_ATTRIBUTE = 7,
-        EQUALS_SIGN = 8,
-        ATTRIBUTE_STRING_VALUE = 9,
-        ATTRIBUTE_INT_VALUE = 10,
-        CLOSED_CURLY_BRACKET = 11,
-        CLOSED_SQUARE_BRACKET = 12
+        EQUALS_SIGN = 7,
+        ATTRIBUTE_STRING_VALUE = 8,
+        ATTRIBUTE_INT_VALUE = 9,
+        CLOSED_CURLY_BRACKET = 10,
+        CLOSED_SQUARE_BRACKET = 11
     };
 
     struct Lexeme {
