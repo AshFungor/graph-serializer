@@ -43,7 +43,6 @@ namespace parser {
     struct InputCloseSquareBracket  : GraphEvent {};
     struct InputEdge                : GraphEvent {};
     struct InputLabel               : GraphEvent {};
-    struct InputWeight              : GraphEvent {};
     struct InputEqual               : GraphEvent {};
     struct InputGraphType           : GraphEvent { std::string graphType; };
     struct InputNodeId              : GraphEvent { std::string NodeID; };
@@ -64,7 +63,6 @@ namespace parser {
         virtual void react(InputCloseSquareBracket const &) { throw_invalid_input(""); };
         virtual void react(InputEdge const &)               { throw_invalid_input(""); };
         virtual void react(InputLabel const &)              { throw_invalid_input(""); };
-        virtual void react(InputWeight const &)             { throw_invalid_input(""); };
         virtual void react(InputEqual const &)              { throw_invalid_input(""); };
         virtual void react(InputStringValue const &)        { throw_invalid_input(""); };
         virtual void react(InputIntValue const &)           { throw_invalid_input(""); };
@@ -105,7 +103,6 @@ namespace parser {
 
     class OpenSquareBracket : public LexemeParser {
         void react(InputLabel const &) override;
-        void react(InputWeight const &) override;
     };
 
     class Edge : public LexemeParser {
@@ -119,10 +116,6 @@ namespace parser {
     };
 
     class Label : public LexemeParser {
-        void react(InputEqual const &) override;
-    };
-
-    class Weight : public LexemeParser {
         void react(InputEqual const &) override;
     };
 

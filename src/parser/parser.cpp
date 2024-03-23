@@ -85,19 +85,7 @@ void FromNodeID::react(InputNodeId const &event) {
 }
 
 void OpenSquareBracket::react(InputLabel const &event) {
-    if (LexemeParser::shared.expectedValue == "label") {
-        transit<Label>();
-    } else {
-        throw_invalid_input("Expected label, found: " + LexemeParser::shared.expectedValue);
-    }
-}
-
-void OpenSquareBracket::react(InputWeight const &event) {
-    if (LexemeParser::shared.expectedValue == "weight") {
-        transit<Weight>();
-    } else {
-        throw_invalid_input("Expected weight, found: " + LexemeParser::shared.expectedValue);
-    }
+    transit<Label>();
 }
 
 void Edge::react(InputNodeId const &event) {
@@ -154,10 +142,6 @@ void ToNodeID::react(InputNodeId const &event) {
 }
 
 void Label::react(InputEqual const &) {
-    transit<Equal>();
-}
-
-void Weight::react(InputEqual const &) {
     transit<Equal>();
 }
 
@@ -251,10 +235,6 @@ std::shared_ptr<common::Graph> parser::parse(std::vector<common::Lexeme>& input)
 
             case common::LexemeType::LABEL_ATTRIBUTE:
                 LexemeParser::dispatch(InputLabel());
-                break;
-
-            case common::LexemeType::WEIGHT_ATTRIBUTE:
-                LexemeParser::dispatch(InputWeight());
                 break;
 
             case common::LexemeType::EQUALS_SIGN:
