@@ -117,9 +117,7 @@ void NodeName::react(InputNewLine const &) {
     transit<OpenCurlyBracket>();
 }
 
-void OpenSquareBracket::react(InputWeight_W const &) {
-    transit<Weight_W>();
-}
+
 void OpenSquareBracket::react(InputLabel_L const &) {
     SymbolParser::shared.flag_label_l = 1;
     transit<Label_L>();
@@ -178,51 +176,6 @@ void NodeNameSecond::react(InputNewLine const &) {
 void NodeNameSecond::react(InputSpace const &) {
     transit<NodeNameSecond>();
 }
-
-void Weight_W::react(InputWeight_e const &) {
-    transit<Weight_e>();
-};
-void Weight_e::react(InputWeight_i const &) {
-    transit<Weight_i>();
-};
-void Weight_i::react(InputWeight_g const &) {
-    transit<Weight_g>();
-};
-void Weight_g::react(InputWeight_h const &) {
-    transit<Weight_h>();
-};
-void Weight_h::react(InputWeight_t const &) {
-    SymbolParser::shared.tokens.push_back({common::LexemeType::WEIGHT_ATTRIBUTE});
-    SymbolParser::shared.flag_weight = 1;
-    transit<Weight_t>();
-};
-void Weight_t::react(InputEqualWeight const &) {
-    SymbolParser::shared.tokens.push_back({common::LexemeType::EQUALS_SIGN});
-    transit<EqualWeight>();
-};
-void Weight_t::react(InputSpace const &) {
-    transit<Weight_t>();
-};
-
-void EqualWeight::react(InputIntValue const &event) {
-    SymbolParser::shared.tokens.push_back({common::LexemeType::ATTRIBUTE_INT_VALUE, std::make_any<int>(event.IntValue)});
-    SymbolParser::shared.flag_weight = 0;
-    SymbolParser::shared.token.clear();
-    transit<IntValue>();
-};
-void EqualWeight::react(InputSpace const &) {
-    transit<EqualWeight>();
-};
-
-void IntValue::react(InputCloseSquareBracket const &) {
-    SymbolParser::shared.tokens.push_back({common::LexemeType::CLOSED_SQUARE_BRACKET});
-    SymbolParser::shared.flag_square = 0;
-    transit<CloseSquareBracket>();
-}
-void IntValue::react(InputSpace const &) {
-    transit<OpenSquareBracket>();
-}
-
 
 void Label_L::react(InputLabel_a const &) {
     transit<Label_a>();
@@ -336,30 +289,6 @@ std::vector<common::Lexeme> lexer::lex(const std::string& input) {
             SymbolParser::dispatch(InputGraph_h());
             continue;
         }
-        if(symbol == 'w' && SymbolParser::shared.flag_square == 1 && SymbolParser::is_in_state<OpenSquareBracket>()){
-            SymbolParser::dispatch(InputWeight_W());
-            continue;
-        }
-        if(symbol == 'e' && SymbolParser::shared.flag_square == 1 && SymbolParser::is_in_state<Weight_W>()){
-            SymbolParser::dispatch(InputWeight_e());
-            continue;
-        }
-        if(symbol == 'i' && SymbolParser::shared.flag_square == 1 && SymbolParser::is_in_state<Weight_e>()){
-            SymbolParser::dispatch(InputWeight_i());
-            continue;
-        }
-        if(symbol == 'g' && SymbolParser::shared.flag_square == 1 && SymbolParser::is_in_state<Weight_i>()){
-            SymbolParser::dispatch(InputWeight_g());
-            continue;
-        }
-        if(symbol == 'h' && SymbolParser::shared.flag_square == 1 && SymbolParser::is_in_state<Weight_g>()){
-            SymbolParser::dispatch(InputWeight_h());
-            continue;
-        }
-        if(symbol == 't' && SymbolParser::shared.flag_square == 1 && SymbolParser::is_in_state<Weight_h>()){
-            SymbolParser::dispatch(InputWeight_t());
-            continue;
-        }
         if(symbol == 'l' && SymbolParser::shared.flag_square == 1 && SymbolParser::shared.flag_label_l == 0 && SymbolParser::is_in_state<OpenSquareBracket>()){
             SymbolParser::dispatch(InputLabel_L());
             continue;
@@ -390,17 +319,6 @@ std::vector<common::Lexeme> lexer::lex(const std::string& input) {
                 SymbolParser::shared.token.clear();
                 SymbolParser::shared.quotes_count = 0;
             }
-        }
-        if (isdigit(symbol) && SymbolParser::shared.flag_weight == 1) {
-            SymbolParser::shared.token += symbol;
-            continue;
-        } else if (!SymbolParser::shared.token.empty() && symbol == ' ' && SymbolParser::shared.flag_weight == 1) {
-            SymbolParser::dispatch(InputIntValue{.IntValue = std::stoi(SymbolParser::shared.token)});
-            continue;
-        } else if (!SymbolParser::shared.token.empty() && symbol == ']' && SymbolParser::shared.flag_weight == 1) {
-            SymbolParser::dispatch(InputIntValue{.IntValue = std::stoi(SymbolParser::shared.token)});
-            SymbolParser::dispatch(InputCloseSquareBracket());
-            continue;
         }
 
         if ((isalpha(symbol) || symbol == '_' ||  isdigit(symbol)) && SymbolParser::shared.flag_curly == 1 && SymbolParser::shared.flag_square == 0 && SymbolParser::shared.flag_hyphen == 0){
@@ -469,10 +387,6 @@ std::vector<common::Lexeme> lexer::lex(const std::string& input) {
         }
         if(symbol == '=' && SymbolParser::is_in_state<Label_l>()){
             SymbolParser::dispatch(InputEqualLabel());
-            continue;
-        }
-        if(symbol == '=' && SymbolParser::is_in_state<Weight_t>()){
-            SymbolParser::dispatch(InputEqualWeight());
             continue;
         }
         if(symbol == '-' && SymbolParser::shared.flag_hyphen == 0){
