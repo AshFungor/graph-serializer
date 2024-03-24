@@ -130,6 +130,7 @@ void ToNodeID::react(InputNodeId const &event) {
         LexemeParser::shared.fromNodeId,
         common::Connection(LexemeParser::shared.toNodeId)));
     
+    LexemeParser::shared.fromNodeId = event.NodeID;
 
     transit<FromNodeID>();
 }

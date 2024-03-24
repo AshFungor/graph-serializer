@@ -1,4 +1,5 @@
 // gtest
+#include <cstddef>
 #include <gtest/gtest.h>
 
 // testing target
@@ -52,16 +53,51 @@ TEST(ParserTest, TestDirectionalConnection) {
     std::vector<common::Lexeme> input {
     {common::LexemeType::GRAPH_START_LABEL, std::string("digraph")}, 
     {common::LexemeType::OPEN_CURLY_BRACKET},
+    {common::LexemeType::NODE_ID, std::string("c")},
+    {common::LexemeType::NODE_ID, std::string("d")},
+    {common::LexemeType::NODE_ID, std::string("e")},
+    {common::LexemeType::NODE_ID, std::string("a")},
+    {common::LexemeType::OPEN_SQUARE_BRACKET},
+    {common::LexemeType::LABEL_ATTRIBUTE},
+    {common::LexemeType::EQUALS_SIGN},
+    {common::LexemeType::ATTRIBUTE_STRING_VALUE, std::string("qwe")},
+    {common::LexemeType::CLOSED_SQUARE_BRACKET},
+
+    {common::LexemeType::NODE_ID, std::string("b")},
+    {common::LexemeType::OPEN_SQUARE_BRACKET},
+    {common::LexemeType::LABEL_ATTRIBUTE},
+    {common::LexemeType::EQUALS_SIGN},
+    {common::LexemeType::ATTRIBUTE_STRING_VALUE, std::string("ewq")},
+    {common::LexemeType::CLOSED_SQUARE_BRACKET},
+
     {common::LexemeType::NODE_ID, std::string("a")},
     {common::LexemeType::POINTED_ARROW},
     {common::LexemeType::NODE_ID, std::string("b")},
+
+    {common::LexemeType::NODE_ID, std::string("a")},
+    {common::LexemeType::POINTED_ARROW},
+    {common::LexemeType::NODE_ID, std::string("c")},
+
+    {common::LexemeType::NODE_ID, std::string("d")},
+    {common::LexemeType::POINTED_ARROW},
+    {common::LexemeType::NODE_ID, std::string("c")},
+
     {common::LexemeType::CLOSED_CURLY_BRACKET}
     };
 
     auto graph = parser::parse(input);
 
     EXPECT_TRUE(graph->areConnected("a", "b"));
+    EXPECT_TRUE(graph->areConnected("a", "c"));
+    EXPECT_TRUE(graph->areConnected("d", "c"));
+    EXPECT_FALSE(graph->areConnected("c", "d"));
+    EXPECT_FALSE(graph->areConnected("c", "a"));
     EXPECT_FALSE(graph->areConnected("b", "a"));
+    EXPECT_EQ(graph->getLabel("a"), "qwe");
+    EXPECT_EQ(graph->getLabel("b"), "ewq");
+    EXPECT_EQ(graph->getLabel("c"), std::nullopt);
+    EXPECT_EQ(graph->getLabel("d"), std::nullopt);
+    EXPECT_EQ(graph->getLabel("e"), std::nullopt);
     EXPECT_EQ(graph->getWeight("a", "b"), std::nullopt);
 }
 
