@@ -63,6 +63,10 @@ void FromNodeID::react(InputCloseCurlyBracket const &event) {
 }
 
 void FromNodeID::react(InputOpenSquareBracket const &) {
+    shared.actionQueue.query(makeAction<common::PushNodeAction>(
+        &common::Graph::pushNode, 
+        shared.graph.get(), 
+        LexemeParser::shared.fromNodeId));
     LexemeParser::shared.expectedValue = "label";
     transit<OpenSquareBracket>();
 }

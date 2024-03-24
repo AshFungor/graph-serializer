@@ -55,13 +55,13 @@ TEST(ParserTest, TestDirectionalConnection) {
     {common::LexemeType::OPEN_CURLY_BRACKET},
     {common::LexemeType::NODE_ID, std::string("c")},
     {common::LexemeType::NODE_ID, std::string("d")},
-    {common::LexemeType::NODE_ID, std::string("e")},
     {common::LexemeType::NODE_ID, std::string("a")},
     {common::LexemeType::OPEN_SQUARE_BRACKET},
     {common::LexemeType::LABEL_ATTRIBUTE},
     {common::LexemeType::EQUALS_SIGN},
     {common::LexemeType::ATTRIBUTE_STRING_VALUE, std::string("qwe")},
     {common::LexemeType::CLOSED_SQUARE_BRACKET},
+    {common::LexemeType::NODE_ID, std::string("e")},
 
     {common::LexemeType::NODE_ID, std::string("b")},
     {common::LexemeType::OPEN_SQUARE_BRACKET},
@@ -106,6 +106,16 @@ TEST(ParserTest, TestConnectionWeight) {
     std::vector<common::Lexeme> input {
     {common::LexemeType::GRAPH_START_LABEL, std::string("graph")}, 
     {common::LexemeType::OPEN_CURLY_BRACKET},
+    {common::LexemeType::NODE_ID, std::string("q")},
+    {common::LexemeType::OPEN_SQUARE_BRACKET},
+    {common::LexemeType::LABEL_ATTRIBUTE},
+    {common::LexemeType::EQUALS_SIGN},
+    {common::LexemeType::ATTRIBUTE_STRING_VALUE, std::string("qwe")},
+    {common::LexemeType::CLOSED_SQUARE_BRACKET},
+    {common::LexemeType::NODE_ID, std::string("e")},
+    {common::LexemeType::NODE_ID, std::string("f")},
+    {common::LexemeType::NODE_ID, std::string("g")},
+
     {common::LexemeType::NODE_ID, std::string("a")},
     {common::LexemeType::FLAT_ARROW},
     {common::LexemeType::NODE_ID, std::string("b")},
@@ -114,6 +124,8 @@ TEST(ParserTest, TestConnectionWeight) {
     {common::LexemeType::EQUALS_SIGN},
     {common::LexemeType::ATTRIBUTE_INT_VALUE, 12},
     {common::LexemeType::CLOSED_SQUARE_BRACKET},
+
+    
     {common::LexemeType::NODE_ID, std::string("b")},
     {common::LexemeType::FLAT_ARROW},
     {common::LexemeType::NODE_ID, std::string("c")},
@@ -137,6 +149,15 @@ TEST(ParserTest, TestConnectionWeight) {
     EXPECT_TRUE(graph->areConnected("b", "c"));
     EXPECT_EQ(graph->getWeight("c", "b"), 11);
     EXPECT_EQ(graph->getWeight("b", "c"), 11);
+
+    EXPECT_EQ(graph->getLabel("a"), std::nullopt);
+    EXPECT_EQ(graph->getLabel("q"), "qwe");
+    EXPECT_EQ(graph->getLabel("b"), std::nullopt);
+    EXPECT_EQ(graph->getLabel("c"), std::nullopt);
+    EXPECT_EQ(graph->getLabel("d"), std::nullopt);
+    EXPECT_EQ(graph->getLabel("e"), std::nullopt);
+    EXPECT_EQ(graph->getLabel("f"), std::nullopt);
+    EXPECT_EQ(graph->getLabel("g"), std::nullopt);
 }
 
 TEST(ParserTest, TestDirectionalConnectionWeight) {

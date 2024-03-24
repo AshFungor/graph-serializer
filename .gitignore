@@ -1,4 +1,5 @@
 test.gv
+res.gv
 
 # C++ objects and libs
 *.slo
