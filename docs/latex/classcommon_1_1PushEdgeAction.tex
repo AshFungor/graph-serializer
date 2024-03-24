@@ -1,0 +1,57 @@
+\doxysection{common\+::Push\+Edge\+Action Class Reference}
+\hypertarget{classcommon_1_1PushEdgeAction}{}\label{classcommon_1_1PushEdgeAction}\index{common::PushEdgeAction@{common::PushEdgeAction}}
+
+
+Push\+Edge action interface implementation.  
+
+
+
+
+{\ttfamily \#include $<$action-\/queue.\+hpp$>$}
+
+Inheritance diagram for common\+::Push\+Edge\+Action\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classcommon_1_1PushEdgeAction}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classcommon_1_1PushEdgeAction_aea44d67e4bec868e4480d2fa46fe7cab}\label{classcommon_1_1PushEdgeAction_aea44d67e4bec868e4480d2fa46fe7cab} 
+using {\bfseries push\+\_\+edge\+\_\+action} = void (common\+::\+Graph\+::\texorpdfstring{$\ast$}{*})(std\+::string, \mbox{\hyperlink{structcommon_1_1Connection}{Connection}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classcommon_1_1PushEdgeAction_a91f26891138fcc1f0bcddf95b44b6e17}\label{classcommon_1_1PushEdgeAction_a91f26891138fcc1f0bcddf95b44b6e17} 
+{\bfseries Push\+Edge\+Action} (push\+\_\+edge\+\_\+action action, \mbox{\hyperlink{classcommon_1_1Graph}{Graph}} \texorpdfstring{$\ast$}{*}instance, std\+::string name, \mbox{\hyperlink{structcommon_1_1Connection}{Connection}} edge)
+\item 
+virtual void \mbox{\hyperlink{classcommon_1_1PushEdgeAction_a488dbf9ba854f5540ed5ee22e7c744b6}{make}} () override final
+\begin{DoxyCompactList}\small\item\em call to action \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Push\+Edge action interface implementation. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classcommon_1_1PushEdgeAction_a488dbf9ba854f5540ed5ee22e7c744b6}\label{classcommon_1_1PushEdgeAction_a488dbf9ba854f5540ed5ee22e7c744b6} 
+\index{common::PushEdgeAction@{common::PushEdgeAction}!make@{make}}
+\index{make@{make}!common::PushEdgeAction@{common::PushEdgeAction}}
+\doxysubsubsection{\texorpdfstring{make()}{make()}}
+{\footnotesize\ttfamily void Push\+Edge\+Action\+::make (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [final]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+call to action 
+
+
+
+Implements \mbox{\hyperlink{classcommon_1_1IAction_a95a61207edf7631d0315e943dc1a24c7}{common\+::\+IAction}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/common/action-\/queue.\+hpp\item 
+src/common/action-\/queue.\+cpp\end{DoxyCompactItemize}
