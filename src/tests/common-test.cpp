@@ -97,7 +97,7 @@ TEST(CommonTest, DirectionalWeightedGraphTest) {
     EXPECT_EQ(graph.getWeight("second", "third"), 2);
     EXPECT_EQ(graph.getWeight("third", "first"), 3);
 
-    dumpContainer(graph);
+    // dumpContainer(graph);
 }
 
 TEST(CommonTest, ZeroFlagGraphTest) {
@@ -123,7 +123,7 @@ TEST(CommonTest, ZeroFlagGraphTest) {
     EXPECT_EQ(graph.getWeight("third", "second"), std::nullopt);
     EXPECT_EQ(graph.getWeight("first", "third"), std::nullopt);
 
-    dumpContainer(graph);
+    // dumpContainer(graph);
 }
 
 TEST(CommonTest, VerboseGraph) {

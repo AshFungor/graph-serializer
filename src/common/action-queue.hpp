@@ -11,11 +11,20 @@
 
 namespace common {
 
+    /**
+     * @brief Callback Interface
+     */
     class IAction {
     public:
+        /**
+         * @brief call to action
+         */
         virtual void make() = 0;
     };
 
+    /**
+     * @brief PushNode action interface implementation
+     */
     class PushNodeAction : public IAction {
     public:
         using push_node_proto = void (common::Graph::*)(std::string);
@@ -30,6 +39,9 @@ namespace common {
         std::string name_;
     };
 
+    /**
+     * @brief SetLabel action interface implementation
+     */
     class SetLabelAction : public IAction {
     public:
         using set_node_label = void (common::Graph::*)(std::string, std::string);
@@ -45,6 +57,9 @@ namespace common {
         std::string label_;
     };
 
+    /**
+     * @brief PushEdge action interface implementation
+     */
     class PushEdgeAction : public IAction {
     public:
         using push_edge_action = void (common::Graph::*)(std::string, Connection);
@@ -60,10 +75,27 @@ namespace common {
         Connection edge_;
     };
 
+    /**
+     * @brief Queue for actions
+     * Stores actions and then allows to dump them when needed.
+     */
     class ActionQueue {
     public:
+
+        /**
+         * @brief Dump all actions till queue is empty
+         */
         void dumpAllActions();
+
+        /**
+         * @brief Dump single action from queue
+         */
         void dumpAction();
+
+        /**
+         * @brief Add action to queue
+         * @param action action to add
+         */
         void query(std::shared_ptr<IAction> action);
 
     private:
