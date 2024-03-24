@@ -1,0 +1,17 @@
+graph {
+
+
+  third 
+  fifth [label = "fifth"]
+  sixth [label = "sixth"]
+  first 
+  second 
+
+
+
+  third -- second [label = 2]
+  third -- first [label = 6]
+  fifth -- sixth [label = 9]
+  first -- second [label = 4]
+
+}

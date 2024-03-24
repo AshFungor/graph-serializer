@@ -76,11 +76,7 @@ void GraphDumpingFactory::dumpGraphEdges(const Graph& unit) {
     std::unordered_map<std::string, std::set<std::string>> met;
     for (const auto& pair : *unit.connections_) {
         for (const auto& connection : pair.second) {
-<<<<<<< Updated upstream
-            if (!unit.isDirectional() && met.contains(pair.first)) continue;
-=======
             if (!unit.isDirectional() && met[pair.first].contains(connection.peer)) continue;
->>>>>>> Stashed changes
             ofs_ << "  " << pair.first;
             ofs_ << ((unit.isDirectional()) ? " -> " : " -- ") << connection.peer << ' ';
             if (unit.isWeighted()) {
