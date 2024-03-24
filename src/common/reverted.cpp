@@ -1,5 +1,4 @@
 // standard
-#include <unordered_set>
 #include <string_view>
 #include <filesystem>
 #include <stdexcept>
@@ -9,6 +8,7 @@
 #include <ostream>
 #include <memory>
 #include <string>
+#include <set>
 #include <ios>
 
 // common
@@ -73,17 +73,18 @@ void GraphDumpingFactory::dumpGraphEdges(const Graph& unit) {
     }
 
     ofs_ << '\n';
-    std::unordered_set<std::string> met;
+    std::unordered_map<std::string, std::set<std::string>> met;
     for (const auto& pair : *unit.connections_) {
         for (const auto& connection : pair.second) {
-            if (!unit.isDirectional() && met.contains(pair.first)) continue;
+            if (!unit.isDirectional() && met[pair.first].contains(connection.peer)) continue;
             ofs_ << "  " << pair.first;
             ofs_ << ((unit.isDirectional()) ? " -> " : " -- ") << connection.peer << ' ';
             if (unit.isWeighted()) {
                 ofs_ << "[label = " << connection.weight.value_or(0) << "]";
             }
             ofs_ << '\n';
-            if (!met.contains(connection.peer)) met.insert(connection.peer);
+            met[pair.first].insert(connection.peer);
+            met[connection.peer].insert(pair.first);
         }
     }
     ofs_ << '\n';
