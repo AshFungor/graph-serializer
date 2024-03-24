@@ -128,6 +128,10 @@ namespace parser {
         void react(InputCloseSquareBracket const &) override;
     };
 
-
+    /**
+     * @brief Parse lexemes vector into graph object
+     * @param input lexemes
+     * @return std::shared_ptr<common::Graph> output object 
+     */
     std::shared_ptr<common::Graph> parse(std::vector<common::Lexeme>& input);
 }

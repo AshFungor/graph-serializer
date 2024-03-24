@@ -241,5 +241,10 @@ namespace lexer {
         void react(InputNewLine const &) override;
     };
 
+    /**
+     * @brief Lex string
+     * @param input string to lex
+     * @return std::vector<common::Lexeme> output lexemes 
+     */
     std::vector<common::Lexeme> lex(const std::string& input);
 }

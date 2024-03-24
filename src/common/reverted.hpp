@@ -24,10 +24,19 @@ namespace common {
             bool verboseWrite = false;
         };
         // constructors
+        /**
+         * @brief Construct a new graph dumping factory
+         * @param settings settings for this factory
+         */
         GraphDumpingFactory(Settings settings) noexcept;
         GraphDumpingFactory(GraphDumpingFactory&&) noexcept = default;
         GraphDumpingFactory(const GraphDumpingFactory&) = delete;
 
+        /**
+         * @brief Dumps single graph to a file
+         * @param one target graph object
+         * @param filename file to dump to
+         */
         void dumpOne(const Graph& one, std::string_view filename);
 
     private:
