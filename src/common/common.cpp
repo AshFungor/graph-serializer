@@ -9,7 +9,7 @@
 #include <memory>
 #include <string>
 #include <vector>
-#include <any>
+#include <sstream>
 
 // local
 #include "common.hpp"
@@ -107,21 +107,20 @@ std::string Graph::dumpGraphState() const {
         return (isDirectional()) ? result : result / 2;
     };
 
-    std::string result;
-    result += std::vformat("Graph object with address {}\n", 
-        std::make_format_args((void*) this));
-    result += std::vformat("flags: {} directional; {} weighted; has {} nodes and {} edges\n",
-        std::make_format_args(isDirectional(), isWeighted(), connections_->size(), countEdges()));
+    std::stringstream result {std::ios::out};
+    result << "Graph object at address " << (void*) this << "\n";
+    result << "flags: " << isDirectional() << " directional; " << isWeighted() << " weighted; has " <<connections_->size() << " nodes and " << countEdges() << " edges\n";
     for (const auto& pair : *connections_) {
-        result += std::vformat("node [{}], label [{}], connections:\n", std::make_format_args(pair.first, getLabel(pair.first).value_or(pair.first)));
+        result << "node [" << pair.first << "], label [" << getLabel(pair.first).value_or(pair.first) << "], connections:\n";
         for (const auto& connection : pair.second) {
-            result += std::vformat("- connection: peer = {}, weight: {}\n", 
-                std::make_format_args(connection.peer, connection.weight.value_or(0)));
+            result << "- connection: peer = " << connection.peer << ", weight: " << connection.weight.value_or(0) << "\n";
         }
     }
-    result.resize(result.size() - 1);
+    
+    auto str = std::move(result.str());
+    str.resize(str.size() - 1);
 
-    return std::move(result);
+    return str;
 }
 
 std::ostream& common::operator<<(std::ostream& os, const Graph& graph) {
