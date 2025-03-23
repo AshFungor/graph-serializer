@@ -1,0 +1,122 @@
+\doxysection{common.\+hpp}
+\hypertarget{common_8hpp_source}{}\label{common_8hpp_source}\index{src/common/common.hpp@{src/common/common.hpp}}
+\mbox{\hyperlink{common_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ standard}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <unordered\_set>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <string\_view>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <optional>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <ostream>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <any>}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacecommon}{common}}\ \{}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{comment}{//\ class\ to\ invert\ graph\ parsing\ (write\ it\ back)}}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{class\ }GraphDumpingFactory;}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{namespace\ }opt\ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{constexpr}\ std::uint8\_t\ \mbox{\hyperlink{namespacecommon_1_1opt_a8354d36c2b5baf9b5804afd891485fd8}{drc}}\ =\ 0x01;\ }
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{constexpr}\ std::uint8\_t\ \mbox{\hyperlink{namespacecommon_1_1opt_a484782d4f915603b82aafbd9c0bcf272}{wgh}}\ =\ 0x02;\ }
+\DoxyCodeLine{00030\ \ \ \ \ \}\ \textcolor{comment}{//\ namespace\ opt}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{enum\ class}\ \mbox{\hyperlink{namespacecommon_a55175dff5d06030983224ea143844b93}{LexemeType}}\ :\ std::uint8\_t\ \{}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacecommon_a55175dff5d06030983224ea143844b93a194bb1d9ba528e841560fa6d0e210680}{GRAPH\_START\_LABEL}}\ =\ 0,\ \ \ \ \ \ }
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacecommon_a55175dff5d06030983224ea143844b93ad7a6a14e5ac11249db28485fd67850e7}{OPEN\_CURLY\_BRACKET}}\ =\ 1,\ \ \ \ \ }
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacecommon_a55175dff5d06030983224ea143844b93a6a712031b86b598cd798b8b743831838}{NODE\_ID}}\ =\ 2,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacecommon_a55175dff5d06030983224ea143844b93aa3ebd310648c66cdbe29bbab5bb87be1}{POINTED\_ARROW}}\ =\ 3,\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacecommon_a55175dff5d06030983224ea143844b93a803a445a0aaae41c06038342da2931ff}{FLAT\_ARROW}}\ =\ 4,\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacecommon_a55175dff5d06030983224ea143844b93aa52c1e5206f001bb3dfe7b2b72ce1f3e}{OPEN\_SQUARE\_BRACKET}}\ =\ 5,\ \ \ \ }
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacecommon_a55175dff5d06030983224ea143844b93a09489e35c9ed293156087e6ee9336080}{LABEL\_ATTRIBUTE}}\ =\ 6,\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacecommon_a55175dff5d06030983224ea143844b93a41e9c53a59bbf5c49947f80c77753ca0}{EQUALS\_SIGN}}\ =\ 7,\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacecommon_a55175dff5d06030983224ea143844b93a58a7c1deb5bd5bb6ea9e634d834a8920}{ATTRIBUTE\_STRING\_VALUE}}\ =\ 8,\ }
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacecommon_a55175dff5d06030983224ea143844b93ac88d18d2ef3406b2454fef1daa2d457d}{ATTRIBUTE\_INT\_VALUE}}\ =\ 9,\ \ \ \ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacecommon_a55175dff5d06030983224ea143844b93ab1815fc698804cb6f879019f784491e2}{CLOSED\_CURLY\_BRACKET}}\ =\ 10,\ \ }
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacecommon_a55175dff5d06030983224ea143844b93a4218924676b83efff8d63cb83e3527b9}{CLOSED\_SQUARE\_BRACKET}}\ =\ 11\ \ }
+\DoxyCodeLine{00049\ \ \ \ \ \};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcommon_1_1Lexeme}{Lexeme}}\ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacecommon_a55175dff5d06030983224ea143844b93}{LexemeType}}\ \mbox{\hyperlink{structcommon_1_1Lexeme_a97096b13390260716d5c4399bf5ba461}{type}};}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ std::any\ \mbox{\hyperlink{structcommon_1_1Lexeme_a25b6a0e68ff96f333b43933018725ff9}{value}};}
+\DoxyCodeLine{00058\ \ \ \ \ \};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcommon_1_1Connection}{Connection}}\ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ std::optional<int>\ \mbox{\hyperlink{structcommon_1_1Connection_adaed064813f59295bdaaab5d0b209179}{weight}};}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ std::optional<std::string>\ \mbox{\hyperlink{structcommon_1_1Connection_a6f806530a2c43dd791fd16ec5562e0ef}{label}};\ }
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{structcommon_1_1Connection_aec3542844d31f09835900809511707cc}{peer}};}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structcommon_1_1Connection}{Connection}}(}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{structcommon_1_1Connection_aec3542844d31f09835900809511707cc}{peer}},\ }
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ std::optional<int>\ \mbox{\hyperlink{structcommon_1_1Connection_adaed064813f59295bdaaab5d0b209179}{weight}}\ =\ std::nullopt,}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ std::optional<std::string>\ \mbox{\hyperlink{structcommon_1_1Connection_a6f806530a2c43dd791fd16ec5562e0ef}{label}}\ =\ std::nullopt}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ )\ \textcolor{keyword}{noexcept};\ }
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structcommon_1_1Connection_ac74aae485432c5445d7fdc8663b67476}{operator==}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structcommon_1_1Connection}{Connection}}\&\ other)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structcommon_1_1Connection_aec3542844d31f09835900809511707cc}{peer}}\ ==\ other.\mbox{\hyperlink{structcommon_1_1Connection_aec3542844d31f09835900809511707cc}{peer}}\ }
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ \mbox{\hyperlink{structcommon_1_1Connection_adaed064813f59295bdaaab5d0b209179}{weight}}\ ==\ other.\mbox{\hyperlink{structcommon_1_1Connection_adaed064813f59295bdaaab5d0b209179}{weight}}\ }
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ \mbox{\hyperlink{structcommon_1_1Connection_a6f806530a2c43dd791fd16ec5562e0ef}{label}}\ ==\ other.\mbox{\hyperlink{structcommon_1_1Connection_a6f806530a2c43dd791fd16ec5562e0ef}{label}};}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00080\ \ \ \ \ \};}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classcommon_1_1Graph}{Graph}}\ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classcommon_1_1Graph_a7000621ca4613e8ca2e2e2adf88c68d1}{graph\_flags\_t}}\ =\ std::uint8\_t;}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classcommon_1_1Graph_a1790640b5d6bb7f18f398b868c3420f5}{connections\_t}}\ =\ std::vector<Connection>;}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classcommon_1_1Graph_ac63857b179641797fbbec9dc02ef1262}{label\_container\_t}}\ =\ std::unordered\_map<std::string,\ std::string>;}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classcommon_1_1Graph_a840c391a5b364c6d7c6f560e89eecd82}{container\_t}}\ =\ std::unordered\_map<std::string,\ connections\_t>;}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classcommon_1_1Graph_ad7b406c6e03fa397ac217c86d20193ac}{container\_value\_t}}\ =\ std::pair<std::string,\ connections\_t>;}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classcommon_1_1Graph_aab2936d6a96a6452e7a5b8f1acdd40bb}{\string~Graph}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcommon_1_1Graph_ae329e61736f7e833c523589ab736e9f6}{Graph}}()\ noexcept;}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcommon_1_1Graph_aa1296de6a5b9ec40c183ae9674fb21c0}{init}}(\mbox{\hyperlink{classcommon_1_1Graph_a7000621ca4613e8ca2e2e2adf88c68d1}{graph\_flags\_t}}\ flags\ =\ 0x0)\ noexcept;}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classcommon_1_1Graph_a2e339f9eaa3e5c60ff89a1b8231b8e65}{isDirectional}}()\ const\ noexcept;}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classcommon_1_1Graph_a2e737caff1c5049f9eae0455a8448509}{isWeighted}}()\ const\ noexcept;}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcommon_1_1Graph_aa3a6bd7f8a9c690f9b0634073ace2049}{pushNode}}(std::\textcolor{keywordtype}{string}\ name);}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcommon_1_1Graph_ab93ba96b6c30ed0794500e4db02cc75b}{pushEdge}}(std::\textcolor{keywordtype}{string}\ source,\ \mbox{\hyperlink{structcommon_1_1Connection}{Connection}}\ edge);}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcommon_1_1Graph_a46d586d17b473fa4be7390821026ec57}{setLabel}}(std::\textcolor{keywordtype}{string}\ source,\ std::\textcolor{keywordtype}{string}\ label);}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcommon_1_1Graph_ac954c5b896de092fddec65f69a9e36bc}{removeLabel}}(const\ std::\textcolor{keywordtype}{string}\&\ source);}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classcommon_1_1Graph_a34d275a23296cd38d04d55f14aa7cd80}{areConnected}}(std::string\_view\ source,\ std::string\_view\ target)\ const;}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ std::optional<\textcolor{keywordtype}{int}>\ \mbox{\hyperlink{classcommon_1_1Graph_a2b4a71cdf34279a6b0df9c6d3f5b62bd}{getWeight}}(std::string\_view\ source,\ std::string\_view\ target)\ const;}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ std::optional<std::\textcolor{keywordtype}{string}>\ \mbox{\hyperlink{classcommon_1_1Graph_a9666b5551e9bfd30add98360a25c2a78}{getLabel}}(std::\textcolor{keywordtype}{string}\ source)\ const;}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ std::\textcolor{keywordtype}{string}\ \mbox{\hyperlink{classcommon_1_1Graph_a16d84ad54edd1424e89ef949a5ba34b6}{dumpGraphState}}()\ const;}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ std::vector<std::\textcolor{keywordtype}{string}>\ \mbox{\hyperlink{classcommon_1_1Graph_a6f74a9609071e30c0277ec2c5fc33ef9}{getNodes}}()\ const;}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ friend\ std::ostream\&\ operator<<(std::ostream\&\ os,\ const\ \mbox{\hyperlink{classcommon_1_1Graph}{Graph}}\&\ graph);}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ friend\ \mbox{\hyperlink{classcommon_1_1GraphDumpingFactory}{GraphDumpingFactory}};}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \ \ \ \ \mbox{\hyperlink{common-test_8cpp_a6a1d6e1a12975a4e9a0b5b952e79eaad}{private}}:}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classcommon_1_1Graph_a77d12946c860038adb32edbf6b0b1c03}{insert}}(std::string\_view\ source,\ \mbox{\hyperlink{structcommon_1_1Connection}{Connection}}\ edge);}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcommon_1_1Graph_a1790640b5d6bb7f18f398b868c3420f5}{connections\_t}}::iterator\ \mbox{\hyperlink{classcommon_1_1Graph_acfb6f5760b6436a32d162aa5d270e0e9}{findConnection}}(std::string\_view\ source,\ std::string\_view\ target)\ const;}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ \ \ \ \ protected:}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ std::uint8\_t\ \mbox{\hyperlink{classcommon_1_1Graph_a2b27ab2ef6fd6affee21606625b1cebf}{flags\_}};}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ std::unique\_ptr<\mbox{\hyperlink{classcommon_1_1Graph_a840c391a5b364c6d7c6f560e89eecd82}{container\_t}}>\ \mbox{\hyperlink{classcommon_1_1Graph_a881df89d4d68aa74a017f2241a40434a}{connections\_}};}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ std::unique\_ptr<\mbox{\hyperlink{classcommon_1_1Graph_ac63857b179641797fbbec9dc02ef1262}{label\_container\_t}}>\ \mbox{\hyperlink{classcommon_1_1Graph_aa04d8bd8c9d61f9ebeff1f11342fdbd2}{labels\_}};}
+\DoxyCodeLine{00198\ \ \ \ \ \};}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \ \ \ \ std::ostream\&\ operator<<(std::ostream\&\ os,\ const\ \mbox{\hyperlink{classcommon_1_1Graph}{Graph}}\&\ graph);}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \}\ \textcolor{comment}{//\ namespace\ common}}
+
+\end{DoxyCode}

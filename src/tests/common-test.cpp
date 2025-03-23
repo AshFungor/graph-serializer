@@ -25,11 +25,19 @@
 
 namespace {
     void dumpContainer(const common::Graph& target) {
-        GTEST_COUT("reading elements of graph container (nullopt is replaced with 0): ")
-        for (const auto& pair : *target.connections_) {
-            GTEST_COUT("node [" << pair.first << "], connections: ");
-            for (const auto& connection : pair.second) {
-                GTEST_COUT("- connection: peer = " << connection.peer << ", weight: " << connection.weight.value_or(0));
+        GTEST_COUT("Graph structure:");
+
+        auto nodes = target.getNodes();
+        
+        for (const auto& node : nodes) {
+            GTEST_COUT("Node [" << node << "], connections:");
+
+            auto all_nodes = target.getNodes();
+            for (const auto& peer : all_nodes) {
+                if (target.areConnected(node, peer)) {
+                    auto weight = target.getWeight(node, peer);
+                    GTEST_COUT("  -> " << peer << " | Weight: " << weight.value_or(0));
+                }
             }
         }
     }

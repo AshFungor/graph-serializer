@@ -1,0 +1,81 @@
+\doxysection{common\+::Action\+Queue Class Reference}
+\hypertarget{classcommon_1_1ActionQueue}{}\label{classcommon_1_1ActionQueue}\index{common::ActionQueue@{common::ActionQueue}}
+
+
+Queue for actions Stores actions and then allows to dump them when needed.  
+
+
+
+
+{\ttfamily \#include $<$action-\/queue.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classcommon_1_1ActionQueue_ab2e6135fadbc9db1301e432daf77dfd7}{dump\+All\+Actions}} ()
+\begin{DoxyCompactList}\small\item\em Dump all actions till queue is empty. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classcommon_1_1ActionQueue_a55562911cd11b2badb24a14c0f819b3d}{dump\+Action}} ()
+\begin{DoxyCompactList}\small\item\em Dump single action from queue. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classcommon_1_1ActionQueue_a3686c9d697b1d8e2a9b5ecd8f3e6d48e}{query}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classcommon_1_1IAction}{IAction}} $>$ action)
+\begin{DoxyCompactList}\small\item\em Add action to queue. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::queue$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classcommon_1_1IAction}{IAction}} $>$ $>$ \mbox{\hyperlink{classcommon_1_1ActionQueue_a0cbed0e0b5b7c609d97775ab84f3cf52}{actions\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Queue for actions Stores actions and then allows to dump them when needed. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classcommon_1_1ActionQueue_a55562911cd11b2badb24a14c0f819b3d}\label{classcommon_1_1ActionQueue_a55562911cd11b2badb24a14c0f819b3d} 
+\index{common::ActionQueue@{common::ActionQueue}!dumpAction@{dumpAction}}
+\index{dumpAction@{dumpAction}!common::ActionQueue@{common::ActionQueue}}
+\doxysubsubsection{\texorpdfstring{dumpAction()}{dumpAction()}}
+{\footnotesize\ttfamily void Action\+Queue\+::dump\+Action (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Dump single action from queue. 
+
+\Hypertarget{classcommon_1_1ActionQueue_ab2e6135fadbc9db1301e432daf77dfd7}\label{classcommon_1_1ActionQueue_ab2e6135fadbc9db1301e432daf77dfd7} 
+\index{common::ActionQueue@{common::ActionQueue}!dumpAllActions@{dumpAllActions}}
+\index{dumpAllActions@{dumpAllActions}!common::ActionQueue@{common::ActionQueue}}
+\doxysubsubsection{\texorpdfstring{dumpAllActions()}{dumpAllActions()}}
+{\footnotesize\ttfamily void Action\+Queue\+::dump\+All\+Actions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Dump all actions till queue is empty. 
+
+\Hypertarget{classcommon_1_1ActionQueue_a3686c9d697b1d8e2a9b5ecd8f3e6d48e}\label{classcommon_1_1ActionQueue_a3686c9d697b1d8e2a9b5ecd8f3e6d48e} 
+\index{common::ActionQueue@{common::ActionQueue}!query@{query}}
+\index{query@{query}!common::ActionQueue@{common::ActionQueue}}
+\doxysubsubsection{\texorpdfstring{query()}{query()}}
+{\footnotesize\ttfamily void Action\+Queue\+::query (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classcommon_1_1IAction}{IAction}} $>$}]{action }\end{DoxyParamCaption})}
+
+
+
+Add action to queue. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em action} & action to add \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classcommon_1_1ActionQueue_a0cbed0e0b5b7c609d97775ab84f3cf52}\label{classcommon_1_1ActionQueue_a0cbed0e0b5b7c609d97775ab84f3cf52} 
+\index{common::ActionQueue@{common::ActionQueue}!actions\_@{actions\_}}
+\index{actions\_@{actions\_}!common::ActionQueue@{common::ActionQueue}}
+\doxysubsubsection{\texorpdfstring{actions\_}{actions\_}}
+{\footnotesize\ttfamily std\+::queue$<$std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{classcommon_1_1IAction}{IAction}}$>$ $>$ common\+::\+Action\+Queue\+::actions\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/common/\mbox{\hyperlink{action-queue_8hpp}{action-\/queue.\+hpp}}\item 
+src/common/\mbox{\hyperlink{action-queue_8cpp}{action-\/queue.\+cpp}}\end{DoxyCompactItemize}

@@ -1,5 +1,6 @@
 // standard
 #include <cstddef>
+#include <unordered_set>
 #include <unordered_map>
 #include <string_view>
 #include <algorithm>
@@ -10,6 +11,8 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <set>
+#include <iostream>
 
 // local
 #include "common.hpp"
@@ -17,14 +20,16 @@
 using namespace common;
 
 
-Connection::Connection(std::string peer, std::optional<int> weight) noexcept
+// common.cpp
+Connection::Connection(
+    std::string peer, 
+    std::optional<int> weight,
+    std::optional<std::string> label  
+) noexcept 
     : peer(std::move(peer))
     , weight(std::move(weight))
-{}
+    , label(std::move(label)) {}  
 
-bool Connection::operator==(const Connection& other) const {
-    return peer == other.peer;
-}
 
 Graph::Graph() noexcept
 : connections_(std::make_unique<container_t>())
@@ -50,6 +55,9 @@ void Graph::pushNode(std::string name) {
 }
 
 void Graph::pushEdge(std::string source, Connection edge) {
+    if (isWeighted() && !edge.weight.has_value()) {
+        throw std::runtime_error("Weight is required for weighted graph");
+    }
     edge.weight = (isWeighted()) 
         ? ((edge.weight == std::nullopt) 
             ? 0 
@@ -72,6 +80,18 @@ void Graph::setLabel(std::string source, std::string label) {
     }
 }
 
+void Graph::removeLabel(const std::string& source) {
+    if (auto connections_it = connections_->find(source); 
+        connections_it != connections_->end()) {
+        
+        if (auto labels_it = labels_->find(source); 
+            labels_it != labels_->end()) {
+            
+            labels_->erase(labels_it);
+        }
+    }
+}
+
 std::optional<std::string> Graph::getLabel(std::string source) const {
     if (labels_->contains(source)) {
         return labels_->at(source);
@@ -83,18 +103,26 @@ void Graph::insert(std::string_view source, Connection edge) {
     connections_->at(source.data()).emplace_back(std::move(edge));
 }
 
-Graph::connections_t::iterator Graph::findConnection(std::string_view source, std::string_view target) {
+Graph::connections_t::iterator Graph::findConnection(std::string_view source, std::string_view target) const{
     auto& conns = connections_->at(source.data());
     auto want = Connection(target.data());
     return std::find(conns.begin(), conns.end(), want);
 }
 
-bool Graph::areConnected(std::string_view source, std::string_view target) {
+bool Graph::areConnected(std::string_view source, std::string_view target) const{
     return findConnection(source, target) != connections_->at(source.data()).end();
 }
 
-std::optional<int> Graph::getWeight(std::string_view source, std::string_view target) {
+std::optional<int> Graph::getWeight(std::string_view source, std::string_view target) const{
     return findConnection(source, target)->weight;
+}
+
+std::vector<std::string> Graph::getNodes() const{
+    std::vector<std::string> nodes;
+    for (const auto& pair : *connections_){
+        nodes.push_back(pair.first);
+    }
+    return nodes;
 }
 
 std::string Graph::dumpGraphState() const {
@@ -107,20 +135,42 @@ std::string Graph::dumpGraphState() const {
         return (isDirectional()) ? result : result / 2;
     };
 
-    std::stringstream result {std::ios::out};
-    result << "Graph object at address " << (void*) this << "\n";
-    result << "flags: " << isDirectional() << " directional; " << isWeighted() << " weighted; has " <<connections_->size() << " nodes and " << countEdges() << " edges\n";
-    for (const auto& pair : *connections_) {
-        result << "node [" << pair.first << "], label [" << getLabel(pair.first).value_or(pair.first) << "], connections:\n";
-        for (const auto& connection : pair.second) {
-            result << "- connection: peer = " << connection.peer << ", weight: " << connection.weight.value_or(0) << "\n";
+    std::stringstream result;
+    result << "Graph object at address " << (void*)this << "\n";
+    result << "Flags: " << (isDirectional() ? "directional" : "undirectional") 
+           << ", " << (isWeighted() ? "weighted" : "unweighted") 
+           << ". Nodes: " << connections_->size() 
+           << ", Edges: " << countEdges() << "\n";
+
+    std::set<std::pair<std::string, std::string>> undirected_edges;
+
+    for (const auto& [node, connections] : *connections_) {
+        result << "Node [" << node << "], Label: ["
+               << getLabel(node).value_or(node) << "]\n";
+        
+        for (const auto& conn : connections) {
+
+            if (!isDirectional()) {
+                auto normalized_edge = (node < conn.peer) 
+                    ? std::make_pair(node, conn.peer)
+                    : std::make_pair(conn.peer, node);
+                
+                if (undirected_edges.count(normalized_edge)) continue;
+                undirected_edges.insert(normalized_edge);
+            }
+
+            const std::string arrow = isDirectional() ? "->" : "--";
+            result << "  " << arrow << " " << conn.peer 
+                   << " | Weight: " << conn.weight.value_or(0)
+                   << " | Label: " 
+                   << (conn.label.has_value() 
+                        ? "\"" + conn.label.value() + "\"" 
+                        : "N/A")
+                   << "\n";
         }
     }
-    
-    auto str = std::move(result.str());
-    str.resize(str.size() - 1);
 
-    return str;
+    return result.str();
 }
 
 std::ostream& common::operator<<(std::ostream& os, const Graph& graph) {

@@ -1,0 +1,83 @@
+@startuml
+
+' ####################################'
+' Class Graph'
+' ####################################'
+
+class Graph {
+    .. Fields ..
+    - flags_ : std::uint8_t
+    - connections_ : std::unique_ptr<container_t>
+    - labels_ : std::unique_ptr<label_container_t>
+
+    .. Methods ..
+    + init(flags: graph_flags_t) : void
+    + isDirectional() : bool
+    + isWeighted() : bool
+    + pushNode(name: std::string) : void
+    + pushEdge(source: std::string, edge: Connection) : void
+    + setLabel(source: std::string, label: std::string) : void
+    + removeLabel(source: const std::string&) : void
+    + getLabel(source: std::string) : std::optional<std::string>
+    + getNodes() : std::vector<std::string>
+    + dumpGraphState() : std::string
+    + areConnected(source: std::string_view, target: std::string_view) : bool
+    + getWeight(source: std::string_view, target: std::string_view) : std::optional<int>
+}
+
+' ####################################'
+' Class TraversalGraph'
+' ####################################'
+
+class TraversalGraph {
+    .. Methods ..
+    + tofWithTimestamps(
+        node: const std::string&,
+        visited: std::unordered_set<std::string>&,
+        result: std::vector<std::string>&,
+        timestamps: std::unordered_map<std::string, std::pair<int, int>>&,
+        discovery_time: int&,
+        flag: int&
+    ) : void
+
+    + dfsWithTimestamps(
+        node: const std::string&,
+        visited: std::unordered_set<std::string>&,
+        result: std::vector<std::string>&,
+        timestamps: std::unordered_map<std::string, std::pair<int, int>>&,
+        discovery_time: int&,
+        flag_to_quit: int&,
+        searched_node: std::string&
+    ) : void
+
+    + showTraversalOrder() : void
+    + findNode(desired_node: std::string&) : void
+}
+
+' ####################################'
+' Inheritance'
+' ####################################'
+
+Graph <|-- TraversalGraph
+
+' ####################################'
+' Helper classes'
+' ####################################'
+
+class Connection {
+    - peer: std::string
+    - weight: std::optional<int>
+    - label: std::optional<std::string>
+    
+    + Connection(
+        peer: std::string,
+        weight: std::optional<int>,
+        label: std::optional<std::string>
+    )
+    
+    + operator==(other: const Connection&) : bool
+}
+
+Graph *-- "*" Connection
+
+@enduml

@@ -1,0 +1,27 @@
+<map id="parser::GraphEvent" name="parser::GraphEvent">
+<area shape="rect" id="Node000001" title=" " alt="" coords="171,268,317,293"/>
+<area shape="rect" id="Node000003" href="$structparser_1_1InputCloseCurlyBracket.html" title=" " alt="" coords="370,5,593,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="248,254,261,208,284,150,317,91,339,64,364,41,386,28,389,33,367,45,343,68,322,94,288,152,266,209,253,255"/>
+<area shape="rect" id="Node000004" href="$structparser_1_1InputCloseSquareBracket.html" title=" " alt="" coords="389,55,574,95"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="253,254,270,221,294,180,326,140,364,105,387,92,390,97,367,109,330,143,299,183,275,223,258,257"/>
+<area shape="rect" id="Node000005" href="$structparser_1_1InputEdge.html" title=" " alt="" coords="413,120,549,145"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="259,255,302,203,331,177,364,154,388,144,413,137,414,142,390,149,367,159,335,181,306,207,264,258"/>
+<area shape="rect" id="Node000006" href="$structparser_1_1InputEqual.html" title=" " alt="" coords="411,169,551,195"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="271,257,314,229,364,204,410,190,412,195,366,208,317,234,274,262"/>
+<area shape="rect" id="Node000007" href="$structparser_1_1InputGraphType.html" title=" " alt="" coords="395,219,568,244"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="318,262,365,253,419,241,420,247,366,258,320,268"/>
+<area shape="rect" id="Node000008" href="$structparser_1_1InputIntValue.html" title=" " alt="" coords="403,268,560,293"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="331,278,403,278,403,283,331,283"/>
+<area shape="rect" id="Node000009" href="$structparser_1_1InputLabel.html" title=" " alt="" coords="412,317,551,343"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="320,294,366,303,420,315,419,320,365,309,318,299"/>
+<area shape="rect" id="Node000010" href="$structparser_1_1InputNodeId.html" title=" " alt="" coords="406,367,557,392"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="274,300,317,327,366,353,406,365,405,370,364,358,314,332,271,304"/>
+<area shape="rect" id="Node000011" href="$structparser_1_1InputOpenCurlyBracket.html" title=" " alt="" coords="371,416,592,441"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="264,303,306,354,335,381,367,402,393,413,391,418,364,407,331,385,302,358,259,306"/>
+<area shape="rect" id="Node000012" href="$structparser_1_1InputOpenSquareBracket.html" title=" " alt="" coords="365,465,597,491"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="258,305,274,339,298,379,329,419,367,452,389,463,386,468,364,456,325,423,294,382,270,342,253,307"/>
+<area shape="rect" id="Node000013" href="$structparser_1_1InputStringValue.html" title=" " alt="" coords="392,515,571,540"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="254,306,268,350,291,403,323,457,344,481,367,501,393,515,391,520,364,506,340,484,319,460,286,405,263,352,249,308"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,268,123,293"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="136,278,170,278,170,283,136,283"/>
+</map>

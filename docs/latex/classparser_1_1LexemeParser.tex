@@ -1,0 +1,237 @@
+\doxysection{parser\+::Lexeme\+Parser Class Reference}
+\hypertarget{classparser_1_1LexemeParser}{}\label{classparser_1_1LexemeParser}\index{parser::LexemeParser@{parser::LexemeParser}}
+
+
+{\ttfamily \#include $<$parser.\+hpp$>$}
+
+
+
+Inheritance diagram for parser\+::Lexeme\+Parser\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classparser_1_1LexemeParser__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for parser\+::Lexeme\+Parser\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classparser_1_1LexemeParser__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classparser_1_1LexemeParser_a76d7b49e0571fa052bcb790ecfeb53a3}{react}} (\mbox{\hyperlink{structparser_1_1InputGraphType}{Input\+Graph\+Type}} const \&)
+\item 
+virtual void \mbox{\hyperlink{classparser_1_1LexemeParser_a2a72f45f7a87ca338253929ecdeb3fa4}{react}} (\mbox{\hyperlink{structparser_1_1InputOpenCurlyBracket}{Input\+Open\+Curly\+Bracket}} const \&)
+\item 
+virtual void \mbox{\hyperlink{classparser_1_1LexemeParser_ad01e57dde6ca11ea76322e13d8eb4984}{react}} (\mbox{\hyperlink{structparser_1_1InputCloseCurlyBracket}{Input\+Close\+Curly\+Bracket}} const \&)
+\item 
+virtual void \mbox{\hyperlink{classparser_1_1LexemeParser_ad72fa3f4400005dca5b2f4dbb249e079}{react}} (\mbox{\hyperlink{structparser_1_1InputNodeId}{Input\+Node\+Id}} const \&)
+\item 
+virtual void \mbox{\hyperlink{classparser_1_1LexemeParser_a281028fe894b1d4d56519969ccfb4b51}{react}} (\mbox{\hyperlink{structparser_1_1InputOpenSquareBracket}{Input\+Open\+Square\+Bracket}} const \&)
+\item 
+virtual void \mbox{\hyperlink{classparser_1_1LexemeParser_a2c1b3cb404bcd6b34d89174a4d459a2e}{react}} (\mbox{\hyperlink{structparser_1_1InputCloseSquareBracket}{Input\+Close\+Square\+Bracket}} const \&)
+\item 
+virtual void \mbox{\hyperlink{classparser_1_1LexemeParser_a2e783bffb8d65325cae57af9e0a1525d}{react}} (\mbox{\hyperlink{structparser_1_1InputEdge}{Input\+Edge}} const \&)
+\item 
+virtual void \mbox{\hyperlink{classparser_1_1LexemeParser_ad351280391a48d74ed3668b77a2826eb}{react}} (\mbox{\hyperlink{structparser_1_1InputLabel}{Input\+Label}} const \&)
+\item 
+virtual void \mbox{\hyperlink{classparser_1_1LexemeParser_ad672d46f89ae8717e764daf08f65cdcb}{react}} (\mbox{\hyperlink{structparser_1_1InputEqual}{Input\+Equal}} const \&)
+\item 
+virtual void \mbox{\hyperlink{classparser_1_1LexemeParser_a30a35245ca7feb0859cb74d1a9fcc0e7}{react}} (\mbox{\hyperlink{structparser_1_1InputStringValue}{Input\+String\+Value}} const \&)
+\item 
+virtual void \mbox{\hyperlink{classparser_1_1LexemeParser_a010985f94edf2272370fa01f70bc0528}{react}} (\mbox{\hyperlink{structparser_1_1InputIntValue}{Input\+Int\+Value}} const \&)
+\item 
+void \mbox{\hyperlink{classparser_1_1LexemeParser_aad8e1dc03b7c619871f50fb168509186}{entry}} ()
+\item 
+void \mbox{\hyperlink{classparser_1_1LexemeParser_a723c0a669bb16d38738a712b38a9b383}{exit}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{classparser_1_1LexemeParser_a4c1fc6a9a4d3271978e31899b7d39651}{reset}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{structparser_1_1SharedState}{Shared\+State}} \mbox{\hyperlink{classparser_1_1LexemeParser_ad090afdba5a21043f7c7187fc88d6699}{shared}} \{\}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classcommon_1_1TraversalGraph}{common\+::\+Traversal\+Graph}} $>$ \mbox{\hyperlink{classparser_1_1LexemeParser_ab314ae6bcb88dfa3ee41dd8bf6f15d6d}{parse}} (std\+::vector$<$ \mbox{\hyperlink{structcommon_1_1Lexeme}{common\+::\+Lexeme}} $>$ \&input)
+\begin{DoxyCompactList}\small\item\em Parse lexemes vector into graph object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classparser_1_1LexemeParser_aad8e1dc03b7c619871f50fb168509186}\label{classparser_1_1LexemeParser_aad8e1dc03b7c619871f50fb168509186} 
+\index{parser::LexemeParser@{parser::LexemeParser}!entry@{entry}}
+\index{entry@{entry}!parser::LexemeParser@{parser::LexemeParser}}
+\doxysubsubsection{\texorpdfstring{entry()}{entry()}}
+{\footnotesize\ttfamily void Lexeme\+Parser\+::entry (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\Hypertarget{classparser_1_1LexemeParser_a723c0a669bb16d38738a712b38a9b383}\label{classparser_1_1LexemeParser_a723c0a669bb16d38738a712b38a9b383} 
+\index{parser::LexemeParser@{parser::LexemeParser}!exit@{exit}}
+\index{exit@{exit}!parser::LexemeParser@{parser::LexemeParser}}
+\doxysubsubsection{\texorpdfstring{exit()}{exit()}}
+{\footnotesize\ttfamily void Lexeme\+Parser\+::exit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\Hypertarget{classparser_1_1LexemeParser_ad01e57dde6ca11ea76322e13d8eb4984}\label{classparser_1_1LexemeParser_ad01e57dde6ca11ea76322e13d8eb4984} 
+\index{parser::LexemeParser@{parser::LexemeParser}!react@{react}}
+\index{react@{react}!parser::LexemeParser@{parser::LexemeParser}}
+\doxysubsubsection{\texorpdfstring{react()}{react()}\hspace{0.1cm}{\footnotesize\ttfamily [1/11]}}
+{\footnotesize\ttfamily virtual void parser\+::\+Lexeme\+Parser\+::react (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structparser_1_1InputCloseCurlyBracket}{Input\+Close\+Curly\+Bracket}} const \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented in \mbox{\hyperlink{classparser_1_1OpenCurlyBracket_a8b1910c73e199cd76bb38f9e6b49fb49}{parser\+::\+Open\+Curly\+Bracket}}, \mbox{\hyperlink{classparser_1_1FromNodeID_a466d348455333e4e7d6c51c70599aaea}{parser\+::\+From\+Node\+ID}}, and \mbox{\hyperlink{classparser_1_1ToNodeID_a1d2509175420f678c369ed4b95751738}{parser\+::\+To\+Node\+ID}}.
+
+\Hypertarget{classparser_1_1LexemeParser_a2c1b3cb404bcd6b34d89174a4d459a2e}\label{classparser_1_1LexemeParser_a2c1b3cb404bcd6b34d89174a4d459a2e} 
+\index{parser::LexemeParser@{parser::LexemeParser}!react@{react}}
+\index{react@{react}!parser::LexemeParser@{parser::LexemeParser}}
+\doxysubsubsection{\texorpdfstring{react()}{react()}\hspace{0.1cm}{\footnotesize\ttfamily [2/11]}}
+{\footnotesize\ttfamily virtual void parser\+::\+Lexeme\+Parser\+::react (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structparser_1_1InputCloseSquareBracket}{Input\+Close\+Square\+Bracket}} const \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented in \mbox{\hyperlink{classparser_1_1Value_ae62fdb1d36b87dd6caccc600bd39a883}{parser\+::\+Value}}.
+
+\Hypertarget{classparser_1_1LexemeParser_a2e783bffb8d65325cae57af9e0a1525d}\label{classparser_1_1LexemeParser_a2e783bffb8d65325cae57af9e0a1525d} 
+\index{parser::LexemeParser@{parser::LexemeParser}!react@{react}}
+\index{react@{react}!parser::LexemeParser@{parser::LexemeParser}}
+\doxysubsubsection{\texorpdfstring{react()}{react()}\hspace{0.1cm}{\footnotesize\ttfamily [3/11]}}
+{\footnotesize\ttfamily virtual void parser\+::\+Lexeme\+Parser\+::react (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structparser_1_1InputEdge}{Input\+Edge}} const \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented in \mbox{\hyperlink{classparser_1_1FromNodeID_a7293eb01521e0ee2bbe80cb48fb2df2b}{parser\+::\+From\+Node\+ID}}.
+
+\Hypertarget{classparser_1_1LexemeParser_ad672d46f89ae8717e764daf08f65cdcb}\label{classparser_1_1LexemeParser_ad672d46f89ae8717e764daf08f65cdcb} 
+\index{parser::LexemeParser@{parser::LexemeParser}!react@{react}}
+\index{react@{react}!parser::LexemeParser@{parser::LexemeParser}}
+\doxysubsubsection{\texorpdfstring{react()}{react()}\hspace{0.1cm}{\footnotesize\ttfamily [4/11]}}
+{\footnotesize\ttfamily virtual void parser\+::\+Lexeme\+Parser\+::react (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structparser_1_1InputEqual}{Input\+Equal}} const \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented in \mbox{\hyperlink{classparser_1_1Label_a2d383d3b7b1c6d82f1c6f31a7173352b}{parser\+::\+Label}}.
+
+\Hypertarget{classparser_1_1LexemeParser_a76d7b49e0571fa052bcb790ecfeb53a3}\label{classparser_1_1LexemeParser_a76d7b49e0571fa052bcb790ecfeb53a3} 
+\index{parser::LexemeParser@{parser::LexemeParser}!react@{react}}
+\index{react@{react}!parser::LexemeParser@{parser::LexemeParser}}
+\doxysubsubsection{\texorpdfstring{react()}{react()}\hspace{0.1cm}{\footnotesize\ttfamily [5/11]}}
+{\footnotesize\ttfamily virtual void parser\+::\+Lexeme\+Parser\+::react (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structparser_1_1InputGraphType}{Input\+Graph\+Type}} const \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented in \mbox{\hyperlink{classparser_1_1Idle_a250a788b0e995fdd46f01d325564be19}{parser\+::\+Idle}}.
+
+\Hypertarget{classparser_1_1LexemeParser_a010985f94edf2272370fa01f70bc0528}\label{classparser_1_1LexemeParser_a010985f94edf2272370fa01f70bc0528} 
+\index{parser::LexemeParser@{parser::LexemeParser}!react@{react}}
+\index{react@{react}!parser::LexemeParser@{parser::LexemeParser}}
+\doxysubsubsection{\texorpdfstring{react()}{react()}\hspace{0.1cm}{\footnotesize\ttfamily [6/11]}}
+{\footnotesize\ttfamily virtual void parser\+::\+Lexeme\+Parser\+::react (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structparser_1_1InputIntValue}{Input\+Int\+Value}} const \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented in \mbox{\hyperlink{classparser_1_1Equal_add8d9329e4f39ee7451b589215f03dcb}{parser\+::\+Equal}}.
+
+\Hypertarget{classparser_1_1LexemeParser_ad351280391a48d74ed3668b77a2826eb}\label{classparser_1_1LexemeParser_ad351280391a48d74ed3668b77a2826eb} 
+\index{parser::LexemeParser@{parser::LexemeParser}!react@{react}}
+\index{react@{react}!parser::LexemeParser@{parser::LexemeParser}}
+\doxysubsubsection{\texorpdfstring{react()}{react()}\hspace{0.1cm}{\footnotesize\ttfamily [7/11]}}
+{\footnotesize\ttfamily virtual void parser\+::\+Lexeme\+Parser\+::react (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structparser_1_1InputLabel}{Input\+Label}} const \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented in \mbox{\hyperlink{classparser_1_1OpenSquareBracket_a9ec758d1d50c2fb52eb256b3905f6427}{parser\+::\+Open\+Square\+Bracket}}.
+
+\Hypertarget{classparser_1_1LexemeParser_ad72fa3f4400005dca5b2f4dbb249e079}\label{classparser_1_1LexemeParser_ad72fa3f4400005dca5b2f4dbb249e079} 
+\index{parser::LexemeParser@{parser::LexemeParser}!react@{react}}
+\index{react@{react}!parser::LexemeParser@{parser::LexemeParser}}
+\doxysubsubsection{\texorpdfstring{react()}{react()}\hspace{0.1cm}{\footnotesize\ttfamily [8/11]}}
+{\footnotesize\ttfamily virtual void parser\+::\+Lexeme\+Parser\+::react (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structparser_1_1InputNodeId}{Input\+Node\+Id}} const \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented in \mbox{\hyperlink{classparser_1_1OpenCurlyBracket_aec1380a24a30ed85aba7cba81fb15d70}{parser\+::\+Open\+Curly\+Bracket}}, \mbox{\hyperlink{classparser_1_1FromNodeID_a4d2e55b5464fda3592111c18901e5d72}{parser\+::\+From\+Node\+ID}}, \mbox{\hyperlink{classparser_1_1Edge_af6c629e1de0e736f630f7b3bb4ec6c2a}{parser\+::\+Edge}}, and \mbox{\hyperlink{classparser_1_1ToNodeID_a9e965b53c29ea4f360b3cb9b8df4d6b5}{parser\+::\+To\+Node\+ID}}.
+
+\Hypertarget{classparser_1_1LexemeParser_a2a72f45f7a87ca338253929ecdeb3fa4}\label{classparser_1_1LexemeParser_a2a72f45f7a87ca338253929ecdeb3fa4} 
+\index{parser::LexemeParser@{parser::LexemeParser}!react@{react}}
+\index{react@{react}!parser::LexemeParser@{parser::LexemeParser}}
+\doxysubsubsection{\texorpdfstring{react()}{react()}\hspace{0.1cm}{\footnotesize\ttfamily [9/11]}}
+{\footnotesize\ttfamily virtual void parser\+::\+Lexeme\+Parser\+::react (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structparser_1_1InputOpenCurlyBracket}{Input\+Open\+Curly\+Bracket}} const \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented in \mbox{\hyperlink{classparser_1_1GraphType_aa84c93bb015348c5e5f3482914f8a439}{parser\+::\+Graph\+Type}}.
+
+\Hypertarget{classparser_1_1LexemeParser_a281028fe894b1d4d56519969ccfb4b51}\label{classparser_1_1LexemeParser_a281028fe894b1d4d56519969ccfb4b51} 
+\index{parser::LexemeParser@{parser::LexemeParser}!react@{react}}
+\index{react@{react}!parser::LexemeParser@{parser::LexemeParser}}
+\doxysubsubsection{\texorpdfstring{react()}{react()}\hspace{0.1cm}{\footnotesize\ttfamily [10/11]}}
+{\footnotesize\ttfamily virtual void parser\+::\+Lexeme\+Parser\+::react (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structparser_1_1InputOpenSquareBracket}{Input\+Open\+Square\+Bracket}} const \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented in \mbox{\hyperlink{classparser_1_1FromNodeID_a36be97ded2e6f52c6eba2bf31b02cbc7}{parser\+::\+From\+Node\+ID}}, and \mbox{\hyperlink{classparser_1_1ToNodeID_aacd5edc94f4ea2b6ec995d232da4d05a}{parser\+::\+To\+Node\+ID}}.
+
+\Hypertarget{classparser_1_1LexemeParser_a30a35245ca7feb0859cb74d1a9fcc0e7}\label{classparser_1_1LexemeParser_a30a35245ca7feb0859cb74d1a9fcc0e7} 
+\index{parser::LexemeParser@{parser::LexemeParser}!react@{react}}
+\index{react@{react}!parser::LexemeParser@{parser::LexemeParser}}
+\doxysubsubsection{\texorpdfstring{react()}{react()}\hspace{0.1cm}{\footnotesize\ttfamily [11/11]}}
+{\footnotesize\ttfamily virtual void parser\+::\+Lexeme\+Parser\+::react (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structparser_1_1InputStringValue}{Input\+String\+Value}} const \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented in \mbox{\hyperlink{classparser_1_1Equal_a853d3e0f1890e420245c5fec33754d22}{parser\+::\+Equal}}.
+
+\Hypertarget{classparser_1_1LexemeParser_a4c1fc6a9a4d3271978e31899b7d39651}\label{classparser_1_1LexemeParser_a4c1fc6a9a4d3271978e31899b7d39651} 
+\index{parser::LexemeParser@{parser::LexemeParser}!reset@{reset}}
+\index{reset@{reset}!parser::LexemeParser@{parser::LexemeParser}}
+\doxysubsubsection{\texorpdfstring{reset()}{reset()}}
+{\footnotesize\ttfamily void Lexeme\+Parser\+::reset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+\doxysubsection{Friends And Related Symbol Documentation}
+\Hypertarget{classparser_1_1LexemeParser_ab314ae6bcb88dfa3ee41dd8bf6f15d6d}\label{classparser_1_1LexemeParser_ab314ae6bcb88dfa3ee41dd8bf6f15d6d} 
+\index{parser::LexemeParser@{parser::LexemeParser}!parse@{parse}}
+\index{parse@{parse}!parser::LexemeParser@{parser::LexemeParser}}
+\doxysubsubsection{\texorpdfstring{parse}{parse}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classcommon_1_1TraversalGraph}{common\+::\+Traversal\+Graph}} $>$ parse (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{structcommon_1_1Lexeme}{common\+::\+Lexeme}} $>$ \&}]{input }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Parse lexemes vector into graph object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & lexemes \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::shared\+\_\+ptr$<$common\+::\+Graph$>$ output object 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classparser_1_1LexemeParser_ad090afdba5a21043f7c7187fc88d6699}\label{classparser_1_1LexemeParser_ad090afdba5a21043f7c7187fc88d6699} 
+\index{parser::LexemeParser@{parser::LexemeParser}!shared@{shared}}
+\index{shared@{shared}!parser::LexemeParser@{parser::LexemeParser}}
+\doxysubsubsection{\texorpdfstring{shared}{shared}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structparser_1_1SharedState}{Shared\+State}} parser\+::\+Lexeme\+Parser\+::shared \{\}\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/parser/\mbox{\hyperlink{parser_8hpp}{parser.\+hpp}}\item 
+src/parser/\mbox{\hyperlink{parser_8cpp}{parser.\+cpp}}\end{DoxyCompactItemize}

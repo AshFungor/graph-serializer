@@ -1,0 +1,99 @@
+\doxysection{parser\+::Shared\+State Struct Reference}
+\hypertarget{structparser_1_1SharedState}{}\label{structparser_1_1SharedState}\index{parser::SharedState@{parser::SharedState}}
+
+
+{\ttfamily \#include $<$parser.\+hpp$>$}
+
+
+
+Collaboration diagram for parser\+::Shared\+State\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=211pt]{structparser_1_1SharedState__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classcommon_1_1Graph}{common\+::\+Graph}} $>$ \mbox{\hyperlink{structparser_1_1SharedState_ac126a608fc7332f05dd0f957893ca5ed}{graph}}
+\item 
+\mbox{\hyperlink{classcommon_1_1ActionQueue}{common\+::\+Action\+Queue}} \mbox{\hyperlink{structparser_1_1SharedState_ab2952b0b14e71f3be0dc45703b7e6769}{backoff\+Queue}}
+\item 
+\mbox{\hyperlink{classcommon_1_1ActionQueue}{common\+::\+Action\+Queue}} \mbox{\hyperlink{structparser_1_1SharedState_af58ef0d5673e1b3577b00aa5ad6fa209}{action\+Queue}}
+\item 
+std\+::string \mbox{\hyperlink{structparser_1_1SharedState_a0c9bec145be872bdcc93c6fc65d5aa55}{from\+Node\+Id}}
+\item 
+std\+::string \mbox{\hyperlink{structparser_1_1SharedState_afd864ab13cc2169d5dbc3fdd4667f85d}{to\+Node\+Id}}
+\item 
+std\+::string \mbox{\hyperlink{structparser_1_1SharedState_adabde4e39580b20daed750b3b8b6591d}{label}}
+\item 
+std\+::string \mbox{\hyperlink{structparser_1_1SharedState_a9ecb74070624fe6cc441f912faa745eb}{expected\+Value}}
+\item 
+std\+::uint8\+\_\+t \mbox{\hyperlink{structparser_1_1SharedState_aac3b6c52d9442f95d2fa5f7fe780031b}{flags}} = 0x0
+\item 
+int \mbox{\hyperlink{structparser_1_1SharedState_ae2e76ae6d1e2c11f527d9716cbc0f393}{weight}} = -\/1
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structparser_1_1SharedState_af58ef0d5673e1b3577b00aa5ad6fa209}\label{structparser_1_1SharedState_af58ef0d5673e1b3577b00aa5ad6fa209} 
+\index{parser::SharedState@{parser::SharedState}!actionQueue@{actionQueue}}
+\index{actionQueue@{actionQueue}!parser::SharedState@{parser::SharedState}}
+\doxysubsubsection{\texorpdfstring{actionQueue}{actionQueue}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classcommon_1_1ActionQueue}{common\+::\+Action\+Queue}} parser\+::\+Shared\+State\+::action\+Queue}
+
+\Hypertarget{structparser_1_1SharedState_ab2952b0b14e71f3be0dc45703b7e6769}\label{structparser_1_1SharedState_ab2952b0b14e71f3be0dc45703b7e6769} 
+\index{parser::SharedState@{parser::SharedState}!backoffQueue@{backoffQueue}}
+\index{backoffQueue@{backoffQueue}!parser::SharedState@{parser::SharedState}}
+\doxysubsubsection{\texorpdfstring{backoffQueue}{backoffQueue}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classcommon_1_1ActionQueue}{common\+::\+Action\+Queue}} parser\+::\+Shared\+State\+::backoff\+Queue}
+
+\Hypertarget{structparser_1_1SharedState_a9ecb74070624fe6cc441f912faa745eb}\label{structparser_1_1SharedState_a9ecb74070624fe6cc441f912faa745eb} 
+\index{parser::SharedState@{parser::SharedState}!expectedValue@{expectedValue}}
+\index{expectedValue@{expectedValue}!parser::SharedState@{parser::SharedState}}
+\doxysubsubsection{\texorpdfstring{expectedValue}{expectedValue}}
+{\footnotesize\ttfamily std\+::string parser\+::\+Shared\+State\+::expected\+Value}
+
+\Hypertarget{structparser_1_1SharedState_aac3b6c52d9442f95d2fa5f7fe780031b}\label{structparser_1_1SharedState_aac3b6c52d9442f95d2fa5f7fe780031b} 
+\index{parser::SharedState@{parser::SharedState}!flags@{flags}}
+\index{flags@{flags}!parser::SharedState@{parser::SharedState}}
+\doxysubsubsection{\texorpdfstring{flags}{flags}}
+{\footnotesize\ttfamily std\+::uint8\+\_\+t parser\+::\+Shared\+State\+::flags = 0x0}
+
+\Hypertarget{structparser_1_1SharedState_a0c9bec145be872bdcc93c6fc65d5aa55}\label{structparser_1_1SharedState_a0c9bec145be872bdcc93c6fc65d5aa55} 
+\index{parser::SharedState@{parser::SharedState}!fromNodeId@{fromNodeId}}
+\index{fromNodeId@{fromNodeId}!parser::SharedState@{parser::SharedState}}
+\doxysubsubsection{\texorpdfstring{fromNodeId}{fromNodeId}}
+{\footnotesize\ttfamily std\+::string parser\+::\+Shared\+State\+::from\+Node\+Id}
+
+\Hypertarget{structparser_1_1SharedState_ac126a608fc7332f05dd0f957893ca5ed}\label{structparser_1_1SharedState_ac126a608fc7332f05dd0f957893ca5ed} 
+\index{parser::SharedState@{parser::SharedState}!graph@{graph}}
+\index{graph@{graph}!parser::SharedState@{parser::SharedState}}
+\doxysubsubsection{\texorpdfstring{graph}{graph}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{classcommon_1_1Graph}{common\+::\+Graph}}$>$ parser\+::\+Shared\+State\+::graph}
+
+\Hypertarget{structparser_1_1SharedState_adabde4e39580b20daed750b3b8b6591d}\label{structparser_1_1SharedState_adabde4e39580b20daed750b3b8b6591d} 
+\index{parser::SharedState@{parser::SharedState}!label@{label}}
+\index{label@{label}!parser::SharedState@{parser::SharedState}}
+\doxysubsubsection{\texorpdfstring{label}{label}}
+{\footnotesize\ttfamily std\+::string parser\+::\+Shared\+State\+::label}
+
+\Hypertarget{structparser_1_1SharedState_afd864ab13cc2169d5dbc3fdd4667f85d}\label{structparser_1_1SharedState_afd864ab13cc2169d5dbc3fdd4667f85d} 
+\index{parser::SharedState@{parser::SharedState}!toNodeId@{toNodeId}}
+\index{toNodeId@{toNodeId}!parser::SharedState@{parser::SharedState}}
+\doxysubsubsection{\texorpdfstring{toNodeId}{toNodeId}}
+{\footnotesize\ttfamily std\+::string parser\+::\+Shared\+State\+::to\+Node\+Id}
+
+\Hypertarget{structparser_1_1SharedState_ae2e76ae6d1e2c11f527d9716cbc0f393}\label{structparser_1_1SharedState_ae2e76ae6d1e2c11f527d9716cbc0f393} 
+\index{parser::SharedState@{parser::SharedState}!weight@{weight}}
+\index{weight@{weight}!parser::SharedState@{parser::SharedState}}
+\doxysubsubsection{\texorpdfstring{weight}{weight}}
+{\footnotesize\ttfamily int parser\+::\+Shared\+State\+::weight = -\/1}
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/parser/\mbox{\hyperlink{parser_8hpp}{parser.\+hpp}}\end{DoxyCompactItemize}

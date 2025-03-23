@@ -1,6 +1,7 @@
 #pragma once
 
 // standard
+#include <unordered_set>
 #include <unordered_map>
 #include <string_view>
 #include <optional>
@@ -33,7 +34,7 @@ namespace common {
      * Lexemes that are accepted by parser.
      */
     enum class LexemeType : std::uint8_t {
-        GRAPH_START_LABEL = 0,      ///< graph begging keyword
+        GRAPH_START_LABEL = 0,      ///< graph beggining keyword
         OPEN_CURLY_BRACKET = 1,     ///< graph body start symbol
         NODE_ID = 2,                ///< string node ID
         POINTED_ARROW = 3,          ///< edge symbol, drc set
@@ -61,13 +62,21 @@ namespace common {
      * Represents edge without source node.
      */
     struct Connection {
-        // std::nullopt for non-weighted graphs
         std::optional<int> weight;
-        // Peer
+        std::optional<std::string> label; 
         std::string peer;
 
-        Connection(std::string peer, std::optional<int> weight = std::nullopt) noexcept;
-        bool operator==(const Connection& other) const;
+        Connection(
+            std::string peer, 
+            std::optional<int> weight = std::nullopt,
+            std::optional<std::string> label = std::nullopt
+        ) noexcept; 
+        
+        bool operator==(const Connection& other) const {
+            return peer == other.peer 
+                && weight == other.weight 
+                && label == other.label;
+        }
     };
 
     /**
@@ -83,6 +92,8 @@ namespace common {
         using label_container_t = std::unordered_map<std::string, std::string>;
         using container_t = std::unordered_map<std::string, connections_t>;
         using container_value_t = std::pair<std::string, connections_t>;
+
+        virtual ~Graph() = default;
 
         /**
          * @brief Construct a new Graph object
@@ -132,13 +143,19 @@ namespace common {
         void setLabel(std::string source, std::string label);
 
         /**
+         * @brief Removes label for node
+         * @param source node ID
+         */
+        void removeLabel(const std::string& source);
+
+        /**
          * @brief Checks for connection between nodes
          * @param source first node ID
          * @param target second node ID
          * @return true if connection exists
          * @return false otherwise
          */
-        bool areConnected(std::string_view source, std::string_view target);
+        bool areConnected(std::string_view source, std::string_view target) const;
 
         /**
          * @brief Gets weight of edge
@@ -146,7 +163,7 @@ namespace common {
          * @param target second node ID
          * @return std::optional<int> weight if exists
          */
-        std::optional<int> getWeight(std::string_view source, std::string_view target);
+        std::optional<int> getWeight(std::string_view source, std::string_view target) const;
 
         /**
          * @brief Gets label of node
@@ -160,15 +177,21 @@ namespace common {
          * @return std::string graph state
          */
         std::string dumpGraphState() const;
-        
+
+        /**
+         * @brief Gets nodes ID
+         * @return std::vector<std::string> graph nodes vector
+         */
+        std::vector<std::string> getNodes() const;
+
         friend std::ostream& operator<<(std::ostream& os, const Graph& graph);
         friend GraphDumpingFactory;
 
     private:
         void insert(std::string_view source, Connection edge);
-        connections_t::iterator findConnection(std::string_view source, std::string_view target);
+        connections_t::iterator findConnection(std::string_view source, std::string_view target) const;
 
-    private:
+    protected:
         std::uint8_t flags_;
         std::unique_ptr<container_t> connections_;
         std::unique_ptr<label_container_t> labels_;

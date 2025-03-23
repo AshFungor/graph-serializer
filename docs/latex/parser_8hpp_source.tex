@@ -1,0 +1,141 @@
+\doxysection{parser.\+hpp}
+\hypertarget{parser_8hpp_source}{}\label{parser_8hpp_source}\index{src/parser/parser.hpp@{src/parser/parser.hpp}}
+\mbox{\hyperlink{parser_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ standard}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ internal}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{action-queue_8hpp}{common/action-\/queue.hpp}}>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{common_8hpp}{common/common.hpp}}>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{traversal_8hpp}{algorithms/traversal.hpp}}>}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ contrib}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <tinyfsm.hpp>}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceparser}{parser}}\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespaceparser_acecbf0d59ab7f03faa84bef3821cdeb5}{throw\_invalid\_input}}(std::string\ message)\ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(message);}
+\DoxyCodeLine{00020\ \ \ \ \ \}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structparser_1_1SharedState}{SharedState}}\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ std::shared\_ptr<common::Graph>\ \mbox{\hyperlink{structparser_1_1SharedState_ac126a608fc7332f05dd0f957893ca5ed}{graph}};}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcommon_1_1ActionQueue}{common::ActionQueue}}\ \mbox{\hyperlink{structparser_1_1SharedState_ab2952b0b14e71f3be0dc45703b7e6769}{backoffQueue}};}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classcommon_1_1ActionQueue}{common::ActionQueue}}\ \mbox{\hyperlink{structparser_1_1SharedState_af58ef0d5673e1b3577b00aa5ad6fa209}{actionQueue}};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{structparser_1_1SharedState_a0c9bec145be872bdcc93c6fc65d5aa55}{fromNodeId}};}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{structparser_1_1SharedState_afd864ab13cc2169d5dbc3fdd4667f85d}{toNodeId}};}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{structparser_1_1SharedState_adabde4e39580b20daed750b3b8b6591d}{label}};}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{structparser_1_1SharedState_a9ecb74070624fe6cc441f912faa745eb}{expectedValue}};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ std::uint8\_t\ \mbox{\hyperlink{structparser_1_1SharedState_aac3b6c52d9442f95d2fa5f7fe780031b}{flags}}\ =\ 0x0;}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1SharedState_ae2e76ae6d1e2c11f527d9716cbc0f393}{weight}}\ =\ -\/1;\ }
+\DoxyCodeLine{00035\ \ \ \ \ \};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{comment}{//\ 1.\ Event\ Declarations}}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structparser_1_1GraphEvent}{GraphEvent}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ tinyfsm::Event\ \{\};}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structparser_1_1InputOpenCurlyBracket}{InputOpenCurlyBracket}}\ \ \ \ :\ \mbox{\hyperlink{structparser_1_1GraphEvent}{GraphEvent}}\ \{\};}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structparser_1_1InputCloseCurlyBracket}{InputCloseCurlyBracket}}\ \ \ :\ \mbox{\hyperlink{structparser_1_1GraphEvent}{GraphEvent}}\ \{\};}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structparser_1_1InputOpenSquareBracket}{InputOpenSquareBracket}}\ \ \ :\ \mbox{\hyperlink{structparser_1_1GraphEvent}{GraphEvent}}\ \{\};}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structparser_1_1InputCloseSquareBracket}{InputCloseSquareBracket}}\ \ :\ \mbox{\hyperlink{structparser_1_1GraphEvent}{GraphEvent}}\ \{\};}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structparser_1_1InputEdge}{InputEdge}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{structparser_1_1GraphEvent}{GraphEvent}}\ \{\};}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structparser_1_1InputLabel}{InputLabel}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{structparser_1_1GraphEvent}{GraphEvent}}\ \{\};}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structparser_1_1InputEqual}{InputEqual}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{structparser_1_1GraphEvent}{GraphEvent}}\ \{\};}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structparser_1_1InputGraphType}{InputGraphType}}\ \ \ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{structparser_1_1GraphEvent}{GraphEvent}}\ \{\ std::string\ \mbox{\hyperlink{structparser_1_1InputGraphType_ae797971aa50e69439e2ca1012a5fd439}{graphType}};\ \};}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structparser_1_1InputNodeId}{InputNodeId}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{structparser_1_1GraphEvent}{GraphEvent}}\ \{\ std::string\ \mbox{\hyperlink{structparser_1_1InputNodeId_a1b7e7b3ba5ea2c2a2ab92e8a6dea222c}{NodeID}};\ \};}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structparser_1_1InputStringValue}{InputStringValue}}\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{structparser_1_1GraphEvent}{GraphEvent}}\ \{\ std::string\ \mbox{\hyperlink{structparser_1_1InputStringValue_a53c211602d7974486818cbf441644353}{label}};\ \};}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structparser_1_1InputIntValue}{InputIntValue}}\ \ \ \ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{structparser_1_1GraphEvent}{GraphEvent}}\ \{\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1InputIntValue_a9609a204d229e3221cb6d2125c0c69f2}{weight}};\ \};}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{comment}{//\ 2.\ State\ Machine\ Base\ Class\ Declaration}}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classparser_1_1LexemeParser}{LexemeParser}}\ :\ \textcolor{keyword}{public}\ tinyfsm::Fsm<LexemeParser>\ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classparser_1_1LexemeParser_a76d7b49e0571fa052bcb790ecfeb53a3}{react}}(\mbox{\hyperlink{structparser_1_1InputGraphType}{InputGraphType}}\ \textcolor{keyword}{const}\ \&)\ \ \ \ \ \ \ \ \ \ \{\};}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classparser_1_1LexemeParser_a2a72f45f7a87ca338253929ecdeb3fa4}{react}}(\mbox{\hyperlink{structparser_1_1InputOpenCurlyBracket}{InputOpenCurlyBracket}}\ \textcolor{keyword}{const}\ \&)\ \ \ \{\ \mbox{\hyperlink{namespaceparser_acecbf0d59ab7f03faa84bef3821cdeb5}{throw\_invalid\_input}}(\textcolor{stringliteral}{"{}"{}});\ \};}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classparser_1_1LexemeParser_ad01e57dde6ca11ea76322e13d8eb4984}{react}}(\mbox{\hyperlink{structparser_1_1InputCloseCurlyBracket}{InputCloseCurlyBracket}}\ \textcolor{keyword}{const}\ \&)\ \ \{\ \mbox{\hyperlink{namespaceparser_acecbf0d59ab7f03faa84bef3821cdeb5}{throw\_invalid\_input}}(\textcolor{stringliteral}{"{}"{}});\ \};}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classparser_1_1LexemeParser_ad72fa3f4400005dca5b2f4dbb249e079}{react}}(\mbox{\hyperlink{structparser_1_1InputNodeId}{InputNodeId}}\ \textcolor{keyword}{const}\ \&)\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \mbox{\hyperlink{namespaceparser_acecbf0d59ab7f03faa84bef3821cdeb5}{throw\_invalid\_input}}(\textcolor{stringliteral}{"{}"{}});\ \};}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classparser_1_1LexemeParser_a281028fe894b1d4d56519969ccfb4b51}{react}}(\mbox{\hyperlink{structparser_1_1InputOpenSquareBracket}{InputOpenSquareBracket}}\ \textcolor{keyword}{const}\ \&)\ \ \{\ \mbox{\hyperlink{namespaceparser_acecbf0d59ab7f03faa84bef3821cdeb5}{throw\_invalid\_input}}(\textcolor{stringliteral}{"{}"{}});\ \};}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classparser_1_1LexemeParser_a2c1b3cb404bcd6b34d89174a4d459a2e}{react}}(\mbox{\hyperlink{structparser_1_1InputCloseSquareBracket}{InputCloseSquareBracket}}\ \textcolor{keyword}{const}\ \&)\ \{\ \mbox{\hyperlink{namespaceparser_acecbf0d59ab7f03faa84bef3821cdeb5}{throw\_invalid\_input}}(\textcolor{stringliteral}{"{}"{}});\ \};}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classparser_1_1LexemeParser_a2e783bffb8d65325cae57af9e0a1525d}{react}}(\mbox{\hyperlink{structparser_1_1InputEdge}{InputEdge}}\ \textcolor{keyword}{const}\ \&)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \mbox{\hyperlink{namespaceparser_acecbf0d59ab7f03faa84bef3821cdeb5}{throw\_invalid\_input}}(\textcolor{stringliteral}{"{}"{}});\ \};}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classparser_1_1LexemeParser_ad351280391a48d74ed3668b77a2826eb}{react}}(\mbox{\hyperlink{structparser_1_1InputLabel}{InputLabel}}\ \textcolor{keyword}{const}\ \&)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \mbox{\hyperlink{namespaceparser_acecbf0d59ab7f03faa84bef3821cdeb5}{throw\_invalid\_input}}(\textcolor{stringliteral}{"{}"{}});\ \};}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classparser_1_1LexemeParser_ad672d46f89ae8717e764daf08f65cdcb}{react}}(\mbox{\hyperlink{structparser_1_1InputEqual}{InputEqual}}\ \textcolor{keyword}{const}\ \&)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \mbox{\hyperlink{namespaceparser_acecbf0d59ab7f03faa84bef3821cdeb5}{throw\_invalid\_input}}(\textcolor{stringliteral}{"{}"{}});\ \};}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classparser_1_1LexemeParser_a30a35245ca7feb0859cb74d1a9fcc0e7}{react}}(\mbox{\hyperlink{structparser_1_1InputStringValue}{InputStringValue}}\ \textcolor{keyword}{const}\ \&)\ \ \ \ \ \ \ \ \{\ \mbox{\hyperlink{namespaceparser_acecbf0d59ab7f03faa84bef3821cdeb5}{throw\_invalid\_input}}(\textcolor{stringliteral}{"{}"{}});\ \};}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classparser_1_1LexemeParser_a010985f94edf2272370fa01f70bc0528}{react}}(\mbox{\hyperlink{structparser_1_1InputIntValue}{InputIntValue}}\ \textcolor{keyword}{const}\ \&)\ \ \ \ \ \ \ \ \ \ \ \{\ \mbox{\hyperlink{namespaceparser_acecbf0d59ab7f03faa84bef3821cdeb5}{throw\_invalid\_input}}(\textcolor{stringliteral}{"{}"{}});\ \};}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classparser_1_1LexemeParser_a4c1fc6a9a4d3271978e31899b7d39651}{reset}}();}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classparser_1_1LexemeParser_aad8e1dc03b7c619871f50fb168509186}{entry}}();\ \ \textcolor{comment}{/*\ entry\ actions\ in\ some\ states\ */}}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classparser_1_1LexemeParser_a723c0a669bb16d38738a712b38a9b383}{exit}}();\ \ \textcolor{comment}{/*\ no\ exit\ actions\ */}}
+\DoxyCodeLine{00074\ \ \ \ \ }
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keyword}{friend}\ std::shared\_ptr<common::TraversalGraph>\ \mbox{\hyperlink{classparser_1_1LexemeParser_ab314ae6bcb88dfa3ee41dd8bf6f15d6d}{parse}}(std::vector<common::Lexeme>\&\ input);\ \textcolor{comment}{//\ <-\/\ Возвращает\ TraversalGraph}}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{static}\ \mbox{\hyperlink{structparser_1_1SharedState}{SharedState}}\ \mbox{\hyperlink{classparser_1_1LexemeParser_ad090afdba5a21043f7c7187fc88d6699}{shared}}\ \{\};}
+\DoxyCodeLine{00080\ \ \ \ \ \};}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{comment}{//\ 3.\ State\ Declarations}}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classparser_1_1Idle}{Idle}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classparser_1_1LexemeParser}{LexemeParser}}\ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classparser_1_1Idle_a250a788b0e995fdd46f01d325564be19}{react}}(\mbox{\hyperlink{structparser_1_1InputGraphType}{InputGraphType}}\ \textcolor{keyword}{const}\ \&)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00088\ \ \ \ \ \};}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classparser_1_1GraphType}{GraphType}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classparser_1_1LexemeParser}{LexemeParser}}\ \{}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classparser_1_1GraphType_aa84c93bb015348c5e5f3482914f8a439}{react}}(\mbox{\hyperlink{structparser_1_1InputOpenCurlyBracket}{InputOpenCurlyBracket}}\ \textcolor{keyword}{const}\ \&)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00092\ \ \ \ \ \};}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classparser_1_1OpenCurlyBracket}{OpenCurlyBracket}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classparser_1_1LexemeParser}{LexemeParser}}\ \{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classparser_1_1OpenCurlyBracket_aec1380a24a30ed85aba7cba81fb15d70}{react}}(\mbox{\hyperlink{structparser_1_1InputNodeId}{InputNodeId}}\ \textcolor{keyword}{const}\ \&)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classparser_1_1OpenCurlyBracket_aec1380a24a30ed85aba7cba81fb15d70}{react}}(\mbox{\hyperlink{structparser_1_1InputCloseCurlyBracket}{InputCloseCurlyBracket}}\ \textcolor{keyword}{const}\ \&)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00097\ \ \ \ \ \};}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classparser_1_1FromNodeID}{FromNodeID}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classparser_1_1LexemeParser}{LexemeParser}}\ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classparser_1_1FromNodeID_a466d348455333e4e7d6c51c70599aaea}{react}}(\mbox{\hyperlink{structparser_1_1InputCloseCurlyBracket}{InputCloseCurlyBracket}}\ \textcolor{keyword}{const}\&)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classparser_1_1FromNodeID_a466d348455333e4e7d6c51c70599aaea}{react}}(\mbox{\hyperlink{structparser_1_1InputOpenSquareBracket}{InputOpenSquareBracket}}\ \textcolor{keyword}{const}\&)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classparser_1_1FromNodeID_a466d348455333e4e7d6c51c70599aaea}{react}}(\mbox{\hyperlink{structparser_1_1InputEdge}{InputEdge}}\ \textcolor{keyword}{const}\&)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classparser_1_1FromNodeID_a466d348455333e4e7d6c51c70599aaea}{react}}(\mbox{\hyperlink{structparser_1_1InputNodeId}{InputNodeId}}\ \textcolor{keyword}{const}\&)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00104\ \ \ \ \ \};}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classparser_1_1OpenSquareBracket}{OpenSquareBracket}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classparser_1_1LexemeParser}{LexemeParser}}\ \{}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classparser_1_1OpenSquareBracket_a9ec758d1d50c2fb52eb256b3905f6427}{react}}(\mbox{\hyperlink{structparser_1_1InputLabel}{InputLabel}}\ \textcolor{keyword}{const}\ \&)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00108\ \ \ \ \ \};}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classparser_1_1Edge}{Edge}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classparser_1_1LexemeParser}{LexemeParser}}\ \{}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classparser_1_1Edge_af6c629e1de0e736f630f7b3bb4ec6c2a}{react}}(\mbox{\hyperlink{structparser_1_1InputNodeId}{InputNodeId}}\ \textcolor{keyword}{const}\ \&)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00112\ \ \ \ \ \};}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classparser_1_1ToNodeID}{ToNodeID}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classparser_1_1LexemeParser}{LexemeParser}}\ \{}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classparser_1_1ToNodeID_aacd5edc94f4ea2b6ec995d232da4d05a}{react}}(\mbox{\hyperlink{structparser_1_1InputOpenSquareBracket}{InputOpenSquareBracket}}\ \textcolor{keyword}{const}\ \&)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classparser_1_1ToNodeID_aacd5edc94f4ea2b6ec995d232da4d05a}{react}}(\mbox{\hyperlink{structparser_1_1InputNodeId}{InputNodeId}}\ \textcolor{keyword}{const}\&\ )\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classparser_1_1ToNodeID_aacd5edc94f4ea2b6ec995d232da4d05a}{react}}(\mbox{\hyperlink{structparser_1_1InputCloseCurlyBracket}{InputCloseCurlyBracket}}\ \textcolor{keyword}{const}\&)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00118\ \ \ \ \ \};}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classparser_1_1Label}{Label}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classparser_1_1LexemeParser}{LexemeParser}}\ \{}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classparser_1_1Label_a2d383d3b7b1c6d82f1c6f31a7173352b}{react}}(\mbox{\hyperlink{structparser_1_1InputEqual}{InputEqual}}\ \textcolor{keyword}{const}\ \&)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00122\ \ \ \ \ \};}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classparser_1_1Equal}{Equal}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classparser_1_1LexemeParser}{LexemeParser}}\ \{}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classparser_1_1Equal_a853d3e0f1890e420245c5fec33754d22}{react}}(\mbox{\hyperlink{structparser_1_1InputStringValue}{InputStringValue}}\ \textcolor{keyword}{const}\ \&)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classparser_1_1Equal_a853d3e0f1890e420245c5fec33754d22}{react}}(\mbox{\hyperlink{structparser_1_1InputIntValue}{InputIntValue}}\ \textcolor{keyword}{const}\ \&)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00127\ \ \ \ \ \};}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classparser_1_1Value}{Value}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classparser_1_1LexemeParser}{LexemeParser}}\ \{}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classparser_1_1Value_ae62fdb1d36b87dd6caccc600bd39a883}{react}}(\mbox{\hyperlink{structparser_1_1InputCloseSquareBracket}{InputCloseSquareBracket}}\ \textcolor{keyword}{const}\ \&)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00131\ \ \ \ \ \};}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{comment}{//std::shared\_ptr<common::Graph>\ parse(std::vector<common::Lexeme>\&\ input);}}
+\DoxyCodeLine{00139\ \ \ \ \ std::shared\_ptr<common::TraversalGraph>\ \mbox{\hyperlink{namespaceparser_a965ab83a742fea93b678f21c4908b619}{parse}}(std::vector<common::Lexeme>\&\ input);\ \textcolor{comment}{//\ <-\/\ Возвращает\ TraversalGraph}}
+\DoxyCodeLine{00140\ \}}
+
+\end{DoxyCode}

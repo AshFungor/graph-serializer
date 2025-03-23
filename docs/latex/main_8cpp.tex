@@ -1,0 +1,85 @@
+\doxysection{src/main.cpp File Reference}
+\hypertarget{main_8cpp}{}\label{main_8cpp}\index{src/main.cpp@{src/main.cpp}}
+{\ttfamily \#include $<$cstdlib$>$}\newline
+{\ttfamily \#include $<$filesystem$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$ostream$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$common/common.\+hpp$>$}\newline
+{\ttfamily \#include $<$common/reverted.\+hpp$>$}\newline
+{\ttfamily \#include $<$parser/parser.\+hpp$>$}\newline
+{\ttfamily \#include $<$lexer/lexer.\+hpp$>$}\newline
+{\ttfamily \#include $<$algorithms/traversal.\+hpp$>$}\newline
+Include dependency graph for main.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{main_8cpp_a047c63775346fc5276ed7ad95fb7d06a}{serialize\+File\+Into\+String}} (const std\+::string \&filename)
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classcommon_1_1Graph}{common\+::\+Graph}} $>$ \mbox{\hyperlink{main_8cpp_a74f529079fc351d3de830da1b4e74c31}{load\+Graph}} ()
+\item 
+void \mbox{\hyperlink{main_8cpp_a0c9dc4fe0c4c4b7fa90b3bc8ff06437e}{dump\+Current\+Graph\+State}} (std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{classcommon_1_1Graph}{common\+::\+Graph}} $>$ graph)
+\item 
+void \mbox{\hyperlink{main_8cpp_a69adf03ad20a1712f705a73708ee6ec1}{show\+Current\+Traversal\+Order}} (std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{classcommon_1_1Graph}{common\+::\+Graph}} $>$ graph)
+\item 
+void \mbox{\hyperlink{main_8cpp_a8fafe8e1a02f2bf726a154a58530631a}{find\+Given\+Node}} (std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{classcommon_1_1Graph}{common\+::\+Graph}} $>$ graph)
+\item 
+void \mbox{\hyperlink{main_8cpp_a83f6b4123a80148f590ae43b4dd00a58}{dump\+Graph\+To\+File}} (std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{classcommon_1_1Graph}{common\+::\+Graph}} $>$ graph, \mbox{\hyperlink{classcommon_1_1GraphDumpingFactory}{common\+::\+Graph\+Dumping\+Factory}} \&factory)
+\item 
+int \mbox{\hyperlink{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{main_8cpp_a0c9dc4fe0c4c4b7fa90b3bc8ff06437e}\label{main_8cpp_a0c9dc4fe0c4c4b7fa90b3bc8ff06437e} 
+\index{main.cpp@{main.cpp}!dumpCurrentGraphState@{dumpCurrentGraphState}}
+\index{dumpCurrentGraphState@{dumpCurrentGraphState}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{dumpCurrentGraphState()}{dumpCurrentGraphState()}}
+{\footnotesize\ttfamily void dump\+Current\+Graph\+State (\begin{DoxyParamCaption}\item[{std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{classcommon_1_1Graph}{common\+::\+Graph}} $>$}]{graph }\end{DoxyParamCaption})}
+
+\Hypertarget{main_8cpp_a83f6b4123a80148f590ae43b4dd00a58}\label{main_8cpp_a83f6b4123a80148f590ae43b4dd00a58} 
+\index{main.cpp@{main.cpp}!dumpGraphToFile@{dumpGraphToFile}}
+\index{dumpGraphToFile@{dumpGraphToFile}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{dumpGraphToFile()}{dumpGraphToFile()}}
+{\footnotesize\ttfamily void dump\+Graph\+To\+File (\begin{DoxyParamCaption}\item[{std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{classcommon_1_1Graph}{common\+::\+Graph}} $>$}]{graph,  }\item[{\mbox{\hyperlink{classcommon_1_1GraphDumpingFactory}{common\+::\+Graph\+Dumping\+Factory}} \&}]{factory }\end{DoxyParamCaption})}
+
+\Hypertarget{main_8cpp_a8fafe8e1a02f2bf726a154a58530631a}\label{main_8cpp_a8fafe8e1a02f2bf726a154a58530631a} 
+\index{main.cpp@{main.cpp}!findGivenNode@{findGivenNode}}
+\index{findGivenNode@{findGivenNode}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{findGivenNode()}{findGivenNode()}}
+{\footnotesize\ttfamily void find\+Given\+Node (\begin{DoxyParamCaption}\item[{std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{classcommon_1_1Graph}{common\+::\+Graph}} $>$}]{graph }\end{DoxyParamCaption})}
+
+\Hypertarget{main_8cpp_a74f529079fc351d3de830da1b4e74c31}\label{main_8cpp_a74f529079fc351d3de830da1b4e74c31} 
+\index{main.cpp@{main.cpp}!loadGraph@{loadGraph}}
+\index{loadGraph@{loadGraph}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{loadGraph()}{loadGraph()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classcommon_1_1Graph}{common\+::\+Graph}} $>$ load\+Graph (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\Hypertarget{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4} 
+\index{main.cpp@{main.cpp}!main@{main}}
+\index{main@{main}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\Hypertarget{main_8cpp_a047c63775346fc5276ed7ad95fb7d06a}\label{main_8cpp_a047c63775346fc5276ed7ad95fb7d06a} 
+\index{main.cpp@{main.cpp}!serializeFileIntoString@{serializeFileIntoString}}
+\index{serializeFileIntoString@{serializeFileIntoString}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{serializeFileIntoString()}{serializeFileIntoString()}}
+{\footnotesize\ttfamily std\+::string serialize\+File\+Into\+String (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename }\end{DoxyParamCaption})}
+
+\Hypertarget{main_8cpp_a69adf03ad20a1712f705a73708ee6ec1}\label{main_8cpp_a69adf03ad20a1712f705a73708ee6ec1} 
+\index{main.cpp@{main.cpp}!showCurrentTraversalOrder@{showCurrentTraversalOrder}}
+\index{showCurrentTraversalOrder@{showCurrentTraversalOrder}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{showCurrentTraversalOrder()}{showCurrentTraversalOrder()}}
+{\footnotesize\ttfamily void show\+Current\+Traversal\+Order (\begin{DoxyParamCaption}\item[{std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{classcommon_1_1Graph}{common\+::\+Graph}} $>$}]{graph }\end{DoxyParamCaption})}
+

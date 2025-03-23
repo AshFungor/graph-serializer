@@ -8,6 +8,7 @@
 // internal
 #include <common/action-queue.hpp>
 #include <common/common.hpp>
+#include <algorithms/traversal.hpp>
 
 // contrib
 #include <tinyfsm.hpp>
@@ -30,7 +31,7 @@ namespace parser {
         std::string expectedValue;
 
         std::uint8_t flags = 0x0;
-        int weight = -1;
+        int weight = -1; 
     };
 
     // ----------------------------------------------------------------------------
@@ -71,7 +72,8 @@ namespace parser {
         void entry();  /* entry actions in some states */
         void exit();  /* no exit actions */
     
-        friend std::shared_ptr<common::Graph> parse(std::vector<common::Lexeme>& input);
+        friend std::shared_ptr<common::TraversalGraph> parse(std::vector<common::Lexeme>& input); // <- Возвращает TraversalGraph
+        
 
     protected:
         inline static SharedState shared {};
@@ -133,5 +135,6 @@ namespace parser {
      * @param input lexemes
      * @return std::shared_ptr<common::Graph> output object 
      */
-    std::shared_ptr<common::Graph> parse(std::vector<common::Lexeme>& input);
+    //std::shared_ptr<common::Graph> parse(std::vector<common::Lexeme>& input);
+    std::shared_ptr<common::TraversalGraph> parse(std::vector<common::Lexeme>& input); // <- Возвращает TraversalGraph
 }

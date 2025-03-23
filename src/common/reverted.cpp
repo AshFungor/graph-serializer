@@ -10,7 +10,7 @@
 #include <string>
 #include <set>
 #include <ios>
-
+#include <iostream>
 // common
 #include <common/common.hpp>
 
@@ -77,14 +77,42 @@ void GraphDumpingFactory::dumpGraphEdges(const Graph& unit) {
     for (const auto& pair : *unit.connections_) {
         for (const auto& connection : pair.second) {
             if (!unit.isDirectional() && met[pair.first].contains(connection.peer)) continue;
-            ofs_ << "  " << pair.first;
-            ofs_ << ((unit.isDirectional()) ? " -> " : " -- ") << connection.peer << ' ';
-            if (unit.isWeighted()) {
-                ofs_ << "[label = " << connection.weight.value_or(0) << "]";
+
+            // Формируем строку с атрибутами ребра
+            std::vector<std::string> attrs;
+
+            // Добавляем метку, если она есть
+            if (connection.label.has_value()) {
+                attrs.push_back("label=\"" + connection.label.value() + "\"");
             }
-            ofs_ << '\n';
+
+            // Добавляем вес, если граф взвешенный и вес задан
+            if (unit.isWeighted() && connection.weight.has_value()) {
+                attrs.push_back("weight=" + std::to_string(*connection.weight));
+            }
+
+            // Формируем вывод атрибутов
+            std::string attr_str;
+            if (!attrs.empty()) {
+                attr_str = " [";
+                for (size_t i = 0; i < attrs.size(); ++i) {
+                    if (i > 0) attr_str += ", ";
+                    attr_str += attrs[i];
+                }
+                attr_str += "]";
+            }
+
+            // Записываем ребро с атрибутами
+            ofs_ << "  " << pair.first 
+                 << ((unit.isDirectional()) ? " -> " : " -- ") 
+                 << connection.peer 
+                 << attr_str 
+                 << '\n';
+
             met[pair.first].insert(connection.peer);
-            met[connection.peer].insert(pair.first);
+            if (!unit.isDirectional()) {
+                met[connection.peer].insert(pair.first);
+            }
         }
     }
     ofs_ << '\n';

@@ -1,0 +1,88 @@
+\doxysection{src/parser/parser.hpp File Reference}
+\hypertarget{parser_8hpp}{}\label{parser_8hpp}\index{src/parser/parser.hpp@{src/parser/parser.hpp}}
+{\ttfamily \#include $<$cstdint$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$common/action-\/queue.\+hpp$>$}\newline
+{\ttfamily \#include $<$common/common.\+hpp$>$}\newline
+{\ttfamily \#include $<$algorithms/traversal.\+hpp$>$}\newline
+{\ttfamily \#include $<$tinyfsm.\+hpp$>$}\newline
+Include dependency graph for parser.\+hpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parser_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parser_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structparser_1_1SharedState}{parser\+::\+Shared\+State}}
+\item 
+struct \mbox{\hyperlink{structparser_1_1GraphEvent}{parser\+::\+Graph\+Event}}
+\item 
+struct \mbox{\hyperlink{structparser_1_1InputOpenCurlyBracket}{parser\+::\+Input\+Open\+Curly\+Bracket}}
+\item 
+struct \mbox{\hyperlink{structparser_1_1InputCloseCurlyBracket}{parser\+::\+Input\+Close\+Curly\+Bracket}}
+\item 
+struct \mbox{\hyperlink{structparser_1_1InputOpenSquareBracket}{parser\+::\+Input\+Open\+Square\+Bracket}}
+\item 
+struct \mbox{\hyperlink{structparser_1_1InputCloseSquareBracket}{parser\+::\+Input\+Close\+Square\+Bracket}}
+\item 
+struct \mbox{\hyperlink{structparser_1_1InputEdge}{parser\+::\+Input\+Edge}}
+\item 
+struct \mbox{\hyperlink{structparser_1_1InputLabel}{parser\+::\+Input\+Label}}
+\item 
+struct \mbox{\hyperlink{structparser_1_1InputEqual}{parser\+::\+Input\+Equal}}
+\item 
+struct \mbox{\hyperlink{structparser_1_1InputGraphType}{parser\+::\+Input\+Graph\+Type}}
+\item 
+struct \mbox{\hyperlink{structparser_1_1InputNodeId}{parser\+::\+Input\+Node\+Id}}
+\item 
+struct \mbox{\hyperlink{structparser_1_1InputStringValue}{parser\+::\+Input\+String\+Value}}
+\item 
+struct \mbox{\hyperlink{structparser_1_1InputIntValue}{parser\+::\+Input\+Int\+Value}}
+\item 
+class \mbox{\hyperlink{classparser_1_1LexemeParser}{parser\+::\+Lexeme\+Parser}}
+\item 
+class \mbox{\hyperlink{classparser_1_1Idle}{parser\+::\+Idle}}
+\item 
+class \mbox{\hyperlink{classparser_1_1GraphType}{parser\+::\+Graph\+Type}}
+\item 
+class \mbox{\hyperlink{classparser_1_1OpenCurlyBracket}{parser\+::\+Open\+Curly\+Bracket}}
+\item 
+class \mbox{\hyperlink{classparser_1_1FromNodeID}{parser\+::\+From\+Node\+ID}}
+\item 
+class \mbox{\hyperlink{classparser_1_1OpenSquareBracket}{parser\+::\+Open\+Square\+Bracket}}
+\item 
+class \mbox{\hyperlink{classparser_1_1Edge}{parser\+::\+Edge}}
+\item 
+class \mbox{\hyperlink{classparser_1_1ToNodeID}{parser\+::\+To\+Node\+ID}}
+\item 
+class \mbox{\hyperlink{classparser_1_1Label}{parser\+::\+Label}}
+\item 
+class \mbox{\hyperlink{classparser_1_1Equal}{parser\+::\+Equal}}
+\item 
+class \mbox{\hyperlink{classparser_1_1Value}{parser\+::\+Value}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespaceparser}{parser}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{namespaceparser_acecbf0d59ab7f03faa84bef3821cdeb5}{parser\+::throw\+\_\+invalid\+\_\+input}} (std\+::string message)
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classcommon_1_1TraversalGraph}{common\+::\+Traversal\+Graph}} $>$ \mbox{\hyperlink{namespaceparser_a965ab83a742fea93b678f21c4908b619}{parser\+::parse}} (std\+::vector$<$ \mbox{\hyperlink{structcommon_1_1Lexeme}{common\+::\+Lexeme}} $>$ \&input)
+\begin{DoxyCompactList}\small\item\em Parse lexemes vector into graph object. \end{DoxyCompactList}\end{DoxyCompactItemize}

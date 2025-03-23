@@ -41,6 +41,18 @@ void PushEdgeAction::make() {
     (this_->*action_)(std::move(name_), std::move(edge_));
 }
 
+SetWeightAction::SetWeightAction(set_weight_proto action, Graph* instance, std::string source, std::string target, int weight)
+    : action_(std::move(action))
+    , this_(std::move(instance))
+    , source_(std::move(source))
+    , target_(std::move(target))
+    , weight_(std::move(weight))
+{}
+
+void SetWeightAction::make() {
+    (this_->*action_)(std::move(source_), std::move(target_), weight_);
+}
+
 void ActionQueue::query(std::shared_ptr<IAction> action) {
     actions_.push(std::move(action));
 }

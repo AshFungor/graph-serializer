@@ -1,0 +1,77 @@
+\doxysection{src/common/common.hpp File Reference}
+\hypertarget{common_8hpp}{}\label{common_8hpp}\index{src/common/common.hpp@{src/common/common.hpp}}
+{\ttfamily \#include $<$unordered\+\_\+set$>$}\newline
+{\ttfamily \#include $<$unordered\+\_\+map$>$}\newline
+{\ttfamily \#include $<$string\+\_\+view$>$}\newline
+{\ttfamily \#include $<$optional$>$}\newline
+{\ttfamily \#include $<$cstdint$>$}\newline
+{\ttfamily \#include $<$utility$>$}\newline
+{\ttfamily \#include $<$ostream$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$any$>$}\newline
+Include dependency graph for common.\+hpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{common_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{common_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structcommon_1_1Lexeme}{common\+::\+Lexeme}}
+\begin{DoxyCompactList}\small\item\em \doxylink{structcommon_1_1Lexeme}{Lexeme} Represents single unit of lexer output. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structcommon_1_1Connection}{common\+::\+Connection}}
+\begin{DoxyCompactList}\small\item\em Edge Represents edge without source node. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classcommon_1_1Graph}{common\+::\+Graph}}
+\begin{DoxyCompactList}\small\item\em \doxylink{classcommon_1_1Graph}{Graph} Represents graph object as lists of connections. Supports some API calls to make life easier. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacecommon}{common}}
+\item 
+namespace \mbox{\hyperlink{namespacecommon_1_1opt}{common\+::opt}}
+\begin{DoxyCompactList}\small\item\em Options for graph This enumeration represents options that graph supports and that alter its API calls behaviour. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{namespacecommon_a55175dff5d06030983224ea143844b93}{common\+::\+Lexeme\+Type}} \+: std\+::uint8\+\_\+t \{ \newline
+\mbox{\hyperlink{namespacecommon_a55175dff5d06030983224ea143844b93a194bb1d9ba528e841560fa6d0e210680}{common\+::\+GRAPH\+\_\+\+START\+\_\+\+LABEL}} = 0
+, \mbox{\hyperlink{namespacecommon_a55175dff5d06030983224ea143844b93ad7a6a14e5ac11249db28485fd67850e7}{common\+::\+OPEN\+\_\+\+CURLY\+\_\+\+BRACKET}} = 1
+, \mbox{\hyperlink{namespacecommon_a55175dff5d06030983224ea143844b93a6a712031b86b598cd798b8b743831838}{common\+::\+NODE\+\_\+\+ID}} = 2
+, \mbox{\hyperlink{namespacecommon_a55175dff5d06030983224ea143844b93aa3ebd310648c66cdbe29bbab5bb87be1}{common\+::\+POINTED\+\_\+\+ARROW}} = 3
+, \newline
+\mbox{\hyperlink{namespacecommon_a55175dff5d06030983224ea143844b93a803a445a0aaae41c06038342da2931ff}{common\+::\+FLAT\+\_\+\+ARROW}} = 4
+, \mbox{\hyperlink{namespacecommon_a55175dff5d06030983224ea143844b93aa52c1e5206f001bb3dfe7b2b72ce1f3e}{common\+::\+OPEN\+\_\+\+SQUARE\+\_\+\+BRACKET}} = 5
+, \mbox{\hyperlink{namespacecommon_a55175dff5d06030983224ea143844b93a09489e35c9ed293156087e6ee9336080}{common\+::\+LABEL\+\_\+\+ATTRIBUTE}} = 6
+, \mbox{\hyperlink{namespacecommon_a55175dff5d06030983224ea143844b93a41e9c53a59bbf5c49947f80c77753ca0}{common\+::\+EQUALS\+\_\+\+SIGN}} = 7
+, \newline
+\mbox{\hyperlink{namespacecommon_a55175dff5d06030983224ea143844b93a58a7c1deb5bd5bb6ea9e634d834a8920}{common\+::\+ATTRIBUTE\+\_\+\+STRING\+\_\+\+VALUE}} = 8
+, \mbox{\hyperlink{namespacecommon_a55175dff5d06030983224ea143844b93ac88d18d2ef3406b2454fef1daa2d457d}{common\+::\+ATTRIBUTE\+\_\+\+INT\+\_\+\+VALUE}} = 9
+, \mbox{\hyperlink{namespacecommon_a55175dff5d06030983224ea143844b93ab1815fc698804cb6f879019f784491e2}{common\+::\+CLOSED\+\_\+\+CURLY\+\_\+\+BRACKET}} = 10
+, \mbox{\hyperlink{namespacecommon_a55175dff5d06030983224ea143844b93a4218924676b83efff8d63cb83e3527b9}{common\+::\+CLOSED\+\_\+\+SQUARE\+\_\+\+BRACKET}} = 11
+ \}
+\begin{DoxyCompactList}\small\item\em Supported lexemes Lexemes that are accepted by parser. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::ostream \& \mbox{\hyperlink{namespacecommon_aaebc17acaba6bff38be68382bed20885}{common\+::operator$<$$<$}} (std\+::ostream \&os, const \mbox{\hyperlink{classcommon_1_1Graph}{Graph}} \&graph)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+constexpr std\+::uint8\+\_\+t \mbox{\hyperlink{namespacecommon_1_1opt_a8354d36c2b5baf9b5804afd891485fd8}{common\+::opt\+::drc}} = 0x01
+\begin{DoxyCompactList}\small\item\em is graph directional? \end{DoxyCompactList}\item 
+constexpr std\+::uint8\+\_\+t \mbox{\hyperlink{namespacecommon_1_1opt_a484782d4f915603b82aafbd9c0bcf272}{common\+::opt\+::wgh}} = 0x02
+\begin{DoxyCompactList}\small\item\em is graph weighted? \end{DoxyCompactList}\end{DoxyCompactItemize}

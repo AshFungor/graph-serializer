@@ -1,0 +1,9 @@
+<map id="common::PushEdgeAction" name="common::PushEdgeAction">
+<area shape="rect" id="Node000001" title="PushEdge action interface implementation." alt="" coords="147,108,337,133"/>
+<area shape="rect" id="Node000002" href="$classcommon_1_1IAction.html" title="Callback Interface." alt="" coords="5,5,137,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="104,35,224,106,221,110,101,40"/>
+<area shape="rect" id="Node000003" href="$structcommon_1_1Connection.html" title="Edge Represents edge without source node." alt="" coords="162,5,322,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="245,45,245,108,239,108,239,45"/>
+<area shape="rect" id="Node000004" href="$classcommon_1_1Graph.html" title="Graph Represents graph object as lists of connections. Supports some API calls to make life easier." alt="" coords="347,5,473,31"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="380,40,262,110,260,106,378,35"/>
+</map>
