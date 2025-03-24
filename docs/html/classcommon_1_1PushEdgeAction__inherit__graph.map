@@ -1,5 +1,0 @@
-<map id="common::PushEdgeAction" name="common::PushEdgeAction">
-<area shape="rect" id="Node000001" title="PushEdge action interface implementation." alt="" coords="5,79,196,104"/>
-<area shape="rect" id="Node000002" href="$classcommon_1_1IAction.html" title="Callback Interface." alt="" coords="35,5,167,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="103,44,103,79,98,79,98,44"/>
-</map>

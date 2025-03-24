@@ -93,6 +93,9 @@ namespace common {
         using container_t = std::unordered_map<std::string, connections_t>;
         using container_value_t = std::pair<std::string, connections_t>;
 
+        /**
+         * @brief Object destructor
+         */
         virtual ~Graph() = default;
 
         /**

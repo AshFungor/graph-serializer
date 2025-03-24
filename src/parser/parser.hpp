@@ -72,7 +72,7 @@ namespace parser {
         void entry();  /* entry actions in some states */
         void exit();  /* no exit actions */
     
-        friend std::shared_ptr<common::TraversalGraph> parse(std::vector<common::Lexeme>& input); // <- Возвращает TraversalGraph
+        friend std::shared_ptr<common::TraversalGraph> parse(std::vector<common::Lexeme>& input);
         
 
     protected:
@@ -136,5 +136,5 @@ namespace parser {
      * @return std::shared_ptr<common::Graph> output object 
      */
     //std::shared_ptr<common::Graph> parse(std::vector<common::Lexeme>& input);
-    std::shared_ptr<common::TraversalGraph> parse(std::vector<common::Lexeme>& input); // <- Возвращает TraversalGraph
+    std::shared_ptr<common::TraversalGraph> parse(std::vector<common::Lexeme>& input); 
 }

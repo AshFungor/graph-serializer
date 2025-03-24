@@ -1,7 +1,0 @@
-<map id="common::PushNodeAction" name="common::PushNodeAction">
-<area shape="rect" id="Node000001" title="PushNode action interface implementation." alt="" coords="51,93,244,119"/>
-<area shape="rect" id="Node000002" href="$classcommon_1_1IAction.html" title="Callback Interface." alt="" coords="5,5,137,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="93,39,139,91,135,95,89,43"/>
-<area shape="rect" id="Node000003" href="$classcommon_1_1Graph.html" title="Graph Represents graph object as lists of connections. Supports some API calls to make life easier." alt="" coords="161,5,288,31"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="207,43,160,95,156,91,203,39"/>
-</map>
