@@ -8,6 +8,9 @@
 #include <common/action-queue.hpp>
 #include <common/common.hpp>
 
+//algorithms
+#include <algorithms/traversal.hpp>
+
 // local
 #include "parser.hpp"
 
@@ -24,7 +27,8 @@ namespace {
 
 void LexemeParser::reset() {
     shared = SharedState();
-    shared.graph = std::make_shared<common::Graph>();
+    shared.graph = std::make_shared<common::TraversalGraph>(); // <- Изменено
+    //shared.graph = std::make_shared<common::Graph>();
 }
 
 void LexemeParser::entry() {}
@@ -186,7 +190,7 @@ void Value::react(InputCloseSquareBracket const &event) {
 // Set base state
 FSM_INITIAL_STATE(LexemeParser, Idle)
 
-std::shared_ptr<common::Graph> parser::parse(std::vector<common::Lexeme>& input) {
+std::shared_ptr<common::TraversalGraph> parser::parse(std::vector<common::Lexeme>& input) { // <- Изменён тип
     LexemeParser::reset();
     LexemeParser::start();
     for (const auto& lexeme : input) {
@@ -255,5 +259,6 @@ std::shared_ptr<common::Graph> parser::parse(std::vector<common::Lexeme>& input)
     LexemeParser::shared.graph->init(LexemeParser::shared.flags);
     LexemeParser::shared.actionQueue.dumpAllActions();
     LexemeParser::shared.backoffQueue.dumpAllActions();
-    return std::move(LexemeParser::shared.graph);
+    return std::dynamic_pointer_cast<common::TraversalGraph>(LexemeParser::shared.graph);
+
 }

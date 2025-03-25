@@ -122,6 +122,10 @@ void OpenSquareBracket::react(InputLabel_L const &) {
     SymbolParser::shared.flag_label_l = 1;
     transit<Label_L>();
 }
+void OpenSquareBracket::react(InputWeight_w const &) {
+    SymbolParser::shared.flag_label_l = 1;
+    transit<Weight_w>();
+}
 void OpenSquareBracket::react(InputSpace const &) {
     transit<OpenSquareBracket>();
 }
@@ -200,9 +204,36 @@ void Label_l::react(InputSpace const &) {
     transit<Label_l>();
 };
 
+void Weight_w::react(InputWeight_e const &) {
+    transit<Weight_e>();
+};
+void Weight_e::react(InputWeight_i const &) {
+    transit<Weight_i>();
+};
+void Weight_i::react(InputWeight_g const &) {
+    transit<Weight_g>();
+};
+void Weight_g::react(InputWeight_h const &) {
+    transit<Weight_h>();
+};
+void Weight_h::react(InputWeight_tt const &) {
+    SymbolParser::shared.tokens.push_back({common::LexemeType::LABEL_ATTRIBUTE});
+    SymbolParser::shared.flag_label_l = 0;
+    transit<Weight_tt>();
+};
+void Weight_tt::react(InputEqualLabel const &) {
+    SymbolParser::shared.tokens.push_back({common::LexemeType::EQUALS_SIGN});
+    SymbolParser::shared.flag_label = 1;
+    transit<EqualLabel>();
+};
+void Weight_tt::react(InputSpace const &) {
+    transit<Weight_tt>();
+};
+
 void EqualLabel::react(InputStringValue const &event) {
     SymbolParser::shared.tokens.push_back({common::LexemeType::ATTRIBUTE_STRING_VALUE, std::make_any<std::string>(event.StringValue)});
     SymbolParser::shared.flag_label = 0;
+    SymbolParser::shared.token.clear();
     transit<StringValue>();
 };
 void EqualLabel::react(InputIntValue const &event) {
@@ -324,6 +355,30 @@ std::vector<common::Lexeme> lexer::lex(const std::string& input) {
             SymbolParser::dispatch(InputLabel_l());
             continue;
         }
+        if(symbol == 'w' && SymbolParser::shared.flag_square == 1 && SymbolParser::shared.flag_label_l == 0 && SymbolParser::is_in_state<OpenSquareBracket>()){
+            SymbolParser::dispatch(InputWeight_w());
+            continue;
+        }
+        if(symbol == 'e' && SymbolParser::shared.flag_square == 1 && SymbolParser::is_in_state<Weight_w>()){
+            SymbolParser::dispatch(InputWeight_e());
+            continue;
+        }
+        if(symbol == 'i' && SymbolParser::shared.flag_square == 1 && SymbolParser::is_in_state<Weight_e>()){
+            SymbolParser::dispatch(InputWeight_i());
+            continue;
+        }
+        if(symbol == 'g' && SymbolParser::shared.flag_square == 1 && SymbolParser::is_in_state<Weight_i>()){
+            SymbolParser::dispatch(InputWeight_g());
+            continue;
+        }
+        if(symbol == 'h' && SymbolParser::shared.flag_square == 1 && SymbolParser::is_in_state<Weight_g>()){
+            SymbolParser::dispatch(InputWeight_h());
+            continue;
+        }
+        if(symbol == 't' && SymbolParser::shared.flag_square == 1 && SymbolParser::shared.flag_label_l == 1 && SymbolParser::is_in_state<Weight_h>()){
+            SymbolParser::dispatch(InputWeight_tt());
+            continue;
+        }
         if (symbol != '"' && SymbolParser::shared.flag_label == 1 && SymbolParser::shared.quotes_count == 1) {
             SymbolParser::shared.token += symbol;
         } else if (symbol == '"' && SymbolParser::shared.flag_label == 1) {
@@ -335,8 +390,9 @@ std::vector<common::Lexeme> lexer::lex(const std::string& input) {
                 SymbolParser::shared.quotes_count = 0;
             }
         }
-        if (isdigit(symbol) && SymbolParser::shared.flag_label == 1) {
+        if (isdigit(symbol) && SymbolParser::shared.flag_label == 1 && SymbolParser::shared.quotes_count == 0) {
             SymbolParser::shared.token += symbol;
+            std::cout << symbol - '0' << "\n";
             continue;
         } else if (!SymbolParser::shared.token.empty() && symbol == ' ' && SymbolParser::shared.flag_label == 1 && SymbolParser::shared.quotes_count == 0) {
             SymbolParser::dispatch(InputIntValue{.IntValue = std::stoi(SymbolParser::shared.token)});
@@ -412,6 +468,10 @@ std::vector<common::Lexeme> lexer::lex(const std::string& input) {
             continue;
         }
         if(symbol == '=' && SymbolParser::is_in_state<Label_l>()){
+            SymbolParser::dispatch(InputEqualLabel());
+            continue;
+        }
+        if(symbol == '=' && SymbolParser::is_in_state<Weight_tt>()){
             SymbolParser::dispatch(InputEqualLabel());
             continue;
         }

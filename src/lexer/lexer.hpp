@@ -55,6 +55,12 @@ namespace lexer {
     struct InputLabel_b              : lexemeEvent {};
     struct InputLabel_e              : lexemeEvent {};
     struct InputLabel_l              : lexemeEvent {};
+    struct InputWeight_w             : lexemeEvent {};
+    struct InputWeight_e             : lexemeEvent {};
+    struct InputWeight_i             : lexemeEvent {};
+    struct InputWeight_g             : lexemeEvent {};
+    struct InputWeight_h             : lexemeEvent {};
+    struct InputWeight_tt            : lexemeEvent {};
     struct InputEqualLabel           : lexemeEvent {};
     struct InputSpace                : lexemeEvent {};
     struct InputNewLine              : lexemeEvent {};
@@ -96,6 +102,12 @@ namespace lexer {
         virtual void react(InputLabel_b  const &)           { throw_invalid_input(""); };
         virtual void react(InputLabel_e  const &)           { throw_invalid_input(""); };
         virtual void react(InputLabel_l  const &)           { throw_invalid_input(""); };
+        virtual void react(InputWeight_w  const &)          { throw_invalid_input(""); };
+        virtual void react(InputWeight_e  const &)          { throw_invalid_input(""); };
+        virtual void react(InputWeight_i  const &)          { throw_invalid_input(""); };
+        virtual void react(InputWeight_g  const &)          { throw_invalid_input(""); };
+        virtual void react(InputWeight_h  const &)          { throw_invalid_input(""); };
+        virtual void react(InputWeight_tt  const &)         { throw_invalid_input(""); };
         virtual void react(InputEqualLabel const &)         { throw_invalid_input(""); };
         virtual void react(InputStringValue const &)        { throw_invalid_input(""); };
         virtual void react(InputIntValue const &)           { throw_invalid_input(""); };
@@ -176,6 +188,7 @@ namespace lexer {
     };
 
     class OpenSquareBracket : public SymbolParser {
+        void react(InputWeight_w const &) override;
         void react(InputLabel_L const &) override;
         void react(InputSpace const &) override;
         void react(InputCloseSquareBracket const &) override;
@@ -217,6 +230,25 @@ namespace lexer {
         void react(InputLabel_l const &) override;
     };
     class Label_l : public SymbolParser {
+        void react(InputEqualLabel const &) override;
+        void react(InputSpace const &) override;
+    };
+    class Weight_w : public SymbolParser {
+        void react(InputWeight_e const &) override;
+    };
+    class Weight_e : public SymbolParser {
+        void react(InputWeight_i const &) override;
+    };
+    class Weight_i : public SymbolParser {
+        void react(InputWeight_g const &) override;
+    };
+    class Weight_g : public SymbolParser {
+        void react(InputWeight_h const &) override;
+    };
+    class Weight_h : public SymbolParser {
+        void react(InputWeight_tt const &) override;
+    };
+    class Weight_tt : public SymbolParser {
         void react(InputEqualLabel const &) override;
         void react(InputSpace const &) override;
     };

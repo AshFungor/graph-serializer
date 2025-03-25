@@ -74,6 +74,21 @@ namespace common {
         std::string name_;
         Connection edge_;
     };
+    class SetWeightAction : public IAction {
+    public:
+        using set_weight_proto = void (common::Graph::*)(std::string, std::string, int);
+        
+        SetWeightAction(set_weight_proto action, Graph* instance, std::string source, std::string target, int weight);
+        //Iaction
+        virtual void make() override final;
+    
+    private:
+        set_weight_proto action_;
+        Graph* this_;
+        std::string source_;
+        std::string target_;
+        int weight_;
+    };
 
     /**
      * @brief Queue for actions

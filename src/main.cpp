@@ -6,12 +6,14 @@
 #include <memory>
 #include <ostream>
 #include <string>
+#include <algorithm>
 
-// graph
+// local
 #include <common/common.hpp>
 #include <common/reverted.hpp>
 #include <parser/parser.hpp>
 #include <lexer/lexer.hpp>
+#include <algorithms/traversal.hpp>
 
 std::string serializeFileIntoString(const std::string& filename) {
     std::string result;
@@ -60,6 +62,46 @@ void dumpCurrentGraphState(std::weak_ptr<common::Graph> graph) {
     }
     std::cout << "There is no currently loaded graph in state.\n";
 }
+void showCurrentTraversalOrder(std::weak_ptr<common::Graph> graph) {
+    auto locked = graph.lock();
+    if (!locked) {
+        std::cout << "There is no currently loaded graph in state.\n";
+        return;
+    }
+    auto traversal_graph = std::dynamic_pointer_cast<common::TraversalGraph>(locked);
+    if (traversal_graph) {
+        traversal_graph->showTraversalOrder();
+    } else {
+        std::cout << "Error: Graph does not support traversal operations!\n";
+    }
+}
+
+void findGivenNode(std::weak_ptr<common::Graph> graph) {
+    auto locked = graph.lock();
+    if (!locked) {
+        std::cout << "There is no currently loaded graph in state.\n";
+        return;
+    }
+    
+    auto traversal_graph = std::dynamic_pointer_cast<common::TraversalGraph>(locked);
+    if (!traversal_graph) {
+        std::cout << "Error: Graph does not support search operations!\n";
+        return;
+    }
+
+    std::string desired_node;
+    std::cout << "Type a node to be found: \n";
+    std::cin >> desired_node;
+
+    const auto& nodes = traversal_graph->getNodes();
+    if (std::find(nodes.begin(), nodes.end(), desired_node) == nodes.end()) {
+        std::cout << "Node not found.\n";
+    } else {
+        std::cout << "Searching node...\n";
+        traversal_graph->findNode(desired_node);
+        std::cout << "Search done successfully.\n";
+    }
+}
 
 void dumpGraphToFile(std::weak_ptr<common::Graph> graph, common::GraphDumpingFactory& factory) {
     if (auto locked = graph.lock()) {
@@ -78,7 +120,7 @@ void dumpGraphToFile(std::weak_ptr<common::Graph> graph, common::GraphDumpingFac
 int main() {
 
     std::cout << "This program parses .gv files into"
-              << "program-accessible struture.\n";
+              << "program-accessible struсture.\n";
 
     int option = 0;
 
@@ -90,7 +132,9 @@ int main() {
                   << "- load graph (1)\n"
                   << "- dump graph into a file (2)\n"
                   << "- dump currently loaded graph (3)\n"
-                  << "- exit (4)\n";
+                  << "- show graph traversal order (4)\n"
+                  << "- find node with depth-first search(5)\n"
+                  << "- exit (6)\n";
         std::cin >> option;
 
         switch (option) {
@@ -104,6 +148,12 @@ int main() {
             dumpCurrentGraphState(state);
             break;
         case 4:
+            showCurrentTraversalOrder(state);
+            break;
+        case 5:
+            findGivenNode(state);
+            break;
+        case 6:
             return 0;
         default:
             std::cout << "Unknown option, aborting...";
